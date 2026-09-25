@@ -49,8 +49,8 @@ import { site, hero, about, education, experience, projects, research } from '..
           <span class="tag">{p.tag}</span>
           <h3>{p.link ? <a href={p.link}>{p.name}</a> : p.slug ? <a href={`/projects/${p.slug}`}>{p.name}</a> : p.name}</h3>
           <p>{p.text}</p>
-          {p.slug && <a class="more-l" href={`/projects/${p.slug}`}>See the project</a>}
-          {p.link && <a class="more-l" href={p.link}>{new URL(p.link).host}</a>}
+          {p.slug && <span class="more-l" aria-hidden="true">See the project</span>}
+          {p.link && <span class="more-l" aria-hidden="true">{new URL(p.link).host}</span>}
         </article>
       ))}
     </div>
@@ -112,21 +112,24 @@ import { site, hero, about, education, experience, projects, research } from '..
   .row .st .go{margin-top:18px;font:12px var(--fm);color:var(--mu);transition:color .2s}
   .row:hover .go{color:var(--ac)}
   .bento{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:var(--ln);border:1px solid var(--ln)}
-  .cell{background:var(--bg);padding:28px;min-height:220px;display:flex;flex-direction:column}
+  .cell{position:relative;background:var(--bg);padding:28px;min-height:220px;display:flex;flex-direction:column}
   .cell .tag{font:12px var(--fm);color:var(--mu)}
   .cell h3{font:700 20px/1.15 var(--fd);text-transform:uppercase;margin-top:auto;padding-top:40px}
   .cell p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--fg2)}
   .cell.feat{grid-row:1/3;background:var(--sf)}
   .cell.feat h3{font-size:clamp(24px,2.4vw,34px)}
-  .cell.has-page{transition:background .25s}.cell.has-page:hover{background:var(--sf)}
-  .more-l{margin-top:14px;font:12px var(--fm);color:var(--ac)}.more-l:hover{text-decoration:underline;text-underline-offset:3px}
+  /* the title link covers the whole cell, so the full cell is the click target */
+  .cell h3 a::after{content:"";position:absolute;inset:0}
+  .cell:has(h3 a){transition:background .25s}.cell:has(h3 a):hover{background:var(--sf)}
+  .cell.feat:has(h3 a):hover{background:#1d1d20}
+  .more-l{margin-top:14px;font:12px var(--fm);color:var(--ac)}.cell:hover .more-l{text-decoration:underline;text-underline-offset:3px}
   .cell h3 a:hover{color:var(--ac)}
   .labs{display:grid;grid-template-columns:1fr 1fr;gap:56px;border-top:1px solid var(--ln);padding-top:28px}
   .lab h3{font:600 20px/1.3 var(--fb)}
   .lab span{display:block;margin-top:6px;font:12px var(--fm);color:var(--mu)}
   .emg{margin-top:48px;border:1px solid var(--ln)}
   .emg-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--ln);font:500 12px var(--fm);color:var(--mu)}
-  .emg-b{background:none;border:1px solid var(--ac);color:var(--ac);font:600 12.5px var(--fb);padding:7px 14px;cursor:pointer;user-select:none;touch-action:none;white-space:nowrap}
+  .emg-b{background:none;border:1px solid var(--ac);color:var(--ac);font:600 13px var(--fb);min-height:44px;padding:0 16px;cursor:pointer;user-select:none;touch-action:none;white-space:nowrap}
   .emg-b[aria-pressed=true]{background:var(--ac);color:var(--on)}
   #emgC{display:block;width:100%;height:240px}
   @media (max-width:560px){#emgC{height:280px}}
@@ -141,5 +144,6 @@ import { site, hero, about, education, experience, projects, research } from '..
     .tiles{grid-template-columns:1fr 1fr}.t.wide{grid-column:1/3}
     .row{grid-template-columns:1fr;gap:12px;padding-bottom:44px}
     .bento{grid-template-columns:1fr}.cell.feat{grid-row:auto}
+    .cell p,.ta{font-size:16px}
   }
 </style>

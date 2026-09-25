@@ -29,7 +29,7 @@ if (cv) {
     const r = cv.getBoundingClientRect(), d = Math.min(2, devicePixelRatio); if (cv.width !== Math.round(r.width * d)) { cv.width = r.width * d; cv.height = r.height * d; x.setTransform(d, 0, 0, d, 0, 0); }
     const w = r.width, h = r.height, W = w - P.l - P.r, Hh = h - P.t - P.b;
     const fx = f => P.l + Math.log10(f / fmin) / Math.log10(fmax / fmin) * W, fy = db => P.t + (1 - (Math.max(lo, Math.min(hi, db)) - lo) / (hi - lo)) * Hh, xf = X => fmin * Math.pow(fmax / fmin, (X - P.l) / W);
-    x.clearRect(0, 0, w, h); x.strokeStyle = LN; x.fillStyle = MU; x.font = '11px JetBrains Mono, monospace'; x.lineWidth = 1;
+    x.clearRect(0, 0, w, h); x.strokeStyle = LN; x.fillStyle = MU; x.font = '12px JetBrains Mono, monospace'; x.lineWidth = 1;
     [0, -10, -20, -30].forEach(v => { const y = fy(v); x.beginPath(); x.moveTo(P.l, y); x.lineTo(w - P.r, y); x.stroke(); x.fillText(v + ' dB', 2, y + 4); });
     [[20, '20'], [100, '100'], [1000, '1k'], [10000, '10k'], [20000, '20k Hz']].filter(([f]) => w > 560 || f !== 10000).forEach(([f, l]) => x.fillText(l, Math.min(w - 44, fx(f) - 6), h - 8));
     // flat reference: all knobs at 5

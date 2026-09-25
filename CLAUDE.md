@@ -47,6 +47,10 @@ A project card links to `/projects/<slug>` when its entry in `site.js` has a `sl
 - Canvas charts: DPR-aware sizing (cap at 2), redraw on resize, pause via IntersectionObserver when off screen.
 - Respect `prefers-reduced-motion` (`RM`).
 - Controls must work by keyboard (sliders, knobs with arrow keys, buttons with Enter/Space).
+- Touch targets at least 44px tall (`.cta`, segmented buttons, `.btn2`, nav and footer links). Text at least 12px, canvas labels included.
+- Segmented toggles use `.on` for state; `Base.astro` mirrors it to `aria-pressed`. Verdicts (PASS/FLAG, WITHIN/OVER) are `role="status"`.
+- Every canvas needs `role="img"` and an `aria-label` describing what it shows. Live numbers use tabular figures.
+- Mobile (under 760px) homepage nav is the Menu disclosure in `Base.astro`; the homepage nav marks the section in view with `aria-current`.
 - Mobile: check at 390px wide. No horizontal overflow; sticky scroll sections show only the active step.
 
 ## Confirmed facts (Akkhil corrected these; keep them right)

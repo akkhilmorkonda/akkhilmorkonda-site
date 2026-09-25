@@ -41,7 +41,7 @@ if (cv) {
     S.forEach(s => { const L = stance == null ? 0 : siteLoad(s, stance); total += L; const [X, Y] = P(s.u, s.v);
       x.beginPath(); x.arc(X, Y, 10 + 22 * L, 0, Math.PI * 2); x.fillStyle = `rgba(22,236,154,${.08 + .5 * L})`; x.fill();
       x.beginPath(); x.arc(X, Y, 6, 0, Math.PI * 2); x.fillStyle = L > .05 ? AC : '#3a3a3e'; x.fill();
-      x.fillStyle = MU; x.font = '11px JetBrains Mono, monospace'; x.fillText(s.n, X + (s.u > .5 ? 18 : -18 - x.measureText(s.n).width), Y + 4); });
+      x.fillStyle = MU; x.font = '12px JetBrains Mono, monospace'; x.fillText(s.n, X + (s.u > .5 ? 18 : -18 - x.measureText(s.n).width), Y + 4); });
     // total load as % body weight: peaks at the scenario weight scale
     const bw = Math.min(100, (total / 1.25) * 100 * wscale); peak = stance == null ? peak * .98 : Math.max(peak * .995, bw);
     loadV.textContent = Math.round(bw) + '%'; bar.style.width = bw + '%';

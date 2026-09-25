@@ -12,7 +12,7 @@ import '../../styles/case.css';
   
 </section></div>
 
-<section class="explode" id="explode"><div class="stick"><canvas id="rig"></canvas>
+<section class="explode" id="explode"><div class="stick"><canvas id="rig" role="img" aria-label="Exploded 3D model of the optical testbed; each step below highlights one part"></canvas>
   <div class="steps"><h2>Inside the testbed</h2>
     <div class="st"><b>Blackout enclosure</b><p>Blocks ambient light so only the LED under test reaches the probe.</p></div>
     <div class="st"><b>Breadboard and motor controllers</b><p>Everything bolts to an optical breadboard. Three motor controllers drive the stage, one per axis.</p></div>
@@ -24,7 +24,7 @@ import '../../styles/case.css';
 
 <div class="wrap"><section class="vol">
   <div class="head"><h2>What it measures</h2><p>The probe steps through a 3D grid above each LED and records brightness at every point. The result is a map of how the light spreads, compared LED to LED and device to device.</p></div>
-  <div class="viewer"><div class="cv" id="cv"><span class="hint">Drag to rotate. Hover a point for its reading.</span><canvas id="vol"></canvas><div class="tip" id="tip"></div></div>
+  <div class="viewer"><div class="cv" id="cv"><span class="hint">Drag to rotate. Hover a point for its reading.</span><canvas id="vol" role="img" aria-label="3D point cloud of LED brightness measured above the sensor"></canvas><div class="tip" id="tip"></div></div>
    <div class="ctl">
     <div><label>LED</label><div class="seg" id="led"><button class="on" data-v="g">Green</button><button data-v="ir">Infrared</button></div></div>
     <div><label>View</label><div class="seg" id="view"><button class="on" data-v="vol">Volume</button><button data-v="slice">Slice</button></div></div>
@@ -38,8 +38,8 @@ import '../../styles/case.css';
 <section class="bat" id="bat">
   <div class="bhead"><b class="n">$1.8M</b><h2>Bad capacitors, caught from current alone</h2><p>Firmware streams the battery current over BLE. An FFT exposes ripple a failing capacitor adds, and a logistic regression flags it at 99% accuracy.</p></div>
   <div class="bbox">
-    <div class="bbar"><div class="seg3" id="dut"><button class="on" data-h="1">Healthy unit</button><button data-h=".1">Bad capacitor</button></div><div class="verdict" id="vd"><span class="ico">&#10003;</span><b>PASS</b></div></div>
-    <div class="bc"><canvas id="cF"></canvas><div class="tip2" id="tF"></div></div>
+    <div class="bbar"><div class="seg3" id="dut"><button class="on" data-h="1">Healthy unit</button><button data-h=".1">Bad capacitor</button></div><div class="verdict" id="vd" role="status" aria-live="polite"><span class="ico">&#10003;</span><b>PASS</b></div></div>
+    <div class="bc"><canvas id="cF" role="img" aria-label="Battery current spectrum; a bad capacitor adds a ripple peak that trips the FLAG verdict"></canvas><div class="tip2" id="tF"></div></div>
   </div>
   <p class="note">Current spectrum of one unit. Illustrative model, not WHOOP data.</p>
 </section>

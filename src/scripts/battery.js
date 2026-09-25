@@ -22,7 +22,7 @@ import { RM, AC, mkRenderer, fit, mkPipe, makePod } from './whoop-common.js';
  function draw(){const r=c.getBoundingClientRect(),d=Math.min(2,devicePixelRatio);if(c.width!==Math.round(r.width*d)){c.width=r.width*d;c.height=r.height*d;x.setTransform(d,0,0,d,0,0)}
   const w=r.width,hh=r.height,W=w-P.l-P.r,H=hh-P.t-P.b,lo=-60,hi=10,fx=f=>P.l+f/500*W,fy=db=>P.t+(1-(Math.max(lo,Math.min(hi,db))-lo)/(hi-lo))*H;x.clearRect(0,0,w,hh);
   x.fillStyle='rgba(22,236,154,.10)';x.fillRect(fx(BAND[0]),P.t,fx(BAND[1])-fx(BAND[0]),H);
-  x.strokeStyle=LN;x.fillStyle=MU;x.font='11px JetBrains Mono, monospace';[-50,-30,-10].forEach(v=>{const y=fy(v);x.beginPath();x.moveTo(P.l,y);x.lineTo(w-P.r,y);x.stroke();x.fillText(v,8,y+4)});
+  x.strokeStyle=LN;x.fillStyle=MU;x.font='12px JetBrains Mono, monospace';[-50,-30,-10].forEach(v=>{const y=fy(v);x.beginPath();x.moveTo(P.l,y);x.lineTo(w-P.r,y);x.stroke();x.fillText(v,8,y+4)});
   [[0,'0'],[100,'100'],[200,'200'],[260,'260'],[400,'400'],[500,'500 Hz']].forEach(([f,l])=>x.fillText(l,fx(f)-8,hh-8));
   x.fillText('ripple band',fx(BAND[0])+4,P.t+14);x.fillText('dB',8,P.t+4);
   x.strokeStyle=FG;x.lineWidth=1.6;x.beginPath();for(let i=1;i<N/2;i++){const X=fx(i*binHz),Y=fy(20*Math.log10(mag[i]+1e-6));i>1?x.lineTo(X,Y):x.moveTo(X,Y)}x.stroke();

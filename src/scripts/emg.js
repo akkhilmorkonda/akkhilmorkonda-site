@@ -30,7 +30,7 @@ if (cv) {
   function draw() {
     const [w, h] = size(); x.clearRect(0, 0, w, h);
     const narrow = w < 560, L = narrow ? 12 : 72, W = w - L - 12, lane = h / 3;
-    x.font = '11px JetBrains Mono, monospace'; x.fillStyle = MU; x.strokeStyle = LN; x.lineWidth = 1;
+    x.font = '12px JetBrains Mono, monospace'; x.fillStyle = MU; x.strokeStyle = LN; x.lineWidth = 1;
     ['raw', 'envelope', 'control'].forEach((t, i) => { x.fillText(t, 12, narrow ? lane * i + 14 : lane * i + lane / 2 + 4); if (i) { x.beginPath(); x.moveTo(0, lane * i); x.lineTo(w, lane * i); x.stroke(); } });
     const X = i => L + (i / (N - 1)) * W;
     // raw

@@ -32,10 +32,11 @@ const path = Astro.url.pathname;
   <a class="skip" href="#main">Skip to content</a>
   <header class="nv">
     <a class="lg" href="/">AKKHIL MORKONDA</a>
-    {crumb ? <span class="crumb">{section} / <b>{crumb}</b></span> :
-      <nav aria-label="Primary">
+    {crumb ? <span class="crumb">{section} / <b>{crumb}</b></span> : <>
+      <button class="menu" type="button" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+      <nav id="primary-nav" aria-label="Primary">
         <a href="/#about">About</a><a href="/#education">Education</a><a href="/#experience">Experience</a><a href="/#projects">Projects</a><a href="/#research">Research</a>
-      </nav>}
+      </nav></>}
     <a class="cta" href={`mailto:${site.email}`}>Email me</a>
   </header>
   <main id="main"><slot /></main>
@@ -43,5 +44,30 @@ const path = Astro.url.pathname;
     <span>Akkhil Morkonda, {new Date().getFullYear()}</span>
     <span><a href={site.linkedin}>LinkedIn</a></span>
   </footer>
+  <script>
+    const nv = document.querySelector('.nv'), btn = nv?.querySelector('.menu');
+    if (btn) {
+      const set = (open: boolean) => { nv!.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); };
+      btn.addEventListener('click', () => set(!nv!.classList.contains('open')));
+      nv!.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => set(false)));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && nv!.classList.contains('open')) { set(false); btn.focus(); } });
+      document.addEventListener('click', e => { if (!nv!.contains(e.target as Node)) set(false); });
+    }
+    // segmented toggles show state with `.on`; mirror it to aria-pressed for screen readers
+    const segs = document.querySelectorAll<HTMLButtonElement>('.seg button, .seg3 button');
+    const syncPressed = (b: Element) => b.setAttribute('aria-pressed', String(b.classList.contains('on')));
+    const mo = new MutationObserver(ms => ms.forEach(m => syncPressed(m.target as Element)));
+    segs.forEach(b => { syncPressed(b); mo.observe(b, { attributes: true, attributeFilter: ['class'] }); });
+    // mark the section in view as current in the primary nav
+    const links = new Map([...document.querySelectorAll<HTMLAnchorElement>('.nv nav a')].map(a => [a.hash.slice(1), a]));
+    const secs = [...links.keys()].map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      // back above the first section (the hero): nothing is current
+      if (!e.isIntersecting) { if (e.target === secs[0] && e.boundingClientRect.top > 0) links.forEach(a => a.removeAttribute('aria-current')); return; }
+      links.forEach(a => a.removeAttribute('aria-current'));
+      links.get(e.target.id)?.setAttribute('aria-current', 'true');
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach(s => io.observe(s));
+  </script>
 </body>
 </html>
