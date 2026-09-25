@@ -64,7 +64,7 @@ export const projects = [
 // Coming soon: projects in progress. No deep dives; only an external link where one exists.
 export const inProgress = [
   { name: 'FIXT', tag: 'Startup, co-founder', text: 'Agents that understand hardware well enough to run, monitor and control the test line end to end.', link: 'https://usefixt.ai' },
-  { name: 'Non-invasive BP monitor for LVAD patients', tag: 'With Emory Hospital', text: 'Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot get a reading.' },
+  { name: 'Non-invasive BP monitor for LVAD patients', tag: 'Sponsored by Emory Hospital', text: 'Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot get a reading.' },
 ];
 
 export const research = [
