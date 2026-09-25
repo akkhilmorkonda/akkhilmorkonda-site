@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, hero, about, education, experience, projects, inProgress, research } from '../data/site.js';
+import { site, hero, logos, about, education, experience, projects, inProgress, research } from '../data/site.js';
 ---
 <Base>
 <div class="wrap">
@@ -9,6 +9,7 @@ import { site, hero, about, education, experience, projects, inProgress, researc
       <div class="h-draw"><h1>{hero.headline.split(' ').map(w => <><span class="w">{w}</span>{' '}</>)}</h1><svg aria-hidden="true"></svg></div>
       <p class="h-sub">{hero.sub}</p>
       <div class="h-ctas"><a class="cta" href="#experience">See my work</a><a class="cta gh" href={`mailto:${site.email}`}>Email me</a></div>
+      <ul class="h-logos" aria-label="Where I have worked and who sponsors my work">{logos.map(l => <li><span class="lg-m" role="img" aria-label={l.name} style={`--src:url(${l.src});aspect-ratio:${l.ratio};height:${l.h}px`}></span></li>)}</ul>
     </div>
   </section>
 
@@ -60,10 +61,7 @@ import { site, hero, about, education, experience, projects, inProgress, researc
     <div class="soon">
       {inProgress.map(p => (
         <article class="cell">
-          <div class="soon-top">
-            <span class="tag"><i class="dot" aria-hidden="true"></i>{p.tag ? `${p.tag}, in progress` : 'In progress'}</span>
-            {p.sponsor && <span class="sponsor"><span class="sp-l">Sponsor</span><span class="sp-logo" role="img" aria-label={`Sponsored by ${p.sponsor.name}`} style={`--src:url(${p.sponsor.logo});aspect-ratio:${p.sponsor.ratio}`}></span></span>}
-          </div>
+          <span class="tag"><i class="dot" aria-hidden="true"></i>{p.tag ? `${p.tag}, in progress` : 'In progress'}</span>
           <h3>{p.link ? <a href={p.link}>{p.name}</a> : p.name}</h3>
           <p>{p.text}</p>
           {p.link && <span class="more-l" aria-hidden="true">{new URL(p.link).host}</span>}
@@ -96,6 +94,10 @@ import { site, hero, about, education, experience, projects, inProgress, researc
   .h-hero h1{font-size:clamp(32px,5.6vw,80px);line-height:1.02;max-width:14ch}
   .h-sub{margin-top:12px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--fg2);max-width:46ch}
   .h-ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .h-logos{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:22px clamp(28px,4.5vw,64px);margin-top:48px;padding-top:26px;border-top:1px solid var(--ln);max-width:760px}
+  .lg-m{display:block;background:var(--mu);-webkit-mask:var(--src) no-repeat left center/contain;mask:var(--src) no-repeat left center/contain;transition:background .25s}
+  .h-logos li:hover .lg-m{background:var(--fg)}
+  @media (max-width:560px){.h-logos{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px}.lg-m{max-width:100%;transform:scale(.85);transform-origin:left center}}
   .h-draw{position:relative;padding:30px 0 52px}
   .h-draw svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
   .h-draw :global(path.ln),.h-draw :global(rect.ln){stroke:var(--mu);stroke-width:1;fill:none}
@@ -145,11 +147,6 @@ import { site, hero, about, education, experience, projects, inProgress, researc
   .soon{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln)}
   .soon .cell{min-height:180px}
   .soon .cell h3{padding-top:28px}
-  .soon-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-  .sponsor{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-  .sp-l{font:12px var(--fm);color:var(--mu)}
-  .sp-logo{display:block;height:34px;background:var(--mu);-webkit-mask:var(--src) no-repeat right center/contain;mask:var(--src) no-repeat right center/contain;transition:background .25s}
-  .soon .cell:hover .sp-logo{background:var(--fg)}
   .soon .dot{display:inline-block;width:6px;height:6px;margin-right:8px;background:var(--ac);vertical-align:1px}
   .labs{display:grid;grid-template-columns:1fr 1fr;gap:56px;border-top:1px solid var(--ln);padding-top:28px}
   .lab{position:relative}

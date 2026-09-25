@@ -10,6 +10,14 @@ export const site = {
   portrait: null, // TODO: add /portrait.jpg (4:5); About shows it only when set
 };
 
+// Logo strip under the hero. One colour via CSS mask; files in public/logos/ (Wikimedia Commons).
+export const logos = [
+  { name: 'WHOOP', src: '/logos/whoop.svg', ratio: '200 / 32', h: 20 },
+  { name: 'Avanos Medical', src: '/logos/avanos-medical.svg', ratio: '1000 / 159', h: 20 },
+  { name: 'Georgia Tech', src: '/logos/georgia-tech.svg', ratio: '720 / 162', h: 30 },
+  { name: 'Emory University Hospital', src: '/logos/emory-university-hospital.png', ratio: '266 / 134', h: 40 },
+];
+
 export const hero = {
   headline: 'Engineering by Akkhil, built and tested.',
   sub: 'Biomedical engineer at Georgia Tech. I build sensors, robots, and the systems that test them.',
@@ -64,7 +72,7 @@ export const projects = [
 // Coming soon: projects in progress. No deep dives; only an external link where one exists.
 export const inProgress = [
   { name: 'FIXT', tag: 'Startup, co-founder', text: 'Agents that understand hardware well enough to run, monitor and control the test line end to end.', link: 'https://usefixt.ai' },
-  { name: 'Non-invasive BP monitor for LVAD patients', tag: '', sponsor: { name: 'Emory Hospital', logo: '/logos/emory-university-hospital.png', ratio: '266 / 134' }, text: 'Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot get a reading.' },
+  { name: 'Non-invasive BP monitor for LVAD patients', tag: 'Sponsored by Emory Hospital', text: 'Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot get a reading.' },
 ];
 
 export const research = [
