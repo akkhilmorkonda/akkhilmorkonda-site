@@ -61,3 +61,4 @@ button{touch-action:manipulation}
 @keyframes scan{0%{transform:scaleX(0);opacity:1}55%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
 .fx .row.rv::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--ac);transform:scaleX(0);transform-origin:0 50%}
 .fx .row.rv.in::before{animation:scan 1.6s var(--ease) calc(var(--i,0) * 80ms + .1s) both}
+@media (min-width:600px){.nw{white-space:nowrap}}

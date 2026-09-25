@@ -60,14 +60,9 @@ import { site, hero, about, education, experience, projects, research } from '..
     <h2>Research</h2>
     <div class="labs">
       {research.map(r => (
-        <div class="lab"><h3>{r.lab}</h3><span>{r.role}, {r.dates}</span><p>{r.text}</p></div>
+        <div class="lab"><h3>{r.slug ? <a href={`/research/${r.slug}`}>{r.lab}</a> : r.lab}</h3><span>{r.role}, {r.dates}</span><p>{r.text}</p>{r.slug && <span class="more-l" aria-hidden="true">See the research</span>}</div>
       ))}
     </div>
-    <figure class="emg" id="emg">
-      <div class="emg-h"><span>Raw EMG, envelope, control signal</span><button class="emg-b" id="emgFlex" aria-pressed="false">Hold to flex</button></div>
-      <canvas id="emgC" aria-label="Scrolling EMG trace: raw signal, rectified envelope, and thresholded control output"></canvas>
-      <figcaption>Rectify, low-pass, threshold. Illustrative signal, not study data.</figcaption>
-    </figure>
   </section>
 
   <section id="contact" class="s-contact">
@@ -77,7 +72,7 @@ import { site, hero, about, education, experience, projects, research } from '..
   </section>
 </div>
 </Base>
-<script>import '../scripts/hero-pod.js'; import '../scripts/emg.js';</script>
+<script>import '../scripts/hero-pod.js';</script>
 <style>
   section{padding:110px 0 0}
   h2{font-size:clamp(28px,3.4vw,46px);margin-bottom:36px}
@@ -125,15 +120,13 @@ import { site, hero, about, education, experience, projects, research } from '..
   .more-l{margin-top:14px;font:12px var(--fm);color:var(--ac)}.cell:hover .more-l{text-decoration:underline;text-underline-offset:3px}
   .cell h3 a:hover{color:var(--ac)}
   .labs{display:grid;grid-template-columns:1fr 1fr;gap:56px;border-top:1px solid var(--ln);padding-top:28px}
+  .lab{position:relative}
   .lab h3{font:600 20px/1.3 var(--fb)}
+  .lab h3 a::after{content:"";position:absolute;inset:-16px}
+  .lab h3 a:hover,.lab:hover h3 a{color:var(--ac)}
+  .lab:hover .more-l{text-decoration:underline;text-underline-offset:3px}
+  .lab .more-l{display:inline-block;margin-top:14px;color:var(--ac)}
   .lab span{display:block;margin-top:6px;font:12px var(--fm);color:var(--mu)}
-  .emg{margin-top:48px;border:1px solid var(--ln)}
-  .emg-h{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--ln);font:500 12px var(--fm);color:var(--mu)}
-  .emg-b{background:none;border:1px solid var(--ac);color:var(--ac);font:600 13px var(--fb);min-height:44px;padding:0 16px;cursor:pointer;user-select:none;touch-action:none;white-space:nowrap}
-  .emg-b[aria-pressed=true]{background:var(--ac);color:var(--on)}
-  #emgC{display:block;width:100%;height:240px}
-  @media (max-width:560px){#emgC{height:280px}}
-  .emg figcaption{padding:10px 16px;border-top:1px solid var(--ln);font:12px var(--fm);color:var(--mu)}
   .lab p{margin-top:14px;font-size:16px;line-height:1.55;color:var(--fg2)}
   .s-contact{padding:140px 0 120px}
   .s-contact h2{font-size:clamp(40px,6vw,88px);margin-bottom:16px}

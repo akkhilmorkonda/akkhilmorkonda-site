@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="Physiology of Wearable Robotics Lab" crumb="Wearable Robotics Lab" section="Research" description="Undergraduate research at Georgia Tech's Physiology of Wearable Robotics Lab: EMG acquisition protocols for 50+ human-subject studies and MATLAB pipelines for real-time control.">
+<div class="wrap"><a class="back" href="/#research">Back to all research</a></div>
+<div class="wrap"><section class="hero">
+  <div><h1>Reading muscle signals for <span class="nw">real-time</span> control.</h1><div class="role">Undergraduate Research Assistant, Physiology of Wearable Robotics Lab, May 2025 to present</div>
+    <p class="lead">Designed the EMG acquisition protocols behind 50+ human-subject studies and built the MATLAB pipelines that turn raw muscle signals into analysis and control.</p>
+    <div class="stats"><div><b>50+</b><span>human-subject studies</span></div><div><b>EMG</b><span>acquisition protocols</span></div><div><b>MATLAB</b><span>time-series and control pipelines</span></div><div><b>Real-time</b><span>control output</span></div></div></div>
+</section>
+
+<section class="vol">
+  <div class="head"><h2>From muscle to control signal</h2><p>Raw EMG is noisy and signed. Rectify it, low-pass it into an envelope, then threshold the envelope with hysteresis to get a clean on/off command a device can act on.</p></div>
+  <figure class="emg" id="emg">
+    <div class="emg-h"><span>Raw EMG, envelope, control signal</span><button class="emg-b" id="emgFlex" aria-pressed="false">Hold to flex</button></div>
+    <canvas id="emgC" role="img" aria-label="Scrolling EMG trace: raw signal, rectified envelope, and thresholded control output"></canvas>
+    <figcaption>Rectify, low-pass, threshold. Illustrative signal, not study data.</figcaption>
+  </figure>
+</section>
+
+<section class="beats">
+  <div><h3>Acquisition protocols</h3><p>Designed the EMG acquisition protocols used across 50+ human-subject studies.</p></div>
+  <div><h3>Analysis pipelines</h3><p>MATLAB pipelines for time-series analysis and real-time control, from raw recordings to a usable control signal.</p></div>
+</section></div>
+</Base>
+<script>import '../../scripts/emg.js';</script>

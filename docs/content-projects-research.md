@@ -4,7 +4,8 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 
 ## Build status
 - Built pages: `/projects/pwb-insole` (foot with five sensor sites, gait cycle, PWB limit slider, WITHIN/OVER LIMIT state) and `/projects/amp-head` (signal chain, three draggable tone knobs driving the real '59 Bassman tone stack response, presets).
-- Homepage Research: live EMG strip (raw, envelope, thresholded GRIP/OPEN control) with a "Hold to flex" button.
+- `/research/wearable-robotics`: live EMG strip (raw, envelope, thresholded GRIP/OPEN control) with a "Hold to flex" button, moved off the homepage Sept 25, 2026. The homepage lab entry links to it.
+- Direction (Sept 25, 2026): every experience, project and research entry gets its own deep-dive page. Still missing: FIXT, Metrix, BetCircle, Structured Information for Precision Neuroengineering Lab.
 - All three are labelled illustrative. No page yet for FIXT, Metrix or BetCircle.
 
 ## Projects
@@ -36,7 +37,7 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 
 ### Physiology of Wearable Robotics Lab (May 2025 to present)
 - Designed EMG acquisition protocols for 50+ human-subject studies; MATLAB pipelines for time-series analysis and real-time control.
-- EMG strip built on the homepage (rectify, low-pass, threshold with hysteresis).
+- Page: `/research/wearable-robotics` with the EMG strip (rectify, low-pass, threshold with hysteresis).
 - `[?]` PI name to credit? Which device or study (exoskeleton, prosthesis control)? Any publication, poster or abstract?
 
 ### Structured Information for Precision Neuroengineering Lab (Dec 2024 to May 2025)

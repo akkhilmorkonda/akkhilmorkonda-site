@@ -11,7 +11,7 @@ export const site = {
 };
 
 export const hero = {
-  headline: 'Biomedical hardware, built and tested.',
+  headline: 'Engineering by Akkhil, built and tested.',
   sub: 'Biomedical engineer at Georgia Tech. I build sensors, robots, and the systems that test them.',
 };
 
@@ -61,6 +61,6 @@ export const projects = [
 ];
 
 export const research = [
-  { lab: 'Physiology of Wearable Robotics Lab', role: 'Undergraduate Research Assistant', dates: 'May 2025 to present', text: 'Designed EMG acquisition protocols for 50+ human-subject studies and built MATLAB pipelines for time-series analysis and real-time control.' },
+  { slug: 'wearable-robotics', lab: 'Physiology of Wearable Robotics Lab', role: 'Undergraduate Research Assistant', dates: 'May 2025 to present', text: 'Designed EMG acquisition protocols for 50+ human-subject studies and built MATLAB pipelines for time-series analysis and real-time control.' },
   { lab: 'Structured Information for Precision Neuroengineering Lab', role: 'Undergraduate Research Assistant', dates: 'Dec 2024 to May 2025', text: 'Built 40+ test cases and Brian2 simulation environments for closed-loop electrophysiology, modeling neural dynamics under raster-scanned calcium imaging.' },
 ];

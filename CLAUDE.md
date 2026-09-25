@@ -18,13 +18,14 @@ npm run build    # must pass before every commit
 | Homepage | `src/pages/index.astro` (scoped styles at the bottom) |
 | Experience case studies | `src/pages/experience/{whoop,avanos,gt-medical-robotics}.astro` |
 | Project pages | `src/pages/projects/{pwb-insole,amp-head}.astro` |
+| Research pages | `src/pages/research/wearable-robotics.astro` (EMG interactive) |
 | Nav, footer, fonts, meta | `src/layouts/Base.astro` (props: title, description, crumb, section) |
 | Design tokens | `src/styles/global.css` `:root` |
 | Case-study styles | `src/styles/case.css` |
 | Interactives | `src/scripts/*.js` |
 | Shared three.js setup | `src/scripts/three-lib.js` (re-exports addons), `whoop-common.js` (renderer, bloom pipe, `RM` reduced-motion flag, pod model) |
 
-A project card links to `/projects/<slug>` when its entry in `site.js` has a `slug`. New case study = new `.astro` page using `Base` + `case.css`, then add the slug.
+A card links to its deep dive when its `site.js` entry has a `slug`: `/experience/<slug>`, `/projects/<slug>`, `/research/<slug>`. Goal: every experience, project and research entry gets one. New case study = new `.astro` page using `Base` + `case.css`, then add the slug.
 
 `tools/make-preview.py` only builds a relative-path copy for claude.ai previews. Not part of the deploy.
 
@@ -41,6 +42,7 @@ A project card links to `/projects/<slug>` when its entry in `site.js` has a `sl
 - Concise, punchy, action-led, hard numbers first. No filler, no AI-sounding phrasing.
 - No em-dashes or en-dashes anywhere (`grep -rn "—\|–" src` must be empty). Use "to" for ranges ("May to Aug 2025").
 - Headlines 8 words or fewer. Only real numbers from Akkhil; never invent metrics.
+- Hyphenated words in an `h1` go in `<span class="nw">` so they never split across lines on screens 600px and wider (on phones the words are too wide to keep whole).
 - Every simulated visual carries a short mono caption saying it is illustrative.
 
 ## Interactives
