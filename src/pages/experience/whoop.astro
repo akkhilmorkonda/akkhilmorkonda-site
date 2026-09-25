@@ -1,0 +1,63 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="WHOOP" crumb="WHOOP" description="Scaling hardware-in-the-loop test at WHOOP: an optical testbed for LED characterization and battery diagnostics that saved $1.8M.">
+<div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
+
+<div class="wrap"><section class="hero">
+  <div><h1>Scaling test for a wearable fleet.</h1><div class="role">Manufacturing Test Engineering Intern, WHOOP, Jan 2026 to present</div>
+    <p class="lead">Rebuilt the hardware-in-the-loop test system across 12 fixtures and built the optical testbed that characterizes the sensor's LEDs.</p>
+    <div class="stats"><div><b>30%</b><span>faster test time</span></div><div><b>95%</b><span>pytest coverage</span></div><div><b>$1.8M</b><span>saved by battery diagnostics</span></div><div><b>40%</b><span>fewer false failures</span></div></div></div>
+  
+</section></div>
+
+<section class="explode" id="explode"><div class="stick"><canvas id="rig"></canvas>
+  <div class="steps"><h2>Inside the testbed</h2>
+    <div class="st"><b>Blackout enclosure</b><p>Blocks ambient light so only the LED under test reaches the probe.</p></div>
+    <div class="st"><b>Breadboard and motor controllers</b><p>Everything bolts to an optical breadboard. Three motor controllers drive the stage, one per axis.</p></div>
+    <div class="st"><b>Thorlabs 3-axis stage</b><p>Motorized X, Y and Z translation stages move the probe through space above the device.</p></div>
+    <div class="st"><b>Precision fixture</b><p>A dowel-pinned aluminum bracket on the Z stage carries the fiber probe head. A pocket in the base plate locates the device.</p></div>
+    <div class="st"><b>Fiber and analysers</b><p>Fiber carries the collected light to Feasa LED and IR analysers that read intensity and color.</p></div>
+    <div class="st"><b>WHOOP 5.0</b><p>Sensor side up in its pocket. The LEDs switch on and the probe maps the light above them.</p></div>
+  </div><div class="prog" id="prog"></div></div></section>
+
+<div class="wrap"><section class="vol">
+  <div class="head"><h2>What it measures</h2><p>The probe steps through a 3D grid above each LED and records brightness at every point. The result is a map of how the light spreads, compared LED to LED and device to device.</p></div>
+  <div class="viewer"><div class="cv" id="cv"><span class="hint">Drag to rotate. Hover a point for its reading.</span><canvas id="vol"></canvas><div class="tip" id="tip"></div></div>
+   <div class="ctl">
+    <div><label>LED</label><div class="seg" id="led"><button class="on" data-v="g">Green</button><button data-v="ir">Infrared</button></div></div>
+    <div><label>View</label><div class="seg" id="view"><button class="on" data-v="vol">Volume</button><button data-v="slice">Slice</button></div></div>
+    <div><label>Slice height <span class="val" id="zv">6.0 mm</span></label><input type="range" id="z" min="0" max="15" value="6"></div>
+    <div><label>Hide below <span class="val" id="tv">8%</span></label><input type="range" id="t" min="0" max="60" value="8"></div>
+    <button class="btn2" id="scan">Replay the scan</button>
+    <div><div class="bar"></div><div class="barl"><span>Dim</span><span>Relative brightness</span><span>Peak</span></div><p class="note">Illustrative model. Swap in exported scan data for the real site.</p></div>
+   </div></div>
+</section>
+
+<section class="bat" id="bat">
+  <div class="bhead"><b class="n">$1.8M</b><h2>Bad capacitors, caught from current alone</h2><p>Firmware streams the battery current over BLE. An FFT exposes ripple a failing capacitor adds, and a logistic regression flags it at 99% accuracy.</p></div>
+  <div class="bbox">
+    <div class="bbar"><div class="seg3" id="dut"><button class="on" data-h="1">Healthy unit</button><button data-h=".1">Bad capacitor</button></div><div class="verdict" id="vd"><span class="ico">&#10003;</span><b>PASS</b></div></div>
+    <div class="bc"><canvas id="cF"></canvas><div class="tip2" id="tF"></div></div>
+  </div>
+  <p class="note">Current spectrum of one unit. Illustrative model, not WHOOP data.</p>
+</section>
+
+<section class="fleet" id="fleet">
+  <div class="bhead"><b class="n">30%</b><h2>A test fleet that scales</h2><p>Legacy ATE ran every step in series. A DAG scheduler runs independent steps side by side across 12 fixtures. Coverage rose to 95% and false failures fell 40%.</p></div>
+  <div class="fbox">
+    <div class="fbar"><div class="seg3 fseg"><button class="on" data-m="legacy">Legacy ATE</button><button data-m="dag">DAG scheduler</button></div><div class="fres"><span>Fleet run time</span><b class="ftime">100%</b></div></div>
+    <div class="fchart"><div class="lanes"></div><div class="over"><div class="endline"></div></div></div>
+    <div class="flegend"><span><b>F</b> Flash</span><span><b>B</b> Boot</span><span><b>S</b> Sensors</span><span><b>P</b> Battery</span><span><b>O</b> Optical</span><span><b>R</b> Radio</span></div>
+  </div>
+  <p class="note">Illustrative step names and timings.</p>
+</section></div>
+
+</Base>
+<script>
+  import '../../scripts/testbed.js';
+  import '../../scripts/volume.js';
+  import '../../scripts/battery.js';
+  import '../../scripts/fleet.js';
+</script>

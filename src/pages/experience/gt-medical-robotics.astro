@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="GT Medical Robotics" crumb="GT Medical Robotics" description="Mechanical Engineering Team Lead on a trans-radial prosthetic arm: electromechanical integration and a multi-DOF wrist redesign with a 35% higher factor of safety.">
+<div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
+<div class="wrap"><section class="hero">
+  <div><h1>A lighter, stronger prosthetic wrist.</h1><div class="role">Mechanical Engineering Team Lead, Georgia Tech Medical Robotics, Sept 2023 to Dec 2025</div>
+    <p class="lead">Owned electromechanical integration of a trans-radial prosthetic arm across a 17-member team, then redesigned its multi-DOF wrist.</p>
+    <div class="stats"><div><b>+35%</b><span>wrist factor of safety</span></div><div><b>17</b><span>engineers on the team</span></div><div><b>Multi-DOF</b><span>wrist, CAD and dynamic FEA</span></div><div><b>Lighter</b><span>wrist mass, same targets met</span></div></div></div>
+</section>
+
+<section class="vol">
+  <div class="head"><h2>Inside the arm</h2><p>Actuation, sensing and structure had to fit inside a forearm-sized shell. Pull the arm apart, then compare the original and redesigned wrist under the same load.</p></div>
+  <div class="viewer"><div class="cv"><canvas id="arm" aria-label="Exploded prosthetic arm with wrist stress map"></canvas></div>
+    <div class="ctl">
+      <div><label>Explode</label><input type="range" id="aEx" min="0" max="100" value="35" aria-label="Explode the arm"></div>
+      <div><label>Wrist</label><div class="seg" id="aW"><button class="on" data-w="before">Original</button><button data-w="after">Redesign</button></div></div>
+      <div class="jt"><div><span>Peak stress, relative</span><b id="aPk">100%</b></div><div><span>Factor of safety</span><b id="aFs">baseline</b></div></div>
+      <div><div class="bar" style="background:linear-gradient(90deg,#1a1a1c,#732914,#ff6b3d,#ffede0)"></div><div class="barl"><span>Low</span><span>Stress</span><span>High</span></div></div>
+      <p class="note">Drag to rotate. Simplified geometry and illustrative stress field; team CAD and FEA to come.</p>
+    </div></div>
+</section>
+
+<section class="beats">
+  <div><h3>Integration</h3><p>Defined the actuation, sensing and structural interfaces so each sub-team could build to the same envelope.</p></div>
+  <div><h3>Wrist redesign</h3><p>Modeled the multi-DOF wrist in 3D CAD and iterated FEA under dynamic loading to hit torque and range-of-motion targets, raising factor of safety 35% while cutting weight.</p></div>
+</section></div>
+</Base>
+<script>import '../../scripts/prosthesis.js';</script>

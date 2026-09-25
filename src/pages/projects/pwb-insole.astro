@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="PWB Smart Insole" crumb="PWB Smart Insole" section="Projects" description="A smart insole that measures plantar load in real time for partial-weight-bearing rehabilitation, calibrated to ±3% accuracy.">
+<div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
+<div class="wrap"><section class="hero">
+  <div><h1>Weight-bearing, measured in real time.</h1><div class="role">Project, Jan to Jul 2025</div>
+    <p class="lead">Patients told to put only part of their weight on an injured leg have no way to know how much they actually are. This insole measures it on every step.</p>
+    <div class="stats"><div><b>±3%</b><span>load accuracy after calibration</span></div><div><b>ESP32</b><span>wireless telemetry</span></div><div><b>C++</b><span>embedded firmware</span></div><div><b>t-tests</b><span>paired validation with power analysis</span></div></div></div>
+</section>
+
+<section class="vol">
+  <div class="head"><h2>One step, sensor by sensor</h2><p>Force-sensitive resistors under the heel, midfoot and forefoot pick up load as it rolls from heel to toe. Their sum is compared to the prescribed limit in real time.</p></div>
+  <div class="viewer"><div class="cv" style="cursor:default"><canvas id="foot" aria-label="Plantar pressure at five sensor sites during a step"></canvas></div>
+    <div class="ctl">
+      <div><label>Prescribed limit <span class="val" id="limV">50%</span></label><input type="range" id="lim" min="20" max="90" value="50" aria-label="Prescribed load limit, percent body weight"></div>
+      <div><label>How hard the patient steps <span class="val" id="wtV">45%</span></label><input type="range" id="wt" min="20" max="100" value="45" aria-label="Patient step load, percent body weight"></div>
+      <div class="jt"><div><span>Load now, % body weight</span><b id="loadV">0%</b></div></div>
+      <div class="lbar"><i id="loadBar"></i><em id="limMark"></em></div>
+      <div id="pwbState" class="pwb ok">Within limit</div>
+      <p class="note">Illustrative sensor layout and gait. Real sensor count and placement to come.</p>
+    </div></div>
+</section>
+
+<section class="beats">
+  <div><h3>Calibration</h3><p>Each force sensor was calibrated against known loads and fit with a regression model, bringing total load error to ±3%.</p></div>
+  <div><h3>Validation</h3><p>Paired t-tests and a power analysis compared insole readings to reference measurements, with data streamed to a cloud-connected mobile app.</p></div>
+</section></div>
+</Base>
+<script>import '../../scripts/insole.js';</script>

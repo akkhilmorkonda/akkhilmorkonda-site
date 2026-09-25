@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://akkhilmorkonda.com/sitemap-index.xml

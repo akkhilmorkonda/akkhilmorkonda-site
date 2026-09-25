@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="Avanos Medical" crumb="Avanos Medical" description="R&D engineering at Avanos Medical: a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures.">
+<div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
+<div class="wrap"><section class="hero">
+  <div><h1>Root-causing failures in high-pressure pumps.</h1><div class="role">R&amp;D Engineering Intern, Avanos Medical, May to Aug 2025</div>
+    <p class="lead">Built the test fixture, robot automation and analytics that traced electromechanical pump failures back to their cause.</p>
+    <div class="stats"><div><b>$40M</b><span>inventory covered by the CAPA</span></div><div><b>1000+</b><span>hours of manual validation automated</span></div><div><b>95%</b><span>faster failure analysis</span></div><div><b>6-axis</b><span>robot, C++ control software</span></div></div></div>
+</section>
+
+<section class="vol">
+  <div class="head"><h2>A robot that repeats the test</h2><p>C++ control software interpolates a 3D trajectory, computes joint kinematics and streams TCP commands to a 6-axis robot, so a thousand hours of hand validation run on their own.</p></div>
+  <div class="viewer"><div class="cv"><canvas id="robot" aria-label="6-axis robot arm tracing a trajectory around a pump body"></canvas></div>
+    <div class="ctl">
+      <div><label>Trajectory</label><input type="range" id="rT" min="0" max="1000" value="0" aria-label="Trajectory position"></div>
+      <button class="btn2" id="rPlay">Pause</button>
+      <div id="rJ" class="jt"><div><span>J1 base</span><b>0°</b></div><div><span>J2 shoulder</span><b>0°</b></div><div><span>J3 elbow</span><b>0°</b></div><div><span>J4 wrist roll</span><b>0°</b></div><div><span>J5 wrist pitch</span><b>0°</b></div><div><span>J6 flange</span><b>0°</b></div></div>
+      <p class="note">Drag the view to rotate. Illustrative robot and path.</p>
+    </div></div>
+</section>
+
+<section class="beats">
+  <div><h3>Test fixture</h3><p>A LabVIEW and NI myDAQ fixture reproduced the electromechanical failures on the bench and fed an ISO-compliant CAPA covering $40M of inventory.</p></div>
+  <div><h3>Analytics</h3><p>A CI/CD-deployed platform joined SAP and Salesforce data to catch SKU-level reporting discrepancies, cutting failure analysis time 95%.</p></div>
+</section></div>
+</Base>
+<script>import '../../scripts/robot.js';</script>

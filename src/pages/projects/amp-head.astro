@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="Guitar Amp Head" crumb="Guitar amp head" section="Projects" description="A guitar amp head: TL072 preamp, Fender-style tone stack and TDA2040 power stage, designed in KiCad and checked in SPICE.">
+<div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
+<div class="wrap"><section class="hero">
+  <div><h1>An amp head, from schematic up.</h1><div class="role">Personal build</div>
+    <p class="lead">A guitar amplifier designed in KiCad and checked in SPICE, now being built into a custom clear enclosure so the circuit stays visible.</p>
+    <div class="chain">
+      <div><b>Input</b><span>1/4" jack</span></div><div><b>Preamp</b><span>TL072 op-amp</span></div><div class="on"><b>Tone stack</b><span>Bass, mid, treble</span></div><div><b>Power amp</b><span>TDA2040</span></div><div><b>Speaker</b><span>cab out</span></div>
+    </div></div>
+</section>
+
+<section class="vol">
+  <div class="head"><h2>Shape the tone</h2><p>The classic Fender tone stack is passive: its three knobs only ever cut, and they interact. This is its real frequency response, computed from the circuit values.</p></div>
+  <div class="viewer"><div class="cv" style="cursor:crosshair"><canvas id="tone" aria-label="Tone stack frequency response"></canvas><div class="tip" id="tTone"></div></div>
+    <div class="ctl">
+      <div class="knobs3">
+        <div class="kwrap"><div class="aknob" data-k="bass" tabindex="0" role="slider" aria-label="Bass" aria-valuemin="0" aria-valuemax="10"></div><div class="kl">Bass <b>5.0</b></div></div>
+        <div class="kwrap"><div class="aknob" data-k="mid" tabindex="0" role="slider" aria-label="Mid" aria-valuemin="0" aria-valuemax="10"></div><div class="kl">Mid <b>5.0</b></div></div>
+        <div class="kwrap"><div class="aknob" data-k="treble" tabindex="0" role="slider" aria-label="Treble" aria-valuemin="0" aria-valuemax="10"></div><div class="kl">Treble <b>5.0</b></div></div>
+      </div>
+      <div class="seg" style="grid-template-columns:repeat(3,1fr)"><button class="on" data-preset="flat">Noon</button><button data-preset="scoop">Scooped</button><button data-preset="mids">Mid push</button></div>
+      <p class="note">Drag a knob up or down, or use the arrow keys. Dashed line: all knobs at 5. Component values from the 1959 Bassman.</p>
+    </div></div>
+</section>
+
+<section class="beats">
+  <div><h3>Design</h3><p>TL072 preamp for gain and buffering, a Fender-style tone stack, and a TDA2040 power stage, laid out in KiCad.</p></div>
+  <div><h3>Validation</h3><p>SPICE simulation of gain and frequency response before committing to hardware.</p></div>
+</section></div>
+</Base>
+<script>import '../../scripts/amp.js';</script>

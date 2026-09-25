@@ -1,0 +1,65 @@
+// Single source of truth for site copy. Edit here; pages read from this file.
+// Items marked TODO need details from Akkhil before launch.
+export const site = {
+  name: 'Akkhil Morkonda',
+  description: 'Biomedical engineer at Georgia Tech. I build sensors, robots, and the systems that test them.',
+  email: 'amorkonda28@gmail.com',
+  linkedin: 'https://linkedin.com/in/akkhil-morkonda',
+  github: null, // TODO: add GitHub URL if wanted
+  resume: null, // TODO: add /resume.pdf (consider removing phone number first)
+};
+
+export const hero = {
+  headline: 'Biomedical hardware, built and tested.',
+  sub: 'Biomedical engineer at Georgia Tech. I build sensors, robots, and the systems that test them.',
+};
+
+export const about =
+  "I'm a biomedical engineering student at Georgia Tech with a minor in computer science. I've built optical and battery test systems at WHOOP, automated validation at Avanos Medical, and led mechanical design on a prosthetic arm.";
+
+export const education = {
+  school: 'Georgia Institute of Technology',
+  degree: 'B.S. Biomedical Engineering',
+  minor: 'Minor in Computer Science',
+  dates: 'Aug 2023 to May 2027',
+  gpa: '4.0',
+  ta: {
+    course: 'Intro to Biomedical Engineering Design',
+    dates: 'Jan to Dec 2025',
+    text: 'Led milestone design reviews for 100+ students on verification planning, FMEA and engineering trade-offs. Final project performance up 22%.',
+  },
+};
+
+export const experience = [
+  {
+    slug: 'whoop', company: 'WHOOP', role: 'Manufacturing Test Engineering Intern', dates: 'Jan 2026 to present',
+    stat: '$1.8M', statLabel: 'saved by battery diagnostics',
+    summary: 'Rebuilt HIL test across 12 fixtures and built the optical testbed that characterizes the sensor LEDs.',
+    ready: true,
+  },
+  {
+    slug: 'avanos', company: 'Avanos Medical', role: 'R&D Engineering Intern', dates: 'May to Aug 2025',
+    stat: '1000+', statLabel: 'hours of validation automated',
+    summary: 'Built a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures.',
+    ready: true,
+  },
+  {
+    slug: 'gt-medical-robotics', company: 'GT Medical Robotics', role: 'Mechanical Engineering Team Lead', dates: 'Sept 2023 to Dec 2025',
+    stat: '+35%', statLabel: 'wrist factor of safety, at lower weight',
+    summary: 'Led electromechanical integration of a trans-radial prosthetic arm across a 17-member team.',
+    ready: true,
+  },
+];
+
+export const projects = [
+  { name: 'FIXT', tag: 'Startup, co-founder', text: 'Agents that understand hardware well enough to run, monitor and control the test line end to end.', link: 'https://fixt.run', feature: true },
+  { name: 'PWB Smart Insole', slug: 'pwb-insole', tag: 'Jan to Jul 2025', text: 'Force sensors, embedded C++ and ESP32 telemetry for real-time plantar load monitoring in partial-weight-bearing rehab. ±3% accuracy.' },
+  { name: 'Metrix', tag: 'Mar 2025 to present', text: 'watchOS app in SwiftUI and HealthKit that estimates hydration from heart rate, HRV and motion.' },
+  { name: 'Guitar amp head', slug: 'amp-head', tag: 'Personal build', text: 'TDA2040 power stage, TL072 preamp and a Fender-style tone stack, designed in KiCad and checked in SPICE, housed in a custom clear enclosure.' },
+  { name: 'BetCircle', tag: 'HackMIT 2026', text: 'A prediction market for friend groups, with per-category Elo ratings setting the odds.' },
+];
+
+export const research = [
+  { lab: 'Physiology of Wearable Robotics Lab', role: 'Undergraduate Research Assistant', dates: 'May 2025 to present', text: 'Designed EMG acquisition protocols for 50+ human-subject studies and built MATLAB pipelines for time-series analysis and real-time control.' },
+  { lab: 'Structured Information for Precision Neuroengineering Lab', role: 'Undergraduate Research Assistant', dates: 'Dec 2024 to May 2025', text: 'Built 40+ test cases and Brian2 simulation environments for closed-loop electrophysiology, modeling neural dynamics under raster-scanned calcium imaging.' },
+];
