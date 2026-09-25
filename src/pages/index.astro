@@ -94,10 +94,12 @@ import { site, hero, logos, about, education, experience, projects, inProgress, 
   .h-hero h1{font-size:clamp(32px,5.6vw,80px);line-height:1.02;max-width:14ch}
   .h-sub{margin-top:12px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--fg2);max-width:46ch}
   .h-ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
-  .h-logos{list-style:none;display:flex;flex-wrap:wrap;align-items:center;gap:22px clamp(28px,4.5vw,64px);margin-top:48px;padding-top:26px;border-top:1px solid var(--ln);max-width:760px}
-  .lg-m{display:block;background:var(--mu);-webkit-mask:var(--src) no-repeat left center/contain;mask:var(--src) no-repeat left center/contain;transition:background .25s}
+  .h-copy{width:100%}
+  .h-logos{list-style:none;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-evenly;gap:22px 32px;margin-top:56px;padding-top:30px;border-top:1px solid var(--ln)}
+  .h-logos li{display:flex;justify-content:center}
+  .lg-m{display:block;background:var(--mu);-webkit-mask:var(--src) no-repeat center/contain;mask:var(--src) no-repeat center/contain;transition:background .25s}
   .h-logos li:hover .lg-m{background:var(--fg)}
-  @media (max-width:560px){.h-logos{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px}.lg-m{max-width:100%;transform:scale(.85);transform-origin:left center}}
+  @media (max-width:560px){.h-logos{display:grid;grid-template-columns:1fr 1fr;gap:22px 20px}.lg-m{max-width:100%;transform:scale(.85)}}
   .h-draw{position:relative;padding:30px 0 52px}
   .h-draw svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
   .h-draw :global(path.ln),.h-draw :global(rect.ln){stroke:var(--mu);stroke-width:1;fill:none}
