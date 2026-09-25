@@ -1,6 +1,6 @@
 # CLAUDE.md: akkhilmorkonda.com
 
-Personal engineering portfolio for Akkhil Morkonda (Georgia Tech BME, CS minor, 4.0, May 2027). Astro 5 static site, three.js 0.149 for 3D, Canvas 2D for charts. Deployed on Vercel from `main`; every push to `main` goes live in about a minute.
+Personal engineering portfolio for Akkhil Morkonda (Georgia Tech BME, Embedded Devices minor, 4.0, May 2027). Astro 5 static site, three.js 0.149 for 3D, Canvas 2D for charts. Deployed on Vercel from `main`; every push to `main` goes live in about a minute.
 
 This file and `docs/` are the shared memory between Claude Code and Claude (Cowork). Read them first. When a decision is made or a fact is confirmed, update the right file in `docs/` in the same commit.
 
@@ -62,6 +62,7 @@ The site exists to show the what, why, how and results of every experience, proj
 - Mobile: check at 390px wide. No horizontal overflow; sticky scroll sections show only the active step.
 
 ## Confirmed facts (Akkhil corrected these; keep them right)
+- Minor is **Embedded Devices** (not Computer Science), per Akkhil Sept 25, 2026. About text is Akkhil's own wording.
 - WHOOP optical testbed: **Thorlabs 3-axis** translation stage (NOT 5-axis), Thorlabs **K-Cube** controllers, Feasa LED + IR analysers via fiber probe, blackout enclosure, optical breadboard.
 - DUT is a **WHOOP 5.0**, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it. Testbed steps end on the DUT, then zoom in with LEDs on, leading into "What it measures".
 - **Never publish the real rig photo.** No standalone WHOOP hero render.

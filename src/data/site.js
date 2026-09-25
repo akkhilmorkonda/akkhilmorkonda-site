@@ -16,12 +16,12 @@ export const hero = {
 };
 
 export const about =
-  "I'm a biomedical engineering student at Georgia Tech with a minor in computer science. I've built optical and battery test systems at WHOOP, automated validation at Avanos Medical, and led mechanical design on a prosthetic arm.";
+  "Fourth-year Biomedical Engineering student at Georgia Tech with a minor in Embedded Devices. 5+ years building and leading end-to-end biomedical product innovation across medical devices, robotics and digital health sensing, in regulated environments. Passionate about optimizing human performance through recovery and rehabilitation technology.";
 
 export const education = {
   school: 'Georgia Institute of Technology',
   degree: 'B.S. Biomedical Engineering',
-  minor: 'Minor in Computer Science',
+  minor: 'Minor in Embedded Devices',
   dates: 'Aug 2023 to May 2027',
   gpa: '4.0',
   ta: {
