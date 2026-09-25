@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site, hero, about, education, experience, projects, research } from '../data/site.js';
+import { site, hero, about, education, experience, projects, inProgress, research } from '../data/site.js';
 ---
 <Base>
 <div class="wrap">
@@ -55,6 +55,20 @@ import { site, hero, about, education, experience, projects, research } from '..
     </div>
   </section>
 
+  <section id="in-progress" class="s-soon">
+    <h2>Coming soon</h2>
+    <div class="soon">
+      {inProgress.map(p => (
+        <article class="cell">
+          <span class="tag"><i class="dot" aria-hidden="true"></i>{p.tag ? `${p.tag}, in progress` : 'In progress'}</span>
+          <h3>{p.link ? <a href={p.link}>{p.name}</a> : p.name}</h3>
+          <p>{p.text}</p>
+          {p.link && <span class="more-l" aria-hidden="true">{new URL(p.link).host}</span>}
+        </article>
+      ))}
+    </div>
+  </section>
+
   <section id="research" class="s-res">
     <h2>Research</h2>
     <div class="labs">
@@ -77,9 +91,9 @@ import { site, hero, about, education, experience, projects, research } from '..
   h2{font-size:clamp(28px,3.4vw,46px);margin-bottom:36px}
   .h-hero{display:flex;align-items:center;min-height:calc(88dvh - 64px);padding:48px 0}
   .h-hero h1{font-size:clamp(32px,5.6vw,80px);line-height:1.02;max-width:14ch}
-  .h-sub{margin-top:22px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--fg2);max-width:46ch}
+  .h-sub{margin-top:12px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--fg2);max-width:46ch}
   .h-ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
-  .h-draw{position:relative;padding:30px 0 34px}
+  .h-draw{position:relative;padding:30px 0 52px}
   .h-draw svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
   .h-draw :global(path.ln),.h-draw :global(rect.ln){stroke:var(--mu);stroke-width:1;fill:none}
   .h-draw :global(path.lnA){stroke:var(--ac);stroke-width:1;fill:none}
@@ -117,15 +131,18 @@ import { site, hero, about, education, experience, projects, research } from '..
   .cell p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--fg2)}
   .cell.feat{grid-row:1/3;background:var(--sf)}
   .cell.feat h3{font-size:clamp(24px,2.4vw,34px)}
-  .cell.wide{grid-column:1/-1;min-height:0}
-  .cell.wide h3{font-size:clamp(22px,2.2vw,30px);padding-top:28px}
-  .cell.wide p{max-width:70ch}
   /* the title link covers the whole cell, so the full cell is the click target */
   .cell h3 a::after{content:"";position:absolute;inset:0}
   .cell:has(h3 a){transition:background .25s}.cell:has(h3 a):hover{background:var(--sf)}
   .cell.feat:has(h3 a):hover{background:#1d1d20}
   .more-l{margin-top:14px;font:12px var(--fm);color:var(--ac)}.cell:hover .more-l{text-decoration:underline;text-underline-offset:3px}
   .cell h3 a:hover{color:var(--ac)}
+  .s-soon{padding-top:72px}
+  .s-soon h2{font-size:clamp(22px,2.4vw,32px);margin-bottom:24px}
+  .soon{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln)}
+  .soon .cell{min-height:180px}
+  .soon .cell h3{padding-top:28px}
+  .soon .dot{display:inline-block;width:6px;height:6px;margin-right:8px;background:var(--ac);vertical-align:1px}
   .labs{display:grid;grid-template-columns:1fr 1fr;gap:56px;border-top:1px solid var(--ln);padding-top:28px}
   .lab{position:relative}
   .lab h3{font:600 20px/1.3 var(--fb)}
@@ -143,7 +160,7 @@ import { site, hero, about, education, experience, projects, research } from '..
     .h-hero{min-height:auto}
     .tiles{grid-template-columns:1fr 1fr}.t.wide{grid-column:1/3}
     .row{grid-template-columns:1fr;gap:12px;padding-bottom:44px}
-    .bento{grid-template-columns:1fr}.cell.feat{grid-row:auto}.cell.wide{grid-column:auto}
+    .bento,.soon{grid-template-columns:1fr}.cell.feat{grid-row:auto}
     .cell p,.ta{font-size:16px}
   }
 </style>

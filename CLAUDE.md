@@ -26,7 +26,7 @@ npm run build    # must pass before every commit
 | Interactives | `src/scripts/*.js` |
 | Shared three.js setup | `src/scripts/three-lib.js` (re-exports addons), `whoop-common.js` (renderer, bloom pipe, `RM` reduced-motion flag, pod model) |
 
-A card links to its deep dive when its `site.js` entry has a `slug`: `/experience/<slug>`, `/projects/<slug>`, `/research/<slug>`. Goal: every experience, project and research entry gets one. New case study = new `.astro` page using `Base` + `case.css`, then add the slug.
+Projects are listed in order of importance (MediScan, Partial Weight Bearing Insole, Smart Respirator, Guitar amp head, Betcha); in-progress work goes in `inProgress` (homepage "Coming soon", no deep dives, external link only). A card links to its deep dive when its `site.js` entry has a `slug`: `/experience/<slug>`, `/projects/<slug>`, `/research/<slug>`. Goal: every experience, project and research entry gets one. New case study = new `.astro` page using `Base` + `case.css`, then add the slug.
 
 `tools/make-preview.py` only builds a relative-path copy for claude.ai previews. Not part of the deploy.
 

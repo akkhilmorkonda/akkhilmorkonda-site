@@ -20,18 +20,18 @@ if (wrap) {
       if (!animate) return;
       const L = Math.hypot(x2 - x1, y2 - y1) || 1; p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
       p.getBoundingClientRect(); p.style.transition = 'stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1)';
-      setTimeout(() => p.style.strokeDashoffset = 0, 500 + delay);
+      setTimeout(() => p.style.strokeDashoffset = 0, 100 + delay);
     };
     const txt = (s, x, y, cls = '', anchor = 'middle') => {
       const t = el('text', { x, y, 'text-anchor': anchor, class: cls }); t.textContent = s;
-      if (animate) { t.style.opacity = 0; t.style.transition = 'opacity .6s'; setTimeout(() => t.style.opacity = 1, 1200); }
+      if (animate) { t.style.opacity = 0; t.style.transition = 'opacity .6s'; setTimeout(() => t.style.opacity = 1, 800); }
     };
     // overall width of the first line
     const L1 = lines[0], y0 = L1.t - 14;
     line(L1.l, y0 - 5, L1.l, L1.t - 3, 'ln'); line(L1.r, y0 - 5, L1.r, L1.t - 3, 'ln'); line(L1.l, y0, L1.r, y0, 'lnA', 150);
     txt(`${Math.round(L1.r - L1.l)} ±0.5`, (L1.l + L1.r) / 2, y0 - 6, 'a');
     // leader and revision stamp below-right of the last word, flipped left when there is no room on the right
-    const last = ws[ws.length - 1], ly = last.b + 16;
+    const last = ws[ws.length - 1], ly = last.b + 22;
     let x1 = last.r - 6, ex = last.r + 28, sx = ex + 104;               // room on the right
     if (W.width - last.r <= 150) {
       if (last.l > 150) { x1 = last.l + 6; ex = last.l - 28; sx = ex - 104; }                       // room on the left
@@ -40,9 +40,11 @@ if (wrap) {
     line(x1, last.b - 10, ex, ly, 'ln', 350); line(ex, ly, sx, ly, 'ln', 500);
     txt('TESTED  REV B', (ex + sx) / 2, ly - 6, 'a');
     // datum A under the start of the last line
-    const LL = lines[lines.length - 1], dx = LL.first.l + 10, dy = LL.b + 14;
+    const LL = lines[lines.length - 1], dx = LL.first.l + 10, dy = LL.b + 12;
     line(dx, LL.b + 2, dx, dy, 'ln', 250); el('rect', { x: dx - 8, y: dy, width: 16, height: 15, class: 'ln' }); txt('A', dx, dy + 11);
   }
-  document.fonts.ready.then(draw);
+  // measure only after the fonts load and the headline's intro wipe has landed, or every mark sits low
+  const landed = Promise.all([document.fonts.ready, ...h1.getAnimations().map(a => a.finished.catch(() => {}))]);
+  Promise.race([landed, new Promise(r => setTimeout(r, 2000))]).then(draw);  // fallback if the tab is not rendering
   let q; addEventListener('resize', () => { clearTimeout(q); q = setTimeout(draw, 120); });
 }

@@ -52,13 +52,19 @@ export const experience = [
   },
 ];
 
+// In order of importance. A `slug` makes the card open /projects/<slug>.
 export const projects = [
-  { name: 'FIXT', tag: 'Startup, co-founder', text: 'Agents that understand hardware well enough to run, monitor and control the test line end to end.', link: 'https://fixt.run', feature: true },
-  { name: 'MediScan', slug: 'mediscan', tag: 'I2CE Lab VIP, team lead, 2026', text: 'Portable point-of-care diagnostics for low-resource clinics. Led the electromechanical design: 65°C closed-loop heating, four-channel optical detection and a solar-charged power board.', wide: true },
-  { name: 'PWB Smart Insole', slug: 'pwb-insole', tag: 'Jan to Jul 2025', text: 'Force sensors, embedded C++ and ESP32 telemetry for real-time plantar load monitoring in partial-weight-bearing rehab. ±3% accuracy.' },
-  { name: 'Metrix', tag: 'Mar 2025 to present', text: 'watchOS app in SwiftUI and HealthKit that estimates hydration from heart rate, HRV and motion.' },
+  { name: 'MediScan', slug: 'mediscan', tag: 'I2CE Lab VIP, team lead, 2026', text: 'Portable point-of-care diagnostics for low-resource clinics. Led the electromechanical design: 65°C closed-loop heating, four-channel optical detection and a solar-charged power board.', feature: true },
+  { name: 'Partial Weight Bearing Insole', slug: 'pwb-insole', tag: 'Jan to Jul 2025', text: 'Force sensors, embedded C++ and ESP32 telemetry for real-time plantar load monitoring in partial-weight-bearing rehab. ±3% accuracy.' },
+  { name: 'Smart Respirator', tag: 'Aug 2024 to Jan 2025', text: 'Prototyped a filtering facepiece respirator that monitors pressure and dust concentration inside the mask to confirm a proper face seal and that the respirator is working. Root cause analysis and ISO regulations.' },
   { name: 'Guitar amp head', slug: 'amp-head', tag: 'Personal build', text: 'TDA2040 power stage, TL072 preamp and a Fender-style tone stack, designed in KiCad and checked in SPICE, housed in a custom clear enclosure.' },
-  { name: 'BetCircle', tag: 'HackMIT 2026', text: 'A prediction market for friend groups, with per-category Elo ratings setting the odds.' },
+  { name: 'Betcha', tag: 'HackMIT 2026', text: 'A prediction market for friend groups, with per-category Elo ratings setting the odds.' },
+];
+
+// Coming soon: projects in progress. No deep dives; only an external link where one exists.
+export const inProgress = [
+  { name: 'FIXT', tag: 'Startup, co-founder', text: 'Agents that understand hardware well enough to run, monitor and control the test line end to end.', link: 'https://usefixt.ai' },
+  { name: 'Non-invasive BP monitoring for LVAD patients', tag: '', text: 'Non-invasive blood pressure monitoring for patients living with a left ventricular assist device.' },
 ];
 
 export const research = [

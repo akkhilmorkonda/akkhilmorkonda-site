@@ -12,7 +12,8 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 ## Projects
 
 ### FIXT (startup, co-founder)
-- Homepage line: "Agents that understand hardware well enough to run, monitor and control the test line end to end." Links to fixt.run.
+- Sept 25, 2026: moved to the homepage "Coming soon" section (in progress, no deep dive). Link is now https://usefixt.ai (was fixt.run).
+- Homepage line: "Agents that understand hardware well enough to run, monitor and control the test line end to end." Links to usefixt.ai.
 - Possible case study: an agent reading a failing test log, proposing a fix, re-running on the fixture. Could reuse the WHOOP fleet visual in a different color.
 - `[?]` OK to name FIXT and link fixt.run publicly? Co-founder named or not? Any demo video, screenshots, early users or pilots we can mention?
 
@@ -34,6 +35,7 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 - `[?]` Team or solo? Class project or independent? Number and placement of FSRs, target load limit, photos of the insole or app.
 
 ### Metrix (Mar 2025 to present)
+- Sept 25, 2026: removed from the site (confirmed by Akkhil).
 - watchOS app in SwiftUI + HealthKit; real-time pipelines for heart rate, HRV and motion to estimate hydration state.
 - `[?]` How is hydration estimated (model, ground truth)? Any validation numbers? Screenshots of the watch app?
 
@@ -43,9 +45,16 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 - Page built (see above). Tone curve uses Yeh & Smith closed form with '59 Bassman values; noon gives about -12 dB at 1 kHz, "Scooped" about -18 dB.
 - `[?]` Is the enclosure finished? Photos? Should the site describe the pivot to modules or only the design work? (Page currently says "now being built into a custom clear enclosure" and does not mention modules.)
 
-### BetCircle (HackMIT 2026)
+### Betcha (HackMIT 2026, formerly BetCircle)
+- Renamed Sept 25, 2026. Pitch decks in Downloads (`Betcha — HackMIT 2026.pdf`).
 - Prediction market for friend circles; fake currency, per-category Elo ratings drive odds, evidence-based resolution with circle vote fallback.
 - `[?]` Did it get built at HackMIT? Demo link, repo, prizes?
+
+### Smart Respirator
+- Resume: "Smart Filtering Facepiece Respirator | Root Cause Analysis, ISO Regulations | Aug 2024 to Jan 2025. Prototyped a medical device that monitors the pressure and dust concentration inside of a respirator to ensure proper face seal and respirator effectiveness." On the homepage as "Smart Respirator" (3rd). `[?]` Team or solo, sensors used, any results, photos (for a deep dive).
+
+### Non-invasive BP monitoring for LVAD patients (in progress)
+- Homepage "Coming soon" section, no deep dive yet. `[?]` Lab or team, role, approach.
 
 ## Research
 
