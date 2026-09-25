@@ -35,13 +35,13 @@ export const experience = [
   {
     slug: 'whoop', company: 'WHOOP', role: 'Manufacturing Test Engineering Intern', dates: 'Jan 2026 to Jun 2026',
     stat: '$1.8M', statLabel: 'saved by battery diagnostics',
-    summary: 'Rebuilt HIL test across 12 fixtures and built the optical testbed that characterizes the sensor LEDs.',
+    summary: 'Distributed test infrastructure, automated optical validation, and embedded diagnostic systems.',
     ready: true,
   },
   {
     slug: 'avanos', company: 'Avanos Medical', role: 'R&D Engineering Intern', dates: 'May to Aug 2025',
     stat: '1000+', statLabel: 'hours of validation automated',
-    summary: 'Built a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures.',
+    summary: 'Electromechanical validation, quality systems automation, and robotic controls development.',
     ready: true,
   },
   {
