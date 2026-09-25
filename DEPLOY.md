@@ -4,6 +4,7 @@ Repo: github.com/akkhilmorkonda/akkhilmorkonda-site (branch `main`). Host: Verce
 
 ## Status
 - **Live at https://akkhilmorkonda.com** since Sept 25, 2026. Vercel builds `main` automatically (Astro preset: `npm run build`, output `dist`).
+- Vercel project: `akkhilmorkonda-site-vercel`, connected to **this** repo (`akkhilmorkonda/akkhilmorkonda-site`). The first import cloned it into a separate repo, `akkhilmorkonda-site-vercel`, so pushes here did not deploy; reconnected Sept 25, 2026. That clone is unused and can be deleted. If pushes stop deploying, check Vercel > Settings > Git first.
 - `www.akkhilmorkonda.com`: DNS points at Vercel and `http://www` redirects (308). As of Sept 25, 2026, `https://www` failed with a certificate error. `[?]` Confirm in Vercel > Settings > Domains that `www` shows Valid and redirects to the apex.
 
 ## Making changes
