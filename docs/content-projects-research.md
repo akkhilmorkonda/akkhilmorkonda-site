@@ -44,6 +44,6 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 - `[?]` PI name? One-sentence research question in plain words?
 
 ## Other open items
-- Resume PDF for download (remove phone number?), GitHub link, portrait photo.
+- Resume PDF for download (remove phone number?), GitHub link, portrait photo (4:5; set `site.portrait` and About switches to a two-column layout with it).
 - Research interests line for the Research section (earlier notes mention BCI and wearable sensing, with the Inan and Flavin labs as fits). `[?]` Mention those or not?
 - Parked quality items: real CAD/STEP for WHOOP testbed, prosthetic arm and robot; exact WHOOP 5.0 sensor layout.

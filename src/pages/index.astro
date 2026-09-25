@@ -10,12 +10,12 @@ import { site, hero, about, education, experience, projects, research } from '..
       <p class="h-sub">{hero.sub}</p>
       <div class="h-ctas"><a class="cta" href="#experience">See my work</a><a class="cta gh" href={`mailto:${site.email}`}>Email me</a></div>
     </div>
-    <div class="h-vis"><canvas id="heroPod" aria-label="Rotating wireframe of a wearable sensor pod"></canvas></div>
+    <figure class="h-vis"><canvas id="heroPod" aria-label="Rotating wireframe of a wearable sensor pod"></canvas><figcaption>Wearable sensor pod. Illustrative wireframe, drag to turn.</figcaption></figure>
   </section>
 
-  <section id="about" class="s-about">
+  <section id="about" class={`s-about${site.portrait ? ' has-p' : ''}`}>
     <p class="statement">{about}</p>
-    <figure class="portrait"><div class="slot" role="img" aria-label="Portrait placeholder"></div><figcaption>Portrait coming soon.</figcaption></figure>
+    {site.portrait && <img class="portrait" src={site.portrait} alt={`Portrait of ${site.name}`} width="560" height="700" loading="lazy" />}
   </section>
 
   <section id="education" class="s-edu">
@@ -35,8 +35,7 @@ import { site, hero, about, education, experience, projects, research } from '..
         <a class="row" href={`/experience/${e.slug}`}>
           <div class="who"><h3>{e.company}</h3><span>{e.role}</span><span class="d">{e.dates}</span></div>
           <p>{e.summary}</p>
-          <div class="st"><b>{e.stat}</b><span>{e.statLabel}</span></div>
-          <span class="go" aria-hidden="true">Read case study</span>
+          <div class="st"><b>{e.stat}</b><span>{e.statLabel}</span><span class="go" aria-hidden="true">Read case study</span></div>
         </a>
       ))}
     </div>
@@ -46,11 +45,12 @@ import { site, hero, about, education, experience, projects, research } from '..
     <h2>Things I've built</h2>
     <div class="bento">
       {projects.map((p, i) => (
-        <article class={`cell c${i}${p.feature ? ' feat' : ''}`}>
+        <article class={`cell${p.feature ? ' feat' : ''}${p.slug ? ' has-page' : ''}`}>
           <span class="tag">{p.tag}</span>
           <h3>{p.link ? <a href={p.link}>{p.name}</a> : p.slug ? <a href={`/projects/${p.slug}`}>{p.name}</a> : p.name}</h3>
           <p>{p.text}</p>
           {p.slug && <a class="more-l" href={`/projects/${p.slug}`}>See the project</a>}
+          {p.link && <a class="more-l" href={p.link}>{new URL(p.link).host}</a>}
         </article>
       ))}
     </div>
@@ -71,8 +71,8 @@ import { site, hero, about, education, experience, projects, research } from '..
   </section>
 
   <section id="contact" class="s-contact">
-    <h2>Get in touch.</h2>
-    <p>Open to 2027 roles in hardware, medtech and research.</p>
+    <h2>Open to 2027 roles.</h2>
+    <p>Hardware, medtech and research.</p>
     <div class="h-ctas"><a class="cta" href={`mailto:${site.email}`}>Email me</a><a class="cta gh" href={site.linkedin}>LinkedIn</a></div>
   </section>
 </div>
@@ -81,15 +81,16 @@ import { site, hero, about, education, experience, projects, research } from '..
 <style>
   section{padding:110px 0 0}
   h2{font-size:clamp(28px,3.4vw,46px);margin-bottom:36px}
-  .h-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;min-height:calc(100dvh - 64px);padding:48px 0}
-  .h-hero h1{font-size:clamp(38px,5vw,70px)}
-  .h-sub{margin-top:22px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:#c9c9c5;max-width:46ch}
+  .h-hero{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center;min-height:calc(100dvh - 64px);padding:48px 0}
+  .h-hero h1{font-size:clamp(34px,4.3vw,58px);line-height:1.04}
+  .h-sub{margin-top:22px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--fg2);max-width:46ch}
   .h-ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
-  .h-vis canvas{display:block;width:100%;height:min(60vh,520px);cursor:grab}
-  .s-about{display:grid;grid-template-columns:1.4fr .7fr;gap:56px;align-items:center;border-top:1px solid var(--ln)}
-  .statement{font:500 clamp(22px,2.3vw,32px)/1.35 var(--fb);letter-spacing:-.01em;max-width:34ch}
-  .portrait .slot{aspect-ratio:4/5;background:radial-gradient(120% 90% at 30% 20%,#123326,var(--sf) 60%);box-shadow:inset 0 0 0 1px var(--ln)}
-  .portrait figcaption{margin-top:10px;font:12px var(--fm);color:var(--mu)}
+  .h-vis canvas{display:block;width:100%;aspect-ratio:5/4;cursor:grab;touch-action:pan-y}
+  .h-vis figcaption{margin-top:10px;font:12px var(--fm);color:var(--mu)}
+  .s-about{border-top:1px solid var(--ln)}
+  .s-about.has-p{display:grid;grid-template-columns:1.4fr .7fr;gap:56px;align-items:center}
+  .statement{font:500 clamp(22px,2.3vw,32px)/1.35 var(--fb);letter-spacing:-.01em;max-width:40ch}
+  .portrait{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
   .tiles{display:grid;grid-template-columns:1fr 1fr 2fr;gap:1px;background:var(--ln);border:1px solid var(--ln)}
   .t{background:var(--bg);padding:26px;min-height:170px;display:flex;flex-direction:column;justify-content:space-between}
   .t span{font-size:13px;color:var(--mu)}
@@ -97,28 +98,28 @@ import { site, hero, about, education, experience, projects, research } from '..
   .t.acc{background:var(--ac)}.t.acc span,.t.acc b{color:var(--on)}
   .t.wide b{font-size:clamp(20px,2vw,28px);line-height:1.15}
   .t em{font-style:normal;color:var(--mu);font-size:15px;margin-top:6px}
-  .ta{margin-top:20px;font-size:15px;line-height:1.55;color:#c9c9c5;max-width:80ch}
+  .ta{margin-top:20px;font-size:15px;line-height:1.55;color:var(--fg2);max-width:80ch}
   .ta b{color:var(--fg);font-weight:600}
   .rows{border-top:1px solid var(--ln)}
   .row{display:grid;grid-template-columns:1fr 1.4fr .8fr;gap:32px;align-items:start;padding:32px 0;border-bottom:1px solid var(--ln);position:relative;transition:background .25s}
-  .row:hover{background:linear-gradient(90deg,transparent,#16ec9a0d)}
+  .row:hover{background:var(--sf)}
   .row h3{font:700 22px/1.1 var(--fd);text-transform:uppercase}
   .who span{display:block;margin-top:6px;font-size:14px;color:var(--mu)}
   .who .d{font:12px var(--fm)}
-  .row p{font-size:16px;line-height:1.55;color:#c9c9c5}
+  .row p{font-size:16px;line-height:1.55;color:var(--fg2)}
   .row .st b{display:block;font:700 34px/1 var(--fd);color:var(--ac)}
   .row .st span{display:block;margin-top:8px;font-size:13px;color:var(--mu)}
-  .row .go{position:absolute;right:0;bottom:12px;font:12px var(--fm);color:var(--mu);transition:color .2s}
+  .row .st .go{margin-top:18px;font:12px var(--fm);color:var(--mu);transition:color .2s}
   .row:hover .go{color:var(--ac)}
   .bento{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:var(--ln);border:1px solid var(--ln)}
   .cell{background:var(--bg);padding:28px;min-height:220px;display:flex;flex-direction:column}
   .cell .tag{font:12px var(--fm);color:var(--mu)}
   .cell h3{font:700 20px/1.15 var(--fd);text-transform:uppercase;margin-top:auto;padding-top:40px}
-  .cell p{margin-top:10px;font-size:15px;line-height:1.5;color:#c9c9c5}
-  .cell.feat{grid-row:1/3;background:linear-gradient(#0e0e0fcc,#0e0e0f),repeating-linear-gradient(0deg,#16ec9a14 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,#16ec9a14 0 1px,transparent 1px 24px)}
+  .cell p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--fg2)}
+  .cell.feat{grid-row:1/3;background:var(--sf)}
   .cell.feat h3{font-size:clamp(24px,2.4vw,34px)}
-  .cell.c1{background:#101a15}
-  .more-l{margin-top:14px;font:12px var(--fm);color:var(--ac)}
+  .cell.has-page{transition:background .25s}.cell.has-page:hover{background:var(--sf)}
+  .more-l{margin-top:14px;font:12px var(--fm);color:var(--ac)}.more-l:hover{text-decoration:underline;text-underline-offset:3px}
   .cell h3 a:hover{color:var(--ac)}
   .labs{display:grid;grid-template-columns:1fr 1fr;gap:56px;border-top:1px solid var(--ln);padding-top:28px}
   .lab h3{font:600 20px/1.3 var(--fb)}
@@ -130,12 +131,12 @@ import { site, hero, about, education, experience, projects, research } from '..
   #emgC{display:block;width:100%;height:240px}
   @media (max-width:560px){#emgC{height:280px}}
   .emg figcaption{padding:10px 16px;border-top:1px solid var(--ln);font:12px var(--fm);color:var(--mu)}
-  .lab p{margin-top:14px;font-size:16px;line-height:1.55;color:#c9c9c5}
+  .lab p{margin-top:14px;font-size:16px;line-height:1.55;color:var(--fg2)}
   .s-contact{padding:140px 0 120px}
   .s-contact h2{font-size:clamp(40px,6vw,88px);margin-bottom:16px}
-  .s-contact p{font-size:18px;color:#c9c9c5}
+  .s-contact p{font-size:18px;color:var(--fg2)}
   @media (max-width:900px){
-    .h-hero,.s-about,.labs{grid-template-columns:1fr}
+    .h-hero,.s-about.has-p,.labs{grid-template-columns:1fr}
     .h-hero{min-height:auto}
     .tiles{grid-template-columns:1fr 1fr}.t.wide{grid-column:1/3}
     .row{grid-template-columns:1fr;gap:12px;padding-bottom:44px}

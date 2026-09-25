@@ -7,8 +7,8 @@ if (cv) {
   cam.position.set(0, 46, 84); cam.lookAt(0, 4, 0);
   const { g } = makePod();
   const wire = new THREE.Group();
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x16ec9a, transparent: true, opacity: .85 });
-  const dimMat = new THREE.LineBasicMaterial({ color: 0x3a3a3e });
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x16ec9a, transparent: true, opacity: .7 });
+  const dimMat = new THREE.LineBasicMaterial({ color: 0x4a4a4e });
   g.traverse(m => {
     if (m.isMesh) {
       const e = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry, 8), m.geometry.type === 'RoundedBoxGeometry' && m.position.y < 6 ? dimMat : lineMat);
@@ -16,7 +16,6 @@ if (cv) {
     }
   });
   S.add(wire);
-  const grid = new THREE.GridHelper(120, 24, 0x2a2a2d, 0x1b1b1d); grid.position.y = -2; S.add(grid);
   let ry = -.6, drag = null, vis = true;
   new IntersectionObserver(e => vis = e[0].isIntersecting).observe(cv);
   cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, ry }; cv.setPointerCapture(e.pointerId); });
@@ -25,6 +24,6 @@ if (cv) {
   (function frame() {
     requestAnimationFrame(frame); if (!vis) return;
     if (!drag && !RM) ry += .0025; wire.rotation.y = ry;
-    fit(R, cam, cv); const k = cam.aspect < 1.1 ? 1.45 : 1; cam.position.set(0, 46 * k, 84 * k); cam.lookAt(0, 4, 0); R.render(S, cam);
+    fit(R, cam, cv); const k = cam.aspect < 1.1 ? 1.2 : .8; cam.position.set(0, 46 * k, 84 * k); cam.lookAt(0, 4, 0); R.render(S, cam);
   })();
 }

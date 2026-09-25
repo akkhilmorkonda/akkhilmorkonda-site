@@ -7,6 +7,7 @@ export const site = {
   linkedin: 'https://linkedin.com/in/akkhil-morkonda',
   github: null, // TODO: add GitHub URL if wanted
   resume: null, // TODO: add /resume.pdf (consider removing phone number first)
+  portrait: null, // TODO: add /portrait.jpg (4:5); About shows it only when set
 };
 
 export const hero = {

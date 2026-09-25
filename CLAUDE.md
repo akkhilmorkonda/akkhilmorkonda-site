@@ -34,6 +34,8 @@ A project card links to `/projects/<slug>` when its entry in `site.js` has a `sl
 - Fonts: Unbounded (display, uppercase headlines), Manrope (body), JetBrains Mono (labels, data, captions). Latin subsets via @fontsource.
 - Square corners everywhere. Thin 1px `--ln` borders, grid layouts, no shadows on UI.
 - Base look chosen from design variation #24 "Paper Draft", inverted to dark.
+- No decorative grids, glows, gradient hovers or skeuomorphic shading. Hover state = `--sf` surface. Secondary text = `--fg2`.
+- Homepage hero pod is a restrained wireframe with an "illustrative" caption, no floor grid. About shows a portrait only when `site.portrait` is set; never ship a placeholder.
 
 ## Copy rules
 - Concise, punchy, action-led, hard numbers first. No filler, no AI-sounding phrasing.

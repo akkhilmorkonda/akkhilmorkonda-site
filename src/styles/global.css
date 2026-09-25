@@ -1,5 +1,5 @@
 
-:root{--bg:#0e0e0f;--fg:#ececea;--mu:#8e8e8a;--ac:#16ec9a;--sf:#18181a;--ln:#2a2a2d;--on:#04150d;
+:root{--bg:#0e0e0f;--fg:#ececea;--mu:#8e8e8a;--ac:#16ec9a;--sf:#18181a;--ln:#2a2a2d;--on:#04150d;--fg2:#c9c9c5;
  --fd:"Unbounded",system-ui,sans-serif;--fb:"Manrope",system-ui,sans-serif;--fm:"JetBrains Mono",ui-monospace,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--bg)}
