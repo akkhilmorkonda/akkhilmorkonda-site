@@ -38,6 +38,7 @@ Projects are listed in order of importance (MediScan, Partial Weight Bearing Ins
 - Base look chosen from design variation #24 "Paper Draft", inverted to dark.
 - No decorative grids, glows, gradient hovers or skeuomorphic shading. Hover state = `--sf` surface. Secondary text = `--fg2`.
 - About shows a portrait only when `site.portrait` is set; never ship a placeholder.
+- Logos: only where they add information the text does not (e.g. a sponsor on a Coming soon card), never next to the same name in text. One colour via CSS mask (`--mu`, `--fg` on hover). Files live in `public/logos/`.
 
 ## Portfolio structure: What, Why, How, Results
 The site exists to show the what, why, how and results of every experience, project and research entry. Every deep dive opens with its hero, then `<Brief what why how results />` (`src/components/Brief.astro`), then the interactives that show the how in depth. Homepage cards lead with what and a result. Every fact must come from Akkhil or his files; if a "why" is not confirmed, keep it modest and log it as `[?]` in `docs/`.

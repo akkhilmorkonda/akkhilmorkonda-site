@@ -60,7 +60,10 @@ import { site, hero, about, education, experience, projects, inProgress, researc
     <div class="soon">
       {inProgress.map(p => (
         <article class="cell">
-          <span class="tag"><i class="dot" aria-hidden="true"></i>{p.tag ? `${p.tag}, in progress` : 'In progress'}</span>
+          <div class="soon-top">
+            <span class="tag"><i class="dot" aria-hidden="true"></i>{p.tag ? `${p.tag}, in progress` : 'In progress'}</span>
+            {p.sponsor && <span class="sponsor"><span class="sp-l">Sponsor</span><span class="sp-logo" role="img" aria-label={`Sponsored by ${p.sponsor.name}`} style={`--src:url(${p.sponsor.logo});aspect-ratio:${p.sponsor.ratio}`}></span></span>}
+          </div>
           <h3>{p.link ? <a href={p.link}>{p.name}</a> : p.name}</h3>
           <p>{p.text}</p>
           {p.link && <span class="more-l" aria-hidden="true">{new URL(p.link).host}</span>}
@@ -142,6 +145,11 @@ import { site, hero, about, education, experience, projects, inProgress, researc
   .soon{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln)}
   .soon .cell{min-height:180px}
   .soon .cell h3{padding-top:28px}
+  .soon-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+  .sponsor{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  .sp-l{font:12px var(--fm);color:var(--mu)}
+  .sp-logo{display:block;height:34px;background:var(--mu);-webkit-mask:var(--src) no-repeat right center/contain;mask:var(--src) no-repeat right center/contain;transition:background .25s}
+  .soon .cell:hover .sp-logo{background:var(--fg)}
   .soon .dot{display:inline-block;width:6px;height:6px;margin-right:8px;background:var(--ac);vertical-align:1px}
   .labs{display:grid;grid-template-columns:1fr 1fr;gap:56px;border-top:1px solid var(--ln);padding-top:28px}
   .lab{position:relative}
