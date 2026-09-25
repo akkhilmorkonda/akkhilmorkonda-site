@@ -55,6 +55,7 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 
 ### Non-invasive BP monitoring for LVAD patients (in progress)
 - Homepage "Coming soon" section, no deep dive yet. Card (Sept 25, 2026): title names the system being developed ("Non-invasive BP monitor for LVAD patients"), text gives the why ("Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot get a reading."). Title and text must not repeat each other. The why is general clinical background, not a project claim. Associated with Emory Hospital (Akkhil, Sept 25, 2026); tag reads "With Emory Hospital". `[?]` Formally sponsored or a collaboration (wording)? Lab or team, role, approach.
+- Sponsored by Emory Hospital (confirmed by Akkhil, Sept 25, 2026). Card tag reads "Sponsored by Emory Hospital, in progress". `[?]` Lab or team, role, approach.
 
 ## Research
 
