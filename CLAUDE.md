@@ -1,0 +1,67 @@
+# CLAUDE.md: akkhilmorkonda.com
+
+Personal engineering portfolio for Akkhil Morkonda (Georgia Tech BME, CS minor, 4.0, May 2027). Astro 5 static site, three.js 0.149 for 3D, Canvas 2D for charts. Deployed on Vercel from `main`; every push to `main` goes live in about a minute.
+
+This file and `docs/` are the shared memory between Claude Code and Claude (Cowork). Read them first. When a decision is made or a fact is confirmed, update the right file in `docs/` in the same commit.
+
+## Commands
+```bash
+npm install
+npm run dev      # http://localhost:4321, hot reload
+npm run build    # must pass before every commit
+```
+
+## Where things live
+| What | File |
+|---|---|
+| All homepage copy and links (single source of truth) | `src/data/site.js` |
+| Homepage | `src/pages/index.astro` (scoped styles at the bottom) |
+| Experience case studies | `src/pages/experience/{whoop,avanos,gt-medical-robotics}.astro` |
+| Project pages | `src/pages/projects/{pwb-insole,amp-head}.astro` |
+| Nav, footer, fonts, meta | `src/layouts/Base.astro` (props: title, description, crumb, section) |
+| Design tokens | `src/styles/global.css` `:root` |
+| Case-study styles | `src/styles/case.css` |
+| Interactives | `src/scripts/*.js` |
+| Shared three.js setup | `src/scripts/three-lib.js` (re-exports addons), `whoop-common.js` (renderer, bloom pipe, `RM` reduced-motion flag, pod model) |
+
+A project card links to `/projects/<slug>` when its entry in `site.js` has a `slug`. New case study = new `.astro` page using `Base` + `case.css`, then add the slug.
+
+`tools/make-preview.py` only builds a relative-path copy for claude.ai previews. Not part of the deploy.
+
+## Design system (do not drift)
+- Dark: `--bg #0e0e0f`, `--fg #ececea`, `--mu #8e8e8a`, `--sf #18181a`, `--ln #2a2a2d`, text on accent `--on #04150d`.
+- ONE accent: green `#16ec9a` (`--ac`). Only other color allowed is red `#ff5a5a` for fail/flag states.
+- Fonts: Unbounded (display, uppercase headlines), Manrope (body), JetBrains Mono (labels, data, captions). Latin subsets via @fontsource.
+- Square corners everywhere. Thin 1px `--ln` borders, grid layouts, no shadows on UI.
+- Base look chosen from design variation #24 "Paper Draft", inverted to dark.
+
+## Copy rules
+- Concise, punchy, action-led, hard numbers first. No filler, no AI-sounding phrasing.
+- No em-dashes or en-dashes anywhere (`grep -rn "—\|–" src` must be empty). Use "to" for ranges ("May to Aug 2025").
+- Headlines 8 words or fewer. Only real numbers from Akkhil; never invent metrics.
+- Every simulated visual carries a short mono caption saying it is illustrative.
+
+## Interactives
+- Canvas charts: DPR-aware sizing (cap at 2), redraw on resize, pause via IntersectionObserver when off screen.
+- Respect `prefers-reduced-motion` (`RM`).
+- Controls must work by keyboard (sliders, knobs with arrow keys, buttons with Enter/Space).
+- Mobile: check at 390px wide. No horizontal overflow; sticky scroll sections show only the active step.
+
+## Confirmed facts (Akkhil corrected these; keep them right)
+- WHOOP optical testbed: **Thorlabs 3-axis** translation stage (NOT 5-axis), Thorlabs **K-Cube** controllers, Feasa LED + IR analysers via fiber probe, blackout enclosure, optical breadboard.
+- DUT is a **WHOOP 5.0**, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it. Testbed steps end on the DUT, then zoom in with LEDs on, leading into "What it measures".
+- **Never publish the real rig photo.** No standalone WHOOP hero render.
+- Battery diagnostics section was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
+- Contact: amorkonda28@gmail.com, linkedin.com/in/akkhil-morkonda.
+
+## Before every commit
+1. `npm run build` passes.
+2. Check changed pages at desktop and 390px width, no console errors.
+3. Dash grep is empty.
+4. Update `docs/` if a fact, decision or open item changed.
+Commit messages: short, imperative ("Add Metrix case study").
+
+## More context
+- `docs/content-experience.md`: WHOOP, Avanos, GT Medical Robotics content, open questions.
+- `docs/content-projects-research.md`: projects, research, open questions, parked quality work.
+- `DEPLOY.md`: Vercel and domain setup.

@@ -1,38 +1,19 @@
-# Deploying to akkhilmorkonda.com
+# Deploying akkhilmorkonda.com
 
-About 15 minutes. You need a GitHub account and a Vercel account (free Hobby plan is enough).
+Repo: github.com/akkhilmorkonda/akkhilmorkonda-site (branch `main`). Host: Vercel (Hobby plan).
 
-As of Sept 25, 2026 the domain did not appear to be registered (an RDAP lookup for akkhilmorkonda.com returned "not found"), so it should be available to buy.
+## First deploy
+1. vercel.com > **Add New > Project**. Connect GitHub and grant access to `akkhilmorkonda-site`.
+2. **Import** the repo. Vercel detects Astro (build `npm run build`, output `dist`). Leave defaults. **Deploy**.
+3. Check the `*.vercel.app` URL on desktop and phone.
 
-## 1. Put the code on GitHub
-1. Go to github.com/new, name the repo `akkhilmorkonda.com` (private is fine), create it empty.
-2. Unzip `akkhilmorkonda-site.zip` and, from that folder, run:
-   ```bash
-   git init && git add . && git commit -m "Initial site"
-   git branch -M main
-   git remote add origin https://github.com/<your-username>/akkhilmorkonda.com.git
-   git push -u origin main
-   ```
+## Domain
+1. Project > **Settings > Domains > Add** `akkhilmorkonda.com` (as of Sept 25, 2026 it looked unregistered, so buying it inside Vercel is simplest; DNS is then automatic).
+2. If bought elsewhere, add the records Vercel shows: `A @ 76.76.21.21` (or the value on the domain card) and `CNAME www` to the project-specific target.
+3. Add `www.akkhilmorkonda.com` and redirect it to the apex. HTTPS is automatic.
 
-## 2. Deploy on Vercel
-1. Sign in at vercel.com with GitHub.
-2. **Add New > Project**, import the repo. Vercel detects Astro (build `npm run build`, output `dist`). Click **Deploy**.
-3. You get a `*.vercel.app` URL within a minute or two. Check it on your phone.
-
-## 3. Connect the domain
-Easiest: buy the domain inside Vercel (**Domains > Buy**). DNS is then set up for you automatically.
-
-If you buy it elsewhere (Cloudflare Registrar, Namecheap, etc.):
-1. In Vercel: **Project > Settings > Domains > Add Domain**, enter `akkhilmorkonda.com`, accept the prompt to also add `www.akkhilmorkonda.com`.
-2. At your registrar's DNS settings, add the records Vercel shows on the domain card. Typically:
-   | Type | Name | Value |
-   |---|---|---|
-   | A | `@` | `76.76.21.21` (or the value shown on your domain card) |
-   | CNAME | `www` | the project-specific target Vercel shows |
-3. Wait for Vercel to show "Valid Configuration". HTTPS certificates are issued automatically.
-4. Pick `akkhilmorkonda.com` as primary and redirect `www` to it (Vercel offers this on the Domains page).
-
-Source: https://vercel.com/docs/domains/working-with-domains/add-a-domain
-
-## 4. Updating the site
-Edit files, commit and push to `main`. Vercel rebuilds and deploys automatically. Every pull request gets its own preview URL.
+## Making changes
+- Commit to `main` and push: Vercel redeploys in about a minute.
+- Bigger changes: work on a branch and open a PR. Vercel builds a preview URL per branch; merge to go live.
+- Roll back: Vercel > Deployments > last good deploy > ... > **Promote to Production**.
+- Claude (Cowork) can commit in the local folder but cannot push; push from GitHub Desktop. Claude Code on the PC can push directly.

@@ -15,11 +15,11 @@ npm run preview    # serve dist/ locally
 |---|---|
 | All homepage copy (about, education, experience cards, projects, research, links) | `src/data/site.js` |
 | Homepage layout and styles | `src/pages/index.astro` |
-| Case studies | `src/pages/experience/whoop.astro`, `avanos.astro`, `gt-medical-robotics.astro` |
+| Case studies | `src/pages/experience/*.astro`, `src/pages/projects/*.astro` |
 | Shared nav, footer, fonts, meta tags | `src/layouts/Base.astro` |
 | Design tokens (colors, type) | `src/styles/global.css` (`:root`) |
 | Case-study styles | `src/styles/case.css` |
-| Interactives | `src/scripts/*.js` (testbed, volume, battery, fleet, robot, prosthesis, hero-pod) |
+| Interactives | `src/scripts/*.js` (testbed, volume, battery, fleet, robot, prosthesis, hero-pod, insole, amp, emg) |
 
 Design: dark, green accent `#16ec9a`, Unbounded (display), Manrope (body), JetBrains Mono (data). Copy follows the taste-skill rules: no em-dashes, one accent, square corners, short hero.
 
@@ -29,4 +29,4 @@ Design: dark, green accent `#16ec9a`, Unbounded (display), Manrope (body), JetBr
 - Replace illustrative models with real assets when available: Thorlabs STEP files, fixture CAD, prosthetic arm CAD and FEA, exported LED scan data.
 - Portrait for the About section.
 
-See `DEPLOY.md` to put the site live on akkhilmorkonda.com.
+See `DEPLOY.md` for hosting and `CLAUDE.md` + `docs/` for project context (read these first if you are an AI assistant).
