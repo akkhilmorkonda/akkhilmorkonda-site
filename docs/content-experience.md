@@ -12,7 +12,7 @@ Order on the site: WHOOP, Avanos, GT Medical Robotics, then TA as a small line (
 
 ## 1. WHOOP
 
-**Role:** Manufacturing Test Engineering Intern, Jan 2026 to present
+**Role:** Manufacturing Test Engineering Intern, Jan 2026 to Jun 2026
 **Headline:** Scaling test for a wearable fleet.
 **One-liner:** Rebuilt WHOOP's HIL test system across 12 fixtures and built the optical testbed that characterizes its LEDs.
 **Stats:** 30% faster test time · 95% pytest coverage · $1.8M saved by battery diagnostics · 40% fewer false failures
@@ -104,4 +104,3 @@ Order on the site: WHOOP, Avanos, GT Medical Robotics, then TA as a small line (
 - Replace primitive geometry with real models: Thorlabs stage / actuator / K-Cube STEP files (need part numbers), fixture CAD if allowed. Convert STEP to GLB.
 - Exact WHOOP 5.0 sensor-face layout.
 - Possible upgrades: SSAO, HDRI lighting, higher shadow resolution, real scan data in the brightness volume.
-- WHOOP testbed is slightly cropped on the left at phone width.

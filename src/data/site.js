@@ -32,7 +32,7 @@ export const education = {
 
 export const experience = [
   {
-    slug: 'whoop', company: 'WHOOP', role: 'Manufacturing Test Engineering Intern', dates: 'Jan 2026 to present',
+    slug: 'whoop', company: 'WHOOP', role: 'Manufacturing Test Engineering Intern', dates: 'Jan 2026 to Jun 2026',
     stat: '$1.8M', statLabel: 'saved by battery diagnostics',
     summary: 'Rebuilt HIL test across 12 fixtures and built the optical testbed that characterizes the sensor LEDs.',
     ready: true,

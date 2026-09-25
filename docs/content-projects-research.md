@@ -46,4 +46,4 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 ## Other open items
 - Resume PDF for download (remove phone number?), GitHub link, portrait photo.
 - Research interests line for the Research section (earlier notes mention BCI and wearable sensing, with the Inan and Flavin labs as fits). `[?]` Mention those or not?
-- Parked quality items: real CAD/STEP for WHOOP testbed, prosthetic arm and robot; exact WHOOP 5.0 sensor layout; WHOOP testbed is slightly cropped at the left on phones.
+- Parked quality items: real CAD/STEP for WHOOP testbed, prosthetic arm and robot; exact WHOOP 5.0 sensor layout.

@@ -65,6 +65,8 @@ import { RM, AC, mkRenderer, fit, mkPipe, makePod } from './whoop-common.js';
  const DUTP=new THREE.Vector3(-60,33,70);let sp=0;
  function frame(t){requestAnimationFrame(frame);if(!vis)return;
   const r=sec.getBoundingClientRect(),tot=r.height-innerHeight;const p=clamp(-r.top/tot);sp+=(p-sp)*(RM?1:.12);prog.style.width=(sp*100)+'%';
+  pose(sp,t);P.render()}
+ function pose(sp,t){
   const step=Math.min(5,Math.floor(sp*6)),ex=ease(clamp(sp/.6)),zm=sm(clamp((sp-.8)/.17));
   steps.forEach((s,i)=>s.classList.toggle('on',i==step));
   const AW={fx:[0,260,-200],stZ:[0,140,-120],zAct:[0,200,-120],stY:[0,0,-80],stX:[0,0,-80],ana:[60,0,40]};
@@ -75,7 +77,9 @@ import { RM, AC, mkRenderer, fit, mkPipe, makePod } from './whoop-common.js';
   const a=(RM?0:t/10000)+.75+sp*1.1,rad=lerp(760+ex*140,150,zm);
   const orbit=new THREE.Vector3(Math.sin(a)*rad,340+ex*170,Math.cos(a)*rad),tgt=new THREE.Vector3(0,110+ex*110,0);
   const closeP=new THREE.Vector3(DUTP.x+70,DUTP.y+105,DUTP.z+120),closeT=new THREE.Vector3(DUTP.x,DUTP.y+14,DUTP.z);
-  cam.position.lerpVectors(orbit,closeP,zm);tgt.lerp(closeT,zm);cam.lookAt(tgt);
-  P.render()}requestAnimationFrame(frame);
+  cam.position.lerpVectors(orbit,closeP,zm);tgt.lerp(closeT,zm);
+  // narrow (phone) canvases: pull back so the whole rig stays in frame at every orbit angle
+  const k=innerWidth>900?1:Math.min(1.8,Math.max(1,1.35/cam.aspect));cam.position.sub(tgt).multiplyScalar(k).add(tgt);cam.lookAt(tgt)}
+ requestAnimationFrame(frame);
 })();
 
