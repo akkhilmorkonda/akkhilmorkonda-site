@@ -133,3 +133,20 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 #emgC{display:block;width:100%;height:280px}
 @media (max-width:560px){#emgC{height:300px}}
 .emg figcaption{padding:10px 16px;border-top:1px solid var(--ln);font:12px var(--fm);color:var(--mu)}
+/* MediScan sensing stack */
+.explode .loading{position:absolute;left:16px;top:14px;margin:0}
+.ms-cap{margin-top:12px}
+.ms-plots{display:grid;grid-template-rows:1fr 1fr;height:min(76vh,680px)}
+.ms-x{position:relative;border-bottom:1px solid var(--ln);background:radial-gradient(ellipse at 50% 70%,#101a15,var(--bg) 70%)}
+.ms-c{position:relative}
+.ms-x canvas,.ms-c canvas{width:100%;height:100%;display:block}
+.ms-seg4{grid-template-columns:repeat(4,1fr)}
+.ms-ch{display:grid;gap:1px;background:var(--ln);border:1px solid var(--ln)}
+.ms-ch button{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:44px;padding:0 12px;background:var(--bg);border:0;color:var(--mu);font:600 13px var(--fb);cursor:pointer;text-align:left}
+.ms-ch button.on{color:var(--fg);box-shadow:inset 2px 0 0 var(--ac)}
+.ms-ch em{font:500 12px var(--fm);font-style:normal;color:var(--mu);font-variant-numeric:tabular-nums}
+.ms-ch em.pos{color:var(--ac)}
+.ms-v{padding:12px 14px;border:1px solid var(--ln);font:700 14px var(--fd);text-transform:uppercase;letter-spacing:.03em;color:var(--fg)}
+.ms-v.hit{border-color:var(--ac);color:var(--ac)}
+.ms-v.flag{border-color:#ff5a5a;color:#ff5a5a}
+@media (max-width:900px){.ms-plots{height:auto;grid-template-rows:none}.ms-x{height:260px}.ms-c{height:260px}}

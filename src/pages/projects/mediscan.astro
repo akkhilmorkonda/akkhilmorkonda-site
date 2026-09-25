@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/case.css';
+---
+<Base title="MediScan" crumb="MediScan" section="Projects" description="MediScan, I2CE Lab VIP: a portable point-of-care diagnostic platform for low-resource clinics. Led the electromechanical design across the NAAT, fluorescence and power modules.">
+<div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
+<div class="wrap"><section class="hero">
+  <div><h1><span class="nw">Point-of-care</span> diagnostics for <span class="nw">low-resource</span> clinics.</h1><div class="role">Team Lead, Cluster 4, I2CE Lab VIP, Jan to May 2026</div>
+    <p class="lead">MediScan screens a urine sample for multiple diseases without a central lab. I led the electromechanical design across its NAAT, fluorescence and power modules.</p>
+    <div class="stats"><div><b>$3.08</b><span>per NAAT test</span></div><div><b>65°C</b><span>closed-loop heating</span></div><div><b>4</b><span>optical channels on the sensing board</span></div><div><b>9.1%</b><span>battery per 20-minute reading</span></div></div></div>
+</section></div>
+
+<section class="explode" id="msExplode"><div class="stick"><canvas id="msRig" role="img" aria-label="Exploded 3D model of the MediScan NAAT module: control and power board, sensing board, microfluidic chip and heating plate"></canvas>
+  <div class="steps"><h2>Inside the NAAT module</h2>
+    <div class="st"><b>The stack</b><p>A control board, a sensing board, the microfluidic chip and a heating plate. NAAT amplifies genetic material at a constant 65°C, so it needs no PCR hardware.</p></div>
+    <div class="st"><b>Control and power</b><p>An ESP32 runs the heater loop and the optics. USB-C and a solar cell charge a 5000 mAh LiPo; a 2.4" display and buttons run the test.</p></div>
+    <div class="st"><b>Heater drive</b><p>A boost converter lifts the 3.3V rail to 5V for the heater, switched low-side by a MOSFET under PWM. A soldered thermal fuse cuts power on runaway.</p></div>
+    <div class="st"><b>Four optical channels</b><p>Underneath, each channel pairs a blue LED with a Vishay TEMD6200 photodiode, both facing the chip. Detection works in reflection.</p></div>
+    <div class="st"><b>Microfluidic chip</b><p>The sample sits in a clear PMMA chip, backed by a black PMMA layer, directly under the optical channels.</p></div>
+    <div class="st"><b>Heating plate</b><p>In direct contact with the chip through thermal grease. A thermistor at the heater feeds a PI loop on the ESP32, with D added only if needed.</p></div>
+  </div><div class="prog" id="prog"></div><p class="loading note" aria-live="polite">Loading CAD model</p></div></section>
+<div class="wrap"><p class="note ms-cap">Board models from the team's Altium CAD. Chip, heating plate and the stacked layout are simplified.</p></div>
+
+<div class="wrap"><section class="vol" id="msSense">
+  <div class="head"><h2>The sensing stack</h2><p>Blue light excites the amplified sample in each well; it fluoresces green, and the photodiode beside the LED reads it. A channel is positive when its signal crosses the threshold. The RNase P control must amplify too, or the run is invalid.</p></div>
+  <div class="viewer ms-viewer">
+    <div class="ms-plots">
+      <div class="ms-x"><canvas id="msX" role="img" aria-label="Cross-section of one channel: blue LED and photodiode above a well in the chip, heating plate below"></canvas></div>
+      <div class="ms-c"><canvas id="msC" role="img" aria-label="Photodiode signal over a 20 minute run for the Zika, dengue, malaria and RNase P control channels, with a detection threshold"></canvas><div class="tip" id="msTip"></div></div>
+    </div>
+    <div class="ctl">
+      <div><label>Sample contains</label><div class="seg ms-seg4" id="msTarget"><button class="on" data-v="none">None</button><button data-v="zika">Zika</button><button data-v="dengue">Dengue</button><button data-v="malaria">Malaria</button></div></div>
+      <div><label>Heater</label><div class="seg" id="msHeat"><button class="on" data-v="on">65°C</button><button data-v="off">Off</button></div></div>
+      <div><label>Channels</label><div class="ms-ch">
+        <button type="button"><span>Zika</span><em></em></button><button type="button"><span>Dengue</span><em></em></button><button type="button"><span>Malaria</span><em></em></button><button type="button"><span>RNase P control</span><em></em></button>
+      </div></div>
+      <div><label for="msT">Time <span class="val" id="msTv">0.0 min</span></label><input type="range" id="msT" min="0" max="200" value="0"></div>
+      <div class="ms-v" id="msV" role="status" aria-live="polite">Reading</div>
+      <button class="btn2" id="msRun">Run the test again</button>
+      <p class="note">Illustrative model. Curve shapes, times and which channel reads which target are not measured data.</p>
+    </div>
+  </div>
+</section>
+
+<section class="beats">
+  <div><h3>Power for the field</h3><p>Worst-case draw is 4.45 W with the heater running. A 20-minute reading uses 1.69 Wh, 9.1% of the 5000 mAh battery, so about ten readings per charge. The solar cell refills it in roughly 37 hours.</p></div>
+  <div><h3>Built to be cheap</h3><p>$57.22 per NAAT device and $3.08 per test, prototyped with free campus fabrication and free or discounted reagent samples.</p></div>
+  <div><h3>Three modules, one platform</h3><p>NAAT for Zika, dengue and malaria. A fluorescence module with two AS7341 spectral sensors for HE4, LYVE-1, PSA, KIM-1 and NGAL. A separate power board shared by both.</p></div>
+  <div><h3>Toward the clinic</h3><p>Mapped the regulatory path: a Class II in vitro diagnostic on the 510(k) pathway, under 21 CFR 820 design controls, ISO 13485 and ISO 14971.</p></div>
+</section></div>
+</Base>
+<script>
+  import '../../scripts/mediscan-explode.js';
+  import '../../scripts/mediscan-sense.js';
+</script>

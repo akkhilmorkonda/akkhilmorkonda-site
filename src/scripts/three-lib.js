@@ -6,4 +6,5 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
-export const THREE = Object.assign({}, T, { RoomEnvironment, EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, GammaCorrectionShader, RoundedBoxGeometry });
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+export const THREE = Object.assign({}, T, { RoomEnvironment, EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, GammaCorrectionShader, RoundedBoxGeometry, GLTFLoader });

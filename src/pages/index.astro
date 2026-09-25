@@ -45,7 +45,7 @@ import { site, hero, about, education, experience, projects, research } from '..
     <h2>Things I've built</h2>
     <div class="bento">
       {projects.map((p, i) => (
-        <article class={`cell${p.feature ? ' feat' : ''}${p.slug ? ' has-page' : ''}`}>
+        <article class={`cell${p.feature ? ' feat' : ''}${p.wide ? ' wide' : ''}${p.slug ? ' has-page' : ''}`}>
           <span class="tag">{p.tag}</span>
           <h3>{p.link ? <a href={p.link}>{p.name}</a> : p.slug ? <a href={`/projects/${p.slug}`}>{p.name}</a> : p.name}</h3>
           <p>{p.text}</p>
@@ -106,13 +106,16 @@ import { site, hero, about, education, experience, projects, research } from '..
   .row .st span{display:block;margin-top:8px;font-size:13px;color:var(--mu)}
   .row .st .go{margin-top:18px;font:12px var(--fm);color:var(--mu);transition:color .2s}
   .row:hover .go{color:var(--ac)}
-  .bento{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:var(--ln);border:1px solid var(--ln)}
+  .bento{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-auto-flow:dense;gap:1px;background:var(--ln);border:1px solid var(--ln)}
   .cell{position:relative;background:var(--bg);padding:28px;min-height:220px;display:flex;flex-direction:column}
   .cell .tag{font:12px var(--fm);color:var(--mu)}
   .cell h3{font:700 20px/1.15 var(--fd);text-transform:uppercase;margin-top:auto;padding-top:40px}
   .cell p{margin-top:10px;font-size:15px;line-height:1.5;color:var(--fg2)}
   .cell.feat{grid-row:1/3;background:var(--sf)}
   .cell.feat h3{font-size:clamp(24px,2.4vw,34px)}
+  .cell.wide{grid-column:1/-1;min-height:0}
+  .cell.wide h3{font-size:clamp(22px,2.2vw,30px);padding-top:28px}
+  .cell.wide p{max-width:70ch}
   /* the title link covers the whole cell, so the full cell is the click target */
   .cell h3 a::after{content:"";position:absolute;inset:0}
   .cell:has(h3 a){transition:background .25s}.cell:has(h3 a):hover{background:var(--sf)}
@@ -136,7 +139,7 @@ import { site, hero, about, education, experience, projects, research } from '..
     .h-hero{min-height:auto}
     .tiles{grid-template-columns:1fr 1fr}.t.wide{grid-column:1/3}
     .row{grid-template-columns:1fr;gap:12px;padding-bottom:44px}
-    .bento{grid-template-columns:1fr}.cell.feat{grid-row:auto}
+    .bento{grid-template-columns:1fr}.cell.feat{grid-row:auto}.cell.wide{grid-column:auto}
     .cell p,.ta{font-size:16px}
   }
 </style>

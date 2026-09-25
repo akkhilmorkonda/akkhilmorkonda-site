@@ -54,6 +54,7 @@ export const experience = [
 
 export const projects = [
   { name: 'FIXT', tag: 'Startup, co-founder', text: 'Agents that understand hardware well enough to run, monitor and control the test line end to end.', link: 'https://fixt.run', feature: true },
+  { name: 'MediScan', slug: 'mediscan', tag: 'I2CE Lab VIP, team lead, 2026', text: 'Portable point-of-care diagnostics for low-resource clinics. Led the electromechanical design: 65°C closed-loop heating, four-channel optical detection and a solar-charged power board.', wide: true },
   { name: 'PWB Smart Insole', slug: 'pwb-insole', tag: 'Jan to Jul 2025', text: 'Force sensors, embedded C++ and ESP32 telemetry for real-time plantar load monitoring in partial-weight-bearing rehab. ±3% accuracy.' },
   { name: 'Metrix', tag: 'Mar 2025 to present', text: 'watchOS app in SwiftUI and HealthKit that estimates hydration from heart rate, HRV and motion.' },
   { name: 'Guitar amp head', slug: 'amp-head', tag: 'Personal build', text: 'TDA2040 power stage, TL072 preamp and a Fender-style tone stack, designed in KiCad and checked in SPICE, housed in a custom clear enclosure.' },
