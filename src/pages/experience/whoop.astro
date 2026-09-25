@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="WHOOP" crumb="WHOOP" description="Scaling hardware-in-the-loop test at WHOOP: an optical testbed for LED characterization and battery diagnostics that saved $1.8M.">
@@ -10,7 +11,9 @@ import '../../styles/case.css';
     <p class="lead">Rebuilt the hardware-in-the-loop test system across 12 fixtures and built the optical testbed that characterizes the sensor's LEDs.</p>
     <div class="stats"><div><b>30%</b><span>faster test time</span></div><div><b>95%</b><span>pytest coverage</span></div><div><b>$1.8M</b><span>saved by battery diagnostics</span></div><div><b>40%</b><span>fewer false failures</span></div></div></div>
   
-</section></div>
+</section>
+<Brief what={"Rebuilt WHOOP's hardware-in-the-loop test system across 12 fixtures and built the optical testbed that characterizes the sensor's LEDs."} why={"Legacy ATE ran every step in series and did not scale as the fixture fleet grew."} how={["Distributed, DAG-scheduled HIL test in Python with pytest", "Thorlabs 3-axis stage, fiber probe and Feasa analysers mapping each LED in 3D", "Firmware streams battery current over BLE; FFT features feed an inline logistic regression"]} results={["30% faster test time", "95% pytest coverage", "$1.8M saved; 99% accuracy flagging bad capacitors", "40% fewer false failures"]} />
+</div>
 
 <section class="explode" id="explode"><div class="stick"><canvas id="rig" role="img" aria-label="Exploded 3D model of the optical testbed; each step below highlights one part"></canvas>
   <div class="steps"><h2>Inside the testbed</h2>

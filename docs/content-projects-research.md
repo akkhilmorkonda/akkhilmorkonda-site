@@ -38,6 +38,7 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 - `[?]` How is hydration estimated (model, ground truth)? Any validation numbers? Screenshots of the watch app?
 
 ### Guitar amp head (personal build)
+- `[?]` Why did you build it? The Brief currently says "A personal build: take an amplifier from circuit design to working hardware."
 - TDA2040/TDA2030 power stage, TL072 preamp, Fender-style tone stack; KiCad schematic, SPICE validation; now assembled from amp and pedal modules in a custom clear, industrial-style enclosure.
 - Page built (see above). Tone curve uses Yeh & Smith closed form with '59 Bassman values; noon gives about -12 dB at 1 kHz, "Scooped" about -18 dB.
 - `[?]` Is the enclosure finished? Photos? Should the site describe the pivot to modules or only the design work? (Page currently says "now being built into a custom clear enclosure" and does not mention modules.)
@@ -49,6 +50,7 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 ## Research
 
 ### Physiology of Wearable Robotics Lab (May 2025 to present)
+- `[?]` Why: Brief says "Human-subject studies need consistent EMG recordings and a reliable path from raw signal to control." Replace with the real study goal once known.
 - Designed EMG acquisition protocols for 50+ human-subject studies; MATLAB pipelines for time-series analysis and real-time control.
 - Page: `/research/wearable-robotics` with the EMG strip (rectify, low-pass, threshold with hysteresis).
 - `[?]` PI name to credit? Which device or study (exoskeleton, prosthesis control)? Any publication, poster or abstract?

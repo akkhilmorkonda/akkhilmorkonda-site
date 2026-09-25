@@ -15,7 +15,7 @@ if (root.classList.contains('fx')) {
   });
 
   // 2. Blocks: fade and lift in, staggered within their group.
-  const groups = ['.rows > .row', '.bento > .cell', '.tiles > .t', '.labs > .lab', '.stats > div', '.beats > div', '.more > div', '.chain > div', '.ta', '.emg', '.viewer', '.bbox', '.fbox', '.vol .head p', '.bhead p', '.s-contact p', '.s-contact .h-ctas'];
+  const groups = ['.brief > div', '.rows > .row', '.bento > .cell', '.tiles > .t', '.labs > .lab', '.stats > div', '.beats > div', '.more > div', '.chain > div', '.ta', '.emg', '.viewer', '.bbox', '.fbox', '.vol .head p', '.bhead p', '.s-contact p', '.s-contact .h-ctas'];
   const blocks = [];
   groups.forEach(sel => {
     const els = [...document.querySelectorAll(sel)].filter(below);

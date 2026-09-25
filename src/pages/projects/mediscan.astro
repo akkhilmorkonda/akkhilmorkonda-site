@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="MediScan" crumb="MediScan" section="Projects" description="MediScan, I2CE Lab VIP: a portable point-of-care diagnostic platform for low-resource clinics. Led the electromechanical design across the NAAT, fluorescence and power modules.">
@@ -8,7 +9,9 @@ import '../../styles/case.css';
   <div><h1><span class="nw">Point-of-care</span> diagnostics for <span class="nw">low-resource</span> clinics.</h1><div class="role">Team Lead, Cluster 4, I2CE Lab VIP, Jan to May 2026</div>
     <p class="lead">MediScan screens a urine sample for multiple diseases without a central lab. I led the electromechanical design across its NAAT, fluorescence and power modules.</p>
     <div class="stats"><div><b>$3.08</b><span>per NAAT test</span></div><div><b>65°C</b><span>closed-loop heating</span></div><div><b>4</b><span>optical channels on the sensing board</span></div><div><b>9.1%</b><span>battery per 20-minute reading</span></div></div></div>
-</section></div>
+</section>
+<Brief what={"MediScan: a portable, non-invasive platform that screens a urine sample for multiple diseases at the point of care."} why={"Nearly 47% of the world lacks access to essential diagnostics (WHO, 2021), so diseases are caught late."} how={["NAAT held at 65°C by an ESP32 PI loop: boost converter, MOSFET PWM, thermistor, thermal fuse", "Four blue-LED and photodiode channels reading fluorescence in reflection", "Solar and USB-C charged power board shared by the NAAT and fluorescence modules"]} results={["$3.08 per test, $57.22 per NAAT device", "9.1% of the battery per 20-minute reading", "Boards finalized and sent for fabrication"]} />
+</div>
 
 <section class="explode" id="msExplode"><div class="stick"><canvas id="msRig" role="img" aria-label="Exploded 3D model of the MediScan NAAT module: control and power board, sensing board, microfluidic chip and heating plate"></canvas>
   <div class="steps"><h2>Inside the NAAT module</h2>

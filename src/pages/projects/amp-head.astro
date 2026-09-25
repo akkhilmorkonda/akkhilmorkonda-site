@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="Guitar Amp Head" crumb="Guitar amp head" section="Projects" description="A guitar amp head: TL072 preamp, Fender-style tone stack and TDA2040 power stage, designed in KiCad and checked in SPICE.">
@@ -11,6 +12,8 @@ import '../../styles/case.css';
       <div><b>Input</b><span>1/4" jack</span></div><div><b>Preamp</b><span>TL072 op-amp</span></div><div class="on"><b>Tone stack</b><span>Bass, mid, treble</span></div><div><b>Power amp</b><span>TDA2040</span></div><div><b>Speaker</b><span>cab out</span></div>
     </div></div>
 </section>
+<Brief what={"A guitar amplifier head designed from the schematic up."} why={"A personal build: take an amplifier from circuit design to working hardware."} how={["TL072 preamp for gain and buffering", "Fender-style passive tone stack", "TDA2040 power stage, laid out in KiCad"]} results={["Gain and frequency response checked in SPICE before hardware", "Now being built into a custom clear enclosure"]} />
+
 
 <section class="vol">
   <div class="head"><h2>Shape the tone</h2><p>The classic Fender tone stack is passive: its three knobs only ever cut, and they interact. This is its real frequency response, computed from the circuit values.</p></div>

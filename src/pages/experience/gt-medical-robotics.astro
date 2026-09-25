@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="GT Medical Robotics" crumb="GT Medical Robotics" description="Mechanical Engineering Team Lead on a trans-radial prosthetic arm: electromechanical integration and a multi-DOF wrist redesign with a 35% higher factor of safety.">
@@ -9,6 +10,8 @@ import '../../styles/case.css';
     <p class="lead">Owned electromechanical integration of a trans-radial prosthetic arm across a 17-member team, then redesigned its multi-DOF wrist.</p>
     <div class="stats"><div><b>+35%</b><span>wrist factor of safety</span></div><div><b>17</b><span>engineers on the team</span></div><div><b>Multi-DOF</b><span>wrist, CAD and dynamic FEA</span></div><div><b>Lighter</b><span>wrist mass, same targets met</span></div></div></div>
 </section>
+<Brief what={"Led electromechanical integration of a trans-radial prosthetic arm and redesigned its multi-DOF wrist."} why={"The wrist had to hit torque and range-of-motion targets without adding weight."} how={["Owned how actuation, sensing and structure fit together across a 17-member team", "Iterated the wrist in CAD and FEA under dynamic loading"]} results={["+35% wrist factor of safety", "Lower wrist mass, same targets met"]} />
+
 
 <section class="vol">
   <div class="head"><h2>Inside the arm</h2><p>Actuation, sensing and structure had to fit inside a forearm-sized shell. Pull the arm apart, then compare the original and redesigned wrist under the same load.</p></div>

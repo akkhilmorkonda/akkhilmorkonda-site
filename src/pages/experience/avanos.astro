@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="Avanos Medical" crumb="Avanos Medical" description="R&D engineering at Avanos Medical: a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures.">
@@ -9,6 +10,8 @@ import '../../styles/case.css';
     <p class="lead">Built the test fixture, robot automation and analytics that traced electromechanical pump failures back to their cause.</p>
     <div class="stats"><div><b>$40M</b><span>inventory covered by the CAPA</span></div><div><b>1000+</b><span>hours of manual validation automated</span></div><div><b>95%</b><span>faster failure analysis</span></div><div><b>6-axis</b><span>robot, C++ control software</span></div></div></div>
 </section>
+<Brief what={"A test fixture, robot automation and an analytics platform that traced high-pressure pump failures to their cause."} why={"Electromechanical failures in high-pressure pumps put $40M of inventory on the line."} how={["LabVIEW and NI myDAQ fixture to reproduce failures on the bench", "C++ control for a 6-axis robot: trajectory interpolation, joint kinematics, TCP streaming under ISO 12207", "CI/CD-deployed analytics joining SAP and Salesforce data"]} results={["ISO-compliant CAPA covering $40M of inventory", "1000+ hours of manual validation automated", "95% faster failure analysis"]} />
+
 
 <section class="vol">
   <div class="head"><h2>A robot that repeats the test</h2><p>C++ control software interpolates a 3D trajectory, computes joint kinematics and streams TCP commands to a 6-axis robot, so a thousand hours of hand validation run on their own.</p></div>

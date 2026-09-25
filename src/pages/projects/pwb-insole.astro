@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="PWB Smart Insole" crumb="PWB Smart Insole" section="Projects" description="A smart insole that measures plantar load in real time for partial-weight-bearing rehabilitation, calibrated to ±3% accuracy.">
@@ -9,6 +10,8 @@ import '../../styles/case.css';
     <p class="lead">Patients told to put only part of their weight on an injured leg have no way to know how much they actually are. This insole measures it on every step.</p>
     <div class="stats"><div><b>±3%</b><span>load accuracy after calibration</span></div><div><b>ESP32</b><span>wireless telemetry</span></div><div><b>C++</b><span>embedded firmware</span></div><div><b>t-tests</b><span>paired validation with power analysis</span></div></div></div>
 </section>
+<Brief what={"A smart insole that measures plantar load in real time for partial-weight-bearing rehab."} why={"Patients told to put only part of their weight on an injured leg have no way to know how much they actually are."} how={["Force-sensitive resistors under the foot", "Embedded C++ firmware with ESP32 wireless telemetry", "Calibration and regression against known loads"]} results={["±3% load accuracy", "Validated with paired t-tests and power analysis"]} />
+
 
 <section class="vol">
   <div class="head"><h2>One step, sensor by sensor</h2><p>Force-sensitive resistors under the heel, midfoot and forefoot pick up load as it rolls from heel to toe. Their sum is compared to the prescribed limit in real time.</p></div>

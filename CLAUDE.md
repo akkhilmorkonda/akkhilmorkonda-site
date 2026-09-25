@@ -37,7 +37,10 @@ A card links to its deep dive when its `site.js` entry has a `slug`: `/experienc
 - Square corners everywhere. Thin 1px `--ln` borders, grid layouts, no shadows on UI.
 - Base look chosen from design variation #24 "Paper Draft", inverted to dark.
 - No decorative grids, glows, gradient hovers or skeuomorphic shading. Hover state = `--sf` surface. Secondary text = `--fg2`.
-- Homepage hero pod is a restrained wireframe with an "illustrative" caption, no floor grid. About shows a portrait only when `site.portrait` is set; never ship a placeholder.
+- About shows a portrait only when `site.portrait` is set; never ship a placeholder.
+
+## Portfolio structure: What, Why, How, Results
+The site exists to show the what, why, how and results of every experience, project and research entry. Every deep dive opens with its hero, then `<Brief what why how results />` (`src/components/Brief.astro`), then the interactives that show the how in depth. Homepage cards lead with what and a result. Every fact must come from Akkhil or his files; if a "why" is not confirmed, keep it modest and log it as `[?]` in `docs/`.
 
 ## Copy rules
 - Concise, punchy, action-led, hard numbers first. No filler, no AI-sounding phrasing.
@@ -50,7 +53,7 @@ A card links to its deep dive when its `site.js` entry has a `slug`: `/experienc
 - Canvas charts: DPR-aware sizing (cap at 2), redraw on resize, pause via IntersectionObserver when off screen.
 - Respect `prefers-reduced-motion` (`RM`).
 - Scroll motion lives in `src/scripts/scroll-fx.js` (loaded by `Base.astro` on every page) and is gated by `html.fx`, which is only set when reduced motion is off. It word-rises `main h2`, staggers blocks in (selector list at the top of the file), counts up stats from their real text, scrubs `.statement` word by word, and drives the nav progress bar. It only touches elements below the fold at load; first-screen intros are CSS keyframes in `global.css`. New sections: add their selector to the `groups` list rather than writing one-off observers.
-- Homepage hero pod separates into its layers as the hero scrolls away (`hero-pod.js`).
+- Homepage hero (chosen Sept 25, 2026, option 6 of 25 mockups): the headline carries engineering-drawing callouts (`hero-callouts.js`, measured from live word boxes) and a signal trace cycles through one signature signal per project, each linking to its deep dive (`hero-signal.js`). The old wireframe pod hero is retired (it duplicated the WHOOP page).
 - Controls must work by keyboard (sliders, knobs with arrow keys, buttons with Enter/Space).
 - Touch targets at least 44px tall (`.cta`, segmented buttons, `.btn2`, nav and footer links). Text at least 12px, canvas labels included.
 - Segmented toggles use `.on` for state; `Base.astro` mirrors it to `aria-pressed`. Verdicts (PASS/FLAG, WITHIN/OVER) are `role="status"`.

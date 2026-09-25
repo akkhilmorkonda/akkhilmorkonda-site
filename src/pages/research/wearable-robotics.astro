@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Brief from '../../components/Brief.astro';
 import '../../styles/case.css';
 ---
 <Base title="Physiology of Wearable Robotics Lab" crumb="Wearable Robotics Lab" section="Research" description="Undergraduate research at Georgia Tech's Physiology of Wearable Robotics Lab: EMG acquisition protocols for 50+ human-subject studies and MATLAB pipelines for real-time control.">
@@ -9,6 +10,8 @@ import '../../styles/case.css';
     <p class="lead">Designed the EMG acquisition protocols behind 50+ human-subject studies and built the MATLAB pipelines that turn raw muscle signals into analysis and control.</p>
     <div class="stats"><div><b>50+</b><span>human-subject studies</span></div><div><b>EMG</b><span>acquisition protocols</span></div><div><b>MATLAB</b><span>time-series and control pipelines</span></div><div><b>Real-time</b><span>control output</span></div></div></div>
 </section>
+<Brief what={"EMG acquisition protocols and MATLAB analysis and control pipelines for the Physiology of Wearable Robotics Lab."} why={"Human-subject studies need consistent EMG recordings and a reliable path from raw signal to control."} how={["Designed the acquisition protocols used across studies", "MATLAB pipelines for time-series analysis and real-time control"]} results={["Protocols behind 50+ human-subject studies"]} />
+
 
 <section class="vol">
   <div class="head"><h2>From muscle to control signal</h2><p>Raw EMG is noisy and signed. Rectify it, low-pass it into an envelope, then threshold the envelope with hysteresis to get a clean on/off command a device can act on.</p></div>
