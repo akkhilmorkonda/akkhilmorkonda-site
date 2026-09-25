@@ -46,6 +46,8 @@ A project card links to `/projects/<slug>` when its entry in `site.js` has a `sl
 ## Interactives
 - Canvas charts: DPR-aware sizing (cap at 2), redraw on resize, pause via IntersectionObserver when off screen.
 - Respect `prefers-reduced-motion` (`RM`).
+- Scroll motion lives in `src/scripts/scroll-fx.js` (loaded by `Base.astro` on every page) and is gated by `html.fx`, which is only set when reduced motion is off. It word-rises `main h2`, staggers blocks in (selector list at the top of the file), counts up stats from their real text, scrubs `.statement` word by word, and drives the nav progress bar. It only touches elements below the fold at load; first-screen intros are CSS keyframes in `global.css`. New sections: add their selector to the `groups` list rather than writing one-off observers.
+- Homepage hero pod separates into its layers as the hero scrolls away (`hero-pod.js`).
 - Controls must work by keyboard (sliders, knobs with arrow keys, buttons with Enter/Space).
 - Touch targets at least 44px tall (`.cta`, segmented buttons, `.btn2`, nav and footer links). Text at least 12px, canvas labels included.
 - Segmented toggles use `.on` for state; `Base.astro` mirrors it to `aria-pressed`. Verdicts (PASS/FLAG, WITHIN/OVER) are `role="status"`.

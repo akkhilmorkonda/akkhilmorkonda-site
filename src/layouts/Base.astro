@@ -27,6 +27,7 @@ const path = Astro.url.pathname;
   <meta property="og:url" content={new URL(path, Astro.site)} />
   <meta name="theme-color" content="#0e0e0f" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <script is:inline>if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("fx")</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -38,6 +39,7 @@ const path = Astro.url.pathname;
         <a href="/#about">About</a><a href="/#education">Education</a><a href="/#experience">Experience</a><a href="/#projects">Projects</a><a href="/#research">Research</a>
       </nav></>}
     <a class="cta" href={`mailto:${site.email}`}>Email me</a>
+    <i class="nv-prog" aria-hidden="true"></i>
   </header>
   <main id="main"><slot /></main>
   <footer class="foot">
@@ -45,6 +47,7 @@ const path = Astro.url.pathname;
     <span><a href={site.linkedin}>LinkedIn</a></span>
   </footer>
   <script>
+    import '../scripts/scroll-fx.js';
     const nv = document.querySelector('.nv'), btn = nv?.querySelector('.menu');
     if (btn) {
       const set = (open: boolean) => { nv!.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); };
