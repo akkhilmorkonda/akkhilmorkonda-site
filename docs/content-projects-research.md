@@ -54,7 +54,7 @@ Homepage copy for these lives in `src/data/site.js`. `[?]` = question for Akkhil
 - Resume: "Smart Filtering Facepiece Respirator | Root Cause Analysis, ISO Regulations | Aug 2024 to Jan 2025. Prototyped a medical device that monitors the pressure and dust concentration inside of a respirator to ensure proper face seal and respirator effectiveness." On the homepage as "Smart Respirator" (3rd). `[?]` Team or solo, sensors used, any results, photos (for a deep dive).
 
 ### Non-invasive BP monitoring for LVAD patients (in progress)
-- Homepage "Coming soon" section, no deep dive yet. `[?]` Lab or team, role, approach.
+- Homepage "Coming soon" section, no deep dive yet. Card (Sept 25, 2026): "Blood pressure for LVAD patients. Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot read blood pressure. Building a non-invasive way to measure it." The why is general clinical background, not a project claim. `[?]` Lab or team, role, approach.
 
 ## Research
 
