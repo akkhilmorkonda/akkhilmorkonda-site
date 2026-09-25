@@ -10,12 +10,6 @@ import { site, hero, about, education, experience, projects, research } from '..
       <p class="h-sub">{hero.sub}</p>
       <div class="h-ctas"><a class="cta" href="#experience">See my work</a><a class="cta gh" href={`mailto:${site.email}`}>Email me</a></div>
     </div>
-    <figure class="h-vis">
-      <div class="h-sig"><span id="heroSigName">EMG burst</span><a id="heroSigLink" href="/research/wearable-robotics">Wearable Robotics Lab</a></div>
-      <canvas id="heroSig" role="img" aria-label="A measured signal from one of Akkhil's projects, cycling through EMG, battery current spectrum, LAMP amplification, tone stack response and plantar load"></canvas>
-      <div class="h-chips" id="heroChips"><button type="button">EMG lab</button><button type="button">WHOOP</button><button type="button">MediScan</button><button type="button">Amp head</button><button type="button">Insole</button></div>
-      <figcaption>One signal from each build. Illustrative traces.</figcaption>
-    </figure>
   </section>
 
   <section id="about" class={`s-about${site.portrait ? ' has-p' : ''}`}>
@@ -77,12 +71,12 @@ import { site, hero, about, education, experience, projects, research } from '..
   </section>
 </div>
 </Base>
-<script>import '../scripts/hero-callouts.js'; import '../scripts/hero-signal.js';</script>
+<script>import '../scripts/hero-callouts.js';</script>
 <style>
   section{padding:110px 0 0}
   h2{font-size:clamp(28px,3.4vw,46px);margin-bottom:36px}
-  .h-hero{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center;min-height:calc(100dvh - 64px);padding:48px 0}
-  .h-hero h1{font-size:clamp(34px,4.3vw,58px);line-height:1.04}
+  .h-hero{display:flex;align-items:center;min-height:calc(88dvh - 64px);padding:48px 0}
+  .h-hero h1{font-size:clamp(34px,6.6vw,96px);line-height:1.02;max-width:14ch}
   .h-sub{margin-top:22px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:var(--fg2);max-width:46ch}
   .h-ctas{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
   .h-draw{position:relative;padding:30px 0 34px}
@@ -91,15 +85,6 @@ import { site, hero, about, education, experience, projects, research } from '..
   .h-draw :global(path.lnA){stroke:var(--ac);stroke-width:1;fill:none}
   .h-draw :global(text){font:11px var(--fm);fill:var(--mu)}
   .h-draw :global(text.a){fill:var(--ac)}
-  .h-sig{display:flex;justify-content:space-between;gap:12px;margin-bottom:10px;font:12px var(--fm);color:var(--mu)}
-  .h-sig a{color:var(--ac)}.h-sig a:hover{text-decoration:underline;text-underline-offset:3px}
-  .h-vis canvas{display:block;width:100%;height:260px}
-  .h-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-  .h-chips button{min-height:44px;padding:0 12px;background:none;border:1px solid var(--ln);color:var(--mu);font:500 12px var(--fm);cursor:pointer}
-  .h-chips button:hover{color:var(--fg)}
-  .h-chips button.on{border-color:var(--ac);color:var(--ac)}
-  .h-vis figcaption{margin-top:10px;font:12px var(--fm);color:var(--mu)}
-  @media (max-width:560px){.h-vis canvas{height:200px}}
   @media (max-width:380px){.h-hero h1{font-size:29px}}
   .s-about{border-top:1px solid var(--ln)}
   .s-about.has-p{display:grid;grid-template-columns:1.4fr .7fr;gap:56px;align-items:center}
