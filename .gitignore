@@ -4,3 +4,6 @@ preview/
 .astro/
 .DS_Store
 .vercel
+
+# Akkhil's master resume: local only, never published (repo is public)
+resume/

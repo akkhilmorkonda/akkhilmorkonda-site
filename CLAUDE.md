@@ -79,6 +79,7 @@ The site exists to show the what, why, how and results of every experience, proj
 Commit messages: short, imperative ("Add Metrix case study").
 
 ## More context
+- `resume/master-resume.md`: Akkhil's master resume, a long human-readable record of everything he has done. **Local only** (gitignored, never commit it; the repo is public). It is the upstream source: when Akkhil edits it, read it and carry the changes into `src/data/portfolio.yaml`, keeping public-safe wording and skipping anything marked (private). It is not wired into the build.
 - `src/data/portfolio.yaml`: every entry's content, facts, sources and open questions (`npm run open`).
 - `docs/interactives.md`: how each custom visual is built, plus parked quality ideas.
 - `DEPLOY.md`: Vercel and domain setup.
