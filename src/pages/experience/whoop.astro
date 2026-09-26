@@ -60,7 +60,7 @@ const e = entry('experience', 'whoop');
   <h2>Additional projects</h2>
   <div class="xrows">
     {e.page.more.map(m => (
-      <div class="xrow"><h3>{m.title}</h3><p>{m.summary}</p><span class="xres">{m.result}</span></div>
+      <div class="xrow"><h3>{m.title}</h3><div><p>{m.summary}</p>{m.stack && <ul class="stack" aria-label="Tech stack">{m.stack.map(t => <li>{t}</li>)}</ul>}</div><span class="xres">{m.result}</span></div>
     ))}
   </div>
 </section></div>

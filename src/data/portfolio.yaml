@@ -81,9 +81,9 @@ experience:
         what: Built WHOOP's optical characterization fixture, a production screen that triages failing capacitors from current alone, and DAG-based ATE test software, owning each from requirements through validation, deployment and handoff.
         why: Production test had to scale with the fixture fleet and catch more battery failures without adding cycle time, and new sensors needed a repeatable way to be characterized.
         how:
-          - "Optical fixture: Thorlabs 3-axis stage, fiber probe and Feasa analysers, with configurable scan volumes"
-          - "Capacitor triage: battery current streamed over BLE, FFT features and an inline logistic regression"
-          - "ATE software: distributed, DAG-scheduled HIL test in Python with pytest across 12 fixtures"
+          - "Optical fixture: motion control and data acquisition for a Thorlabs 3-axis stage and Feasa LED and IR analysers"
+          - "Capacitor triage: BLE current streaming, FFT feature extraction and an inline logistic-regression classifier"
+          - "ATE software: dependency-aware DAG test orchestration in Python and pytest across 12 fixtures"
         results:
           - $1.8M saved; 99% accuracy flagging bad capacitors
           - Battery screen cut from 250 s to about 20 s
@@ -92,46 +92,49 @@ experience:
       core:
         - key: optical
           title: Optical characterization fixture
-          summary: A complete platform for measuring how the sensor's optical readings change with probe position, from fixture design to analysis software.
+          summary: Automated 3-axis optical test fixture that maps the sensor's LED output in 3D, taken from design to a documented platform the team runs.
           points:
-            - Designed the hardware, software and mechanical system around a Thorlabs 3-axis stage, a fiber probe and Feasa LED and IR analysers
-            - Built configurable scan volumes with user-defined motion profiles, an LED calibration method and support for next-generation devices
-            - Led fixture design, tolerancing and validation
-            - Ran WHOOP 5.0 and next-generation experiments to find repeatability limits and probe tolerances, and compared glass and plastic optical configurations
-            - Wrote the architecture, SOPs and procedures, and onboarded engineers to run it independently
-          result: Hardware-specific limits and guidelines for optical testing, on reusable tooling
+            - Built motion control and data acquisition for a Thorlabs 3-axis stage (K-Cube controllers) and Feasa LED and IR analysers read through a fiber probe, with configurable scan volumes and user-defined motion profiles
+            - Designed and toleranced the fixture, then ran repeatability and probe-tolerance studies on WHOOP 5.0 and next-generation hardware, including glass versus plastic optics
+            - Wrote the LED calibration method and visualization tooling, documented SOPs, and onboarded engineers to run it independently
+          stack: [Thorlabs K-Cube, Feasa LED and IR analysers, Fiber optics, Fixture design and tolerancing, Repeatability studies]
+          result: Defined hardware-specific limits for optical testing on a platform handed off to the team
         - key: capacitor
           title: Capacitor triage from current alone
-          summary: A production screen that catches a battery-related field failure by its current signature, without slowing the line.
+          summary: Production screen that flags failing battery capacitors from their current signature.
           points:
-            - Moved detection from state of charge to voltage to current, the measurement that separated failing units reliably
-            - Firmware streams raw battery current over BLE; FFT features feed an inline logistic regression
-            - Proved it with failure-analysis teardowns, manual electrical validation, CT-scan correlation and a large production DOE run with the contract manufacturer
-            - Built a full-stack monitoring platform for Reliability, failure analysis and Manufacturing, with a modular architecture for custom tests
-            - Merged into production behind a feature flag, with documentation
-          result: $1.8M saved, 99% accuracy, and a 250 s screen cut to about 20 s
+            - Streamed raw battery current from device firmware over BLE and extracted FFT features for an inline logistic-regression classifier
+            - Validated against failure-analysis teardowns, CT-scan correlation and a large production DOE run with the contract manufacturer
+            - Built a modular full-stack monitoring platform for Reliability and Manufacturing, and shipped the screen to production behind a feature flag
+          stack: [BLE, HCI, FFT, Logistic regression, DOE]
+          result: $1.8M saved, 99% accuracy, screen cut from 250 s to about 20 s
         - key: ate
           title: ATE test software
-          summary: Test infrastructure that runs independent steps side by side and scales with the fixture fleet.
+          summary: Distributed hardware-in-the-loop test framework across a 12-fixture fleet.
           points:
-            - Rebuilt the HIL test system as a distributed, DAG-scheduled architecture across 12 fixtures
-            - Contributed to the architecture of next-generation test software, delivering dependency-aware DAG orchestration, prototypes and stakeholder demos
-            - Separated rig faults from real device defects with fleet-wide analysis
-            - Onboarded new contributors to keep it maintainable
+            - Re-architected serial legacy ATE into dependency-aware, DAG-scheduled test orchestration in Python across 12 fixtures
+            - Raised pytest coverage to 95% and used fleet-wide analysis to separate rig faults from real device defects
+            - Prototyped and demoed the DAG orchestration layer for next-generation test software
+          stack: [Python, pytest, DAG orchestration, Hardware-in-the-loop]
           result: 30% faster test time, 95% pytest coverage, 40% fewer false failures
       more:
         - title: IR yield improvement
-          summary: Traced IR LED measurement variability to test-software timing in the analog front end across 10+ experiments, fixed it, and validated with in-house and factory GRR studies. Merged into manufacturing software.
+          summary: Root-caused IR LED measurement noise to test-software timing in the analog front end across 10+ experiments, then shipped the fix to manufacturing software.
+          stack: [Root-cause analysis, GRR studies, AFE timing]
           result: About 95% less IR measurement noise (expected)
-        - title: LED and photodiode benchtop test
-          summary: Found the best fixture configurations, distances and materials across RGB, IR and SWIR measurements, and wrote the standard procedures other engineers now use.
         - title: FA Bot
-          summary: An AI failure-analysis assistant with retrieval-augmented generation, multilingual support and the first consolidated failure-analysis database, piloted in manufacturing.
-          result: Vector search 40 s to 140 ms; startup 60 s to 6 s
+          summary: AI failure-analysis assistant using retrieval-augmented generation over the first consolidated failure-analysis database, with multilingual support, piloted in manufacturing.
+          stack: [RAG, Embeddings, Vector search, Transformers]
+          result: Search 40 s to 140 ms; startup 60 s to 6 s
+        - title: LED and photodiode benchtop test
+          summary: Set fixture geometry, distances and materials for RGB, IR and SWIR optical tests and standardized the procedure for other engineers.
+          stack: [Optical test design, RGB, IR and SWIR, SOPs]
         - title: IMU characterization
-          summary: Fixture and software for IMU validation, with reverse-engineered communication protocols, next-generation interfaces, and data collection and visualization tools.
+          summary: Reverse-engineered device communication protocols and built the IMU test fixture, data collection and visualization tools.
+          stack: [Protocol reverse engineering, Fixture design, Data visualization]
         - title: JTAG feasibility study
-          summary: Evaluated boundary-scan for manufacturing test, covering supplier requirements, infrastructure, engineering lift and expected value, and recommended against it.
+          summary: Assessed boundary-scan testing for manufacturing, covering supplier requirements, infrastructure and engineering lift, and recommended against it.
+          stack: [JTAG boundary scan, Cost-benefit analysis]
           result: Avoided a low-ROI investment
     facts:
       - Thorlabs 3-axis translation stage (NOT 5-axis; the resume should also say 3-axis). Thorlabs K-Cube motor controllers.
@@ -141,6 +144,7 @@ experience:
       - WHOOP 5.0 public specs used for the model are 5 LEDs (3 green, 1 red, 1 IR), 4 photodiodes, 28 g. Exact LED layout approximated.
       - Never publish the real rig photo. No standalone WHOOP hero render.
       - Battery check interactive was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
+      - FFT feature extraction and inline logistic regression for the capacitor screen confirmed accurate (Sept 26, 2026).
       - "Public wording (Sept 26, 2026): no internal project or program codenames, no manufacturer name, next-generation instead of the unreleased generation name, no ranking of field failure modes. Full detail is in the private master resume."
     sources: [Resume (Sept 2026), Akkhil's corrections, "WHOOP co-op summary doc (PDF in Downloads, Sept 2026)"]
     open:
@@ -150,7 +154,7 @@ experience:
       - DAG scheduler stack (Airflow, Prefect, custom)?
       - How was $1.8M calculated? One sentence.
       - Scan grid size and step; what the "fit model" fits; can real scan data (CSV) be exported?
-      - The summary doc does not mention FFT or logistic regression for the capacitor screen (the resume does). Still accurate?
+      - "Tech stack specifics recruiters look for: language for the optical fixture and capacitor screen software (Python?), libraries (NumPy, SciPy, scikit-learn, pandas?), how the monitoring platform was built (backend, database, dashboard), FA Bot LLM and vector store, IMU interface (I2C, SPI, UART, BLE?)."
 
   - slug: avanos
     company: Avanos Medical

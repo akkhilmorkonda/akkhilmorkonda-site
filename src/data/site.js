@@ -14,8 +14,8 @@ const page = z.object({
   // every deep dive answers What, Why, How, Results (CLAUDE.md)
   brief: z.object({ what: str, why: str, how: z.array(str).min(1), results: z.array(str).min(1) }),
   // optional: headline projects with their own section, and smaller additional projects
-  core: z.array(z.object({ key: str, title: str, summary: str, points: z.array(str).min(1), result: str })).optional(),
-  more: z.array(z.object({ title: str, summary: str, result: str.optional() })).optional(),
+  core: z.array(z.object({ key: str, title: str, summary: str, points: z.array(str).min(1), stack: z.array(str).optional(), result: str })).optional(),
+  more: z.array(z.object({ title: str, summary: str, stack: z.array(str).optional(), result: str.optional() })).optional(),
 });
 const notes = { facts: z.array(str).optional(), sources: z.array(str).optional(), open: z.array(str).optional() };
 

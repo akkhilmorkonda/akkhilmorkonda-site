@@ -1,6 +1,6 @@
 ---
 // Intro for one headline project inside a deep dive (from `core:` in portfolio.yaml):
-// optional big number, title, one-line summary, what I did, and the result.
+// optional big number, title, one-line summary, what I did, tech stack, and the result.
 const { c, num } = Astro.props;
 ---
 <div class="core">
@@ -8,5 +8,6 @@ const { c, num } = Astro.props;
   <h2>{c.title}</h2>
   <p class="core-sum">{c.summary}</p>
   <ul class="pts">{c.points.map(pt => <li>{pt}</li>)}</ul>
+  {c.stack && <ul class="stack" aria-label="Tech stack">{c.stack.map(t => <li>{t}</li>)}</ul>}
   <p class="core-res"><span>Result</span>{c.result}</p>
 </div>

@@ -183,3 +183,7 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .xrow p{font-size:15px;line-height:1.55;color:var(--fg2)}
 .xrow .xres{font:500 13px/1.5 var(--fm);color:var(--ac)}
 @media (max-width:900px){.xrow{grid-template-columns:1fr;gap:8px}.core-sec{padding:80px 0 48px}}
+/* tech stack tags (core projects and additional projects) */
+.stack{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.stack li{font:500 12px/1 var(--fm);color:var(--fg2);border:1px solid var(--ln);padding:6px 8px}
+.xrow .stack{margin-top:10px}
