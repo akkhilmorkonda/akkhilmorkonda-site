@@ -82,7 +82,7 @@ experience:
         why: Production test had to scale with the fixture fleet and catch more battery failures without adding cycle time, and new sensors needed a repeatable way to be characterized.
         how:
           - "Optical fixture: motion control and data acquisition for a Thorlabs 3-axis stage and Feasa LED and IR analysers"
-          - "Capacitor triage: BLE current streaming, FFT feature extraction and an inline logistic-regression classifier"
+          - "Capacitor triage: BLE current streaming, FFT features and an inline machine-learning (logistic regression) classifier, with a Python, PyQt and Streamlit monitoring platform"
           - "ATE software: dependency-aware DAG test orchestration in Python and pytest across 12 fixtures"
         results:
           - $1.8M saved; 99% accuracy flagging bad capacitors
@@ -97,7 +97,7 @@ experience:
             - Built motion control and data acquisition for a Thorlabs 3-axis stage (K-Cube controllers) and Feasa LED and IR analysers read through a fiber probe, with configurable scan volumes and user-defined motion profiles
             - Designed and toleranced the fixture, then ran repeatability and probe-tolerance studies on WHOOP 5.0 and next-generation hardware, including glass versus plastic optics
             - Wrote the LED calibration method and visualization tooling, documented SOPs, and onboarded engineers to run it independently
-          stack: [Thorlabs K-Cube, Feasa LED and IR analysers, Fiber optics, Fixture design and tolerancing, Repeatability studies]
+          stack: [Python, PyQt, Streamlit, Thorlabs K-Cube, Feasa LED and IR analysers, Fixture design and tolerancing]
           result: Defined hardware-specific limits for optical testing on a platform handed off to the team
         - key: capacitor
           title: Capacitor triage from current alone
@@ -105,8 +105,8 @@ experience:
           points:
             - Streamed raw battery current from device firmware over BLE and extracted FFT features for an inline logistic-regression classifier
             - Validated against failure-analysis teardowns, CT-scan correlation and a large production DOE run with the contract manufacturer
-            - Built a modular full-stack monitoring platform for Reliability and Manufacturing, and shipped the screen to production behind a feature flag
-          stack: [BLE, HCI, FFT, Logistic regression, DOE]
+            - Built the full-stack monitoring platform (Python backend, PyQt and Streamlit front ends), deployed locally at the contract manufacturers during final assembly and integrated into the production test system behind a feature flag
+          stack: [Python, PyQt, Streamlit, BLE, FFT, Machine learning, DOE]
           result: $1.8M saved, 99% accuracy, screen cut from 250 s to about 20 s
         - key: ate
           title: ATE test software
@@ -123,18 +123,18 @@ experience:
           stack: [Root-cause analysis, GRR studies, AFE timing]
           result: About 95% less IR measurement noise (expected)
         - title: FA Bot
-          summary: AI failure-analysis assistant using retrieval-augmented generation over the first consolidated failure-analysis database, with multilingual support, piloted in manufacturing.
-          stack: [RAG, Embeddings, Vector search, Transformers]
+          summary: AI failure-analysis assistant over the first consolidated failure-analysis database. Benchmarked and evaluated sentence-transformer models on manufacturing-specific retrieval, served semantic search from local Hugging Face models with embeddings in Postgres, and used OpenAI to fill the gaps. Piloted in manufacturing.
+          stack: [Hugging Face sentence transformers, PostgreSQL, OpenAI API, RAG, Model benchmarks and evals]
           result: Search 40 s to 140 ms; startup 60 s to 6 s
         - title: LED and photodiode benchtop test
           summary: Set fixture geometry, distances and materials for RGB, IR and SWIR optical tests and standardized the procedure for other engineers.
           stack: [Optical test design, RGB, IR and SWIR, SOPs]
         - title: IMU characterization
-          summary: Reverse-engineered device communication protocols and built the IMU test fixture, data collection and visualization tools.
-          stack: [Protocol reverse engineering, Fixture design, Data visualization]
+          summary: IMU test fixture and I2C tooling, with reverse-engineered protocols.
+          stack: [I2C, Protocol reverse engineering]
         - title: JTAG feasibility study
-          summary: Assessed boundary-scan testing for manufacturing, covering supplier requirements, infrastructure and engineering lift, and recommended against it.
-          stack: [JTAG boundary scan, Cost-benefit analysis]
+          summary: Evaluated JTAG boundary-scan for manufacturing test and recommended against it.
+          stack: [JTAG]
           result: Avoided a low-ROI investment
     facts:
       - Thorlabs 3-axis translation stage (NOT 5-axis; the resume should also say 3-axis). Thorlabs K-Cube motor controllers.
@@ -144,7 +144,8 @@ experience:
       - WHOOP 5.0 public specs used for the model are 5 LEDs (3 green, 1 red, 1 IR), 4 photodiodes, 28 g. Exact LED layout approximated.
       - Never publish the real rig photo. No standalone WHOOP hero render.
       - Battery check interactive was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
-      - FFT feature extraction and inline logistic regression for the capacitor screen confirmed accurate (Sept 26, 2026).
+      - FFT feature extraction and inline logistic regression for the capacitor screen confirmed accurate (Sept 26, 2026). Tag it as "Machine learning".
+      - "Stack confirmed Sept 26, 2026: Python backend with PyQt and Streamlit front ends; capacitor monitoring platform deployed locally at the contract manufacturers during final assembly, integrated into the test system; FA Bot uses Postgres for vector embeddings, local Hugging Face sentence transformers for semantic search, OpenAI to fill gaps, with benchmarks and evals of sentence transformers on manufacturing data; IMU over I2C."
       - "Public wording (Sept 26, 2026): no internal project or program codenames, no manufacturer name, next-generation instead of the unreleased generation name, no ranking of field failure modes. Full detail is in the private master resume."
     sources: [Resume (Sept 2026), Akkhil's corrections, "WHOOP co-op summary doc (PDF in Downloads, Sept 2026)"]
     open:
@@ -154,7 +155,8 @@ experience:
       - DAG scheduler stack (Airflow, Prefect, custom)?
       - How was $1.8M calculated? One sentence.
       - Scan grid size and step; what the "fit model" fits; can real scan data (CSV) be exported?
-      - "Tech stack specifics recruiters look for: language for the optical fixture and capacitor screen software (Python?), libraries (NumPy, SciPy, scikit-learn, pandas?), how the monitoring platform was built (backend, database, dashboard), FA Bot LLM and vector store, IMU interface (I2C, SPI, UART, BLE?)."
+      - "Python libraries used for the capacitor screen analysis (FFT and the classifier) and the optical scan analysis: NumPy, SciPy, scikit-learn, pandas?"
+      - "PyQt and Streamlit are tagged on both the optical fixture and the capacitor screen. Confirm both used them."
 
   - slug: avanos
     company: Avanos Medical
