@@ -15,7 +15,7 @@ if (root.classList.contains('fx')) {
   });
 
   // 2. Blocks: fade and lift in, staggered within their group.
-  const groups = ['.brief > div', '.rows > .row', '.bento > .cell', '.soon > .cell', '.tiles > .t', '.labs > .lab', '.stats > div', '.beats > div', '.more > div', '.chain > div', '.ta', '.emg', '.viewer', '.bbox', '.fbox', '.vol .head p', '.bhead p', '.s-contact p', '.s-contact .h-ctas'];
+  const groups = ['.brief > div', '.core .pts li', '.core .core-res', '.xrows > .xrow', '.rows > .row', '.bento > .cell', '.soon > .cell', '.tiles > .t', '.labs > .lab', '.stats > div', '.beats > div', '.more > div', '.chain > div', '.ta', '.emg', '.viewer', '.bbox', '.fbox', '.vol .head p', '.bhead p', '.s-contact p', '.s-contact .h-ctas'];
   const blocks = [];
   groups.forEach(sel => {
     const els = [...document.querySelectorAll(sel)].filter(below);
@@ -23,7 +23,7 @@ if (root.classList.contains('fx')) {
   });
 
   // 3. Numbers count up from zero the first time they are seen. Real values only, parsed from the text.
-  const counters = [...document.querySelectorAll('.row .st b, .t.acc b, .stats b, .bhead b.n, .more b.n')].filter(el => /\d/.test(el.textContent));
+  const counters = [...document.querySelectorAll('.row .st b, .t.acc b, .stats b, .bhead b.n, .more b.n, .core .n')].filter(el => /\d/.test(el.textContent));
   const count = el => {
     const txt = el.textContent.trim(), m = txt.match(/^(\D*?)(\d+(?:\.\d+)?)(.*)$/);
     if (!m) return;

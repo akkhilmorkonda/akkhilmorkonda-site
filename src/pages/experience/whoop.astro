@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CaseHero from '../../components/CaseHero.astro';
-import { entry } from '../../data/site.js';
+import CoreProject from '../../components/CoreProject.astro';
+import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('experience', 'whoop');
 ---
@@ -10,6 +11,8 @@ const e = entry('experience', 'whoop');
 
 <div class="wrap"><CaseHero e={e} />
 </div>
+
+<div class="wrap"><section class="core-sec" id="optical"><CoreProject c={core(e, 'optical')} /></section></div>
 
 <section class="explode" id="explode"><div class="stick"><canvas id="rig" role="img" aria-label="Exploded 3D model of the optical testbed; each step below highlights one part"></canvas>
   <div class="steps"><h2>Inside the testbed</h2>
@@ -35,7 +38,7 @@ const e = entry('experience', 'whoop');
 </section>
 
 <section class="bat" id="bat">
-  <div class="bhead"><b class="n">$1.8M</b><h2>Bad capacitors, caught from current alone</h2><p>Firmware streams the battery current over BLE. An FFT exposes ripple a failing capacitor adds, and a logistic regression flags it at 99% accuracy.</p></div>
+  <CoreProject c={core(e, 'capacitor')} num="$1.8M" />
   <div class="bbox">
     <div class="bbar"><div class="seg3" id="dut"><button class="on" data-h="1">Healthy unit</button><button data-h=".1">Bad capacitor</button></div><div class="verdict" id="vd" role="status" aria-live="polite"><span class="ico">&#10003;</span><b>PASS</b></div></div>
     <div class="bc"><canvas id="cF" role="img" aria-label="Battery current spectrum; a bad capacitor adds a ripple peak that trips the FLAG verdict"></canvas><div class="tip2" id="tF"></div></div>
@@ -44,13 +47,22 @@ const e = entry('experience', 'whoop');
 </section>
 
 <section class="fleet" id="fleet">
-  <div class="bhead"><b class="n">30%</b><h2>A test fleet that scales</h2><p>Legacy ATE ran every step in series. A DAG scheduler runs independent steps side by side across 12 fixtures. Coverage rose to 95% and false failures fell 40%.</p></div>
+  <CoreProject c={core(e, 'ate')} num="30%" />
   <div class="fbox">
     <div class="fbar"><div class="seg3 fseg"><button class="on" data-m="legacy">Legacy ATE</button><button data-m="dag">DAG scheduler</button></div><div class="fres"><span>Fleet run time</span><b class="ftime">100%</b></div></div>
     <div class="fchart"><div class="lanes"></div><div class="over"><div class="endline"></div></div></div>
     <div class="flegend"><span><b>F</b> Flash</span><span><b>B</b> Boot</span><span><b>S</b> Sensors</span><span><b>P</b> Battery</span><span><b>O</b> Optical</span><span><b>R</b> Radio</span></div>
   </div>
   <p class="note">Illustrative step names and timings.</p>
+</section>
+
+<section class="xtra" id="more">
+  <h2>Additional projects</h2>
+  <div class="xrows">
+    {e.page.more.map(m => (
+      <div class="xrow"><h3>{m.title}</h3><p>{m.summary}</p><span class="xres">{m.result}</span></div>
+    ))}
+  </div>
 </section></div>
 
 </Base>

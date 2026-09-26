@@ -13,6 +13,9 @@ const page = z.object({
   chain: z.array(z.object({ label: str, sub: str, on: z.boolean().optional() })).optional(),
   // every deep dive answers What, Why, How, Results (CLAUDE.md)
   brief: z.object({ what: str, why: str, how: z.array(str).min(1), results: z.array(str).min(1) }),
+  // optional: headline projects with their own section, and smaller additional projects
+  core: z.array(z.object({ key: str, title: str, summary: str, points: z.array(str).min(1), result: str })).optional(),
+  more: z.array(z.object({ title: str, summary: str, result: str.optional() })).optional(),
 });
 const notes = { facts: z.array(str).optional(), sources: z.array(str).optional(), open: z.array(str).optional() };
 
@@ -40,6 +43,9 @@ const data = parsed.data;
 export const { site, hero, about, education, logos, experience, research } = data;
 export const projects = data.projects.filter(p => p.status === 'live');
 export const inProgress = data.projects.filter(p => p.status === 'in-progress');
+
+/** Core project by key within a deep dive: core(e, 'optical'). */
+export const core = (e, key) => { const c = e.page.core?.find(x => x.key === key); if (!c) throw new Error('No core project ' + key + ' in ' + e.page.title); return c; };
 
 /** Deep-dive data for a page: entry('experience' | 'projects' | 'research', slug). */
 export function entry(kind, slug) {
