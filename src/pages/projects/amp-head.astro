@@ -1,18 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Brief from '../../components/Brief.astro';
+import CaseHero from '../../components/CaseHero.astro';
+import { entry } from '../../data/site.js';
 import '../../styles/case.css';
+const e = entry('projects', 'amp-head');
 ---
-<Base title="Guitar Amp Head" crumb="Guitar amp head" section="Projects" description="A guitar amp head: TL072 preamp, Fender-style tone stack and TDA2040 power stage, designed in KiCad and checked in SPICE.">
+<Base title={e.page.title} crumb={e.page.crumb} section="Projects" description={e.page.description}>
 <div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
-<div class="wrap"><section class="hero">
-  <div><h1>An amp head, from schematic up.</h1><div class="role">Personal build</div>
-    <p class="lead">A guitar amplifier designed in KiCad and checked in SPICE, now being built into a custom clear enclosure so the circuit stays visible.</p>
-    <div class="chain">
-      <div><b>Input</b><span>1/4" jack</span></div><div><b>Preamp</b><span>TL072 op-amp</span></div><div class="on"><b>Tone stack</b><span>Bass, mid, treble</span></div><div><b>Power amp</b><span>TDA2040</span></div><div><b>Speaker</b><span>cab out</span></div>
-    </div></div>
-</section>
-<Brief what={"A guitar amplifier head designed from the schematic up."} why={"A personal build: take an amplifier from circuit design to working hardware."} how={["TL072 preamp for gain and buffering", "Fender-style passive tone stack", "TDA2040 power stage, laid out in KiCad"]} results={["Gain and frequency response checked in SPICE before hardware", "Now being built into a custom clear enclosure"]} />
+<div class="wrap"><CaseHero e={e} />
 
 
 <section class="vol">

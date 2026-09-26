@@ -1,16 +1,13 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Brief from '../../components/Brief.astro';
+import CaseHero from '../../components/CaseHero.astro';
+import { entry } from '../../data/site.js';
 import '../../styles/case.css';
+const e = entry('experience', 'avanos');
 ---
-<Base title="Avanos Medical" crumb="Avanos Medical" description="R&D engineering at Avanos Medical: a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures.">
+<Base title={e.page.title} crumb={e.page.crumb} description={e.page.description}>
 <div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
-<div class="wrap"><section class="hero">
-  <div><h1><span class="nw">Root-causing</span> failures in <span class="nw">high-pressure</span> pumps.</h1><div class="role">R&amp;D Engineering Intern, Avanos Medical, May to Aug 2025</div>
-    <p class="lead">Built the test fixture, robot automation and analytics that traced electromechanical pump failures back to their cause.</p>
-    <div class="stats"><div><b>$40M</b><span>inventory covered by the CAPA</span></div><div><b>1000+</b><span>hours of manual validation automated</span></div><div><b>95%</b><span>faster failure analysis</span></div><div><b>6-axis</b><span>robot, C++ control software</span></div></div></div>
-</section>
-<Brief what={"A test fixture, robot automation and an analytics platform that traced high-pressure pump failures to their cause."} why={"Electromechanical failures in high-pressure pumps put $40M of inventory on the line."} how={["LabVIEW and NI myDAQ fixture to reproduce failures on the bench", "C++ control for a 6-axis robot: trajectory interpolation, joint kinematics, TCP streaming under ISO 12207", "CI/CD-deployed analytics joining SAP and Salesforce data"]} results={["ISO-compliant CAPA covering $40M of inventory", "1000+ hours of manual validation automated", "95% faster failure analysis"]} />
+<div class="wrap"><CaseHero e={e} />
 
 
 <section class="vol">

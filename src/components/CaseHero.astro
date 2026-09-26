@@ -1,0 +1,17 @@
+---
+// Opening of every deep dive, rendered from portfolio.yaml: headline, role line, lead,
+// stats (or the amp's signal chain), then the What / Why / How / Results brief.
+import Brief from './Brief.astro';
+const { e } = Astro.props;
+const p = e.page;
+// hyphenated words stay on one line (on screens 600px and wider, see .nw in global.css)
+const words = p.headline.split(' ');
+---
+<section class="hero">
+  <div><h1>{words.map((w, i) => <>{w.includes('-') ? <span class="nw">{w}</span> : w}{i < words.length - 1 ? ' ' : ''}</>)}</h1><div class="role">{p.roleLine}</div>
+    <p class="lead">{p.lead}</p>
+    {p.stats && <div class="stats">{p.stats.map(s => <div><b>{s.value}</b><span>{s.label}</span></div>)}</div>}
+    {p.chain && <div class="chain">{p.chain.map(c => <div class={c.on ? 'on' : undefined}><b>{c.label}</b><span>{c.sub}</span></div>)}</div>}
+  </div>
+</section>
+<Brief what={p.brief.what} why={p.brief.why} how={p.brief.how} results={p.brief.results} />

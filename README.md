@@ -13,7 +13,7 @@ npm run preview    # serve dist/ locally
 ## Where things live
 | What | File |
 |---|---|
-| All homepage copy (about, education, experience cards, projects, research, links) | `src/data/site.js` |
+| All content: every experience, project and research entry, homepage copy, facts and open questions | `src/data/portfolio.yaml` (`npm run open` lists open questions) |
 | Homepage layout and styles | `src/pages/index.astro` |
 | Case studies | `src/pages/experience/*.astro`, `src/pages/projects/*.astro` |
 | Shared nav, footer, fonts, meta tags | `src/layouts/Base.astro` |
@@ -23,10 +23,5 @@ npm run preview    # serve dist/ locally
 
 Design: dark, green accent `#16ec9a`, Unbounded (display), Manrope (body), JetBrains Mono (data). Copy follows the taste-skill rules: no em-dashes, one accent, square corners, short hero.
 
-## Open items before launch
-- Search the repo for `TODO` and `[` placeholders (dates, one result per role, TA course, lab details).
-- Add a resume PDF to `public/` and set `site.resume` (consider removing the phone number first).
-- Replace illustrative models with real assets when available: Thorlabs STEP files, fixture CAD, prosthetic arm CAD and FEA, exported LED scan data.
-- Portrait for the About section.
-
-See `DEPLOY.md` for hosting and `CLAUDE.md` + `docs/` for project context (read these first if you are an AI assistant).
+## Open items
+Run `npm run open` to list every open question (they live in `src/data/portfolio.yaml`).

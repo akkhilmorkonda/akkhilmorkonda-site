@@ -2,7 +2,7 @@
 
 Personal engineering portfolio for Akkhil Morkonda (Georgia Tech BME, Embedded Devices minor, 4.0, May 2027). Astro 5 static site, three.js 0.149 for 3D, Canvas 2D for charts. Deployed on Vercel from `main`; every push to `main` goes live in about a minute.
 
-This file and `docs/` are the shared memory between Claude Code and Claude (Cowork). Read them first. When a decision is made or a fact is confirmed, update the right file in `docs/` in the same commit.
+This file, `src/data/portfolio.yaml` and `docs/` are the shared memory between Claude Code and Claude (Cowork). Read them first. **Every fact, card, deep-dive opening, source and open question lives in `src/data/portfolio.yaml`** (one master file). When a fact is confirmed, update that entry and delete its `open:` item in the same commit. `npm run open` lists every open question.
 
 ## Commands
 ```bash
@@ -14,7 +14,8 @@ npm run build    # must pass before every commit
 ## Where things live
 | What | File |
 |---|---|
-| All homepage copy and links (single source of truth) | `src/data/site.js` |
+| All content (single source of truth) | `src/data/portfolio.yaml`, loaded and validated by `src/data/site.js` (a live deep dive missing its brief fails the build) |
+| Deep-dive opening (headline, role, lead, stats, brief) | `src/components/CaseHero.astro`, from the page's YAML entry |
 | Homepage | `src/pages/index.astro` (scoped styles at the bottom) |
 | Experience case studies | `src/pages/experience/{whoop,avanos,gt-medical-robotics}.astro` |
 | Project pages | `src/pages/projects/{pwb-insole,amp-head,mediscan}.astro` |
@@ -38,7 +39,7 @@ Projects are listed in order of importance (MediScan, Partial Weight Bearing Ins
 - Base look chosen from design variation #24 "Paper Draft", inverted to dark.
 - No decorative grids, glows, gradient hovers or skeuomorphic shading. Hover state = `--sf` surface. Secondary text = `--fg2`.
 - About shows a portrait only when `site.portrait` is set; never ship a placeholder.
-- Logos: one strip under the homepage hero (WHOOP, Avanos Medical, Georgia Tech, Emory University Hospital; `logos` in `site.js`), logos only, no label. Nowhere else, and never next to the same name in text. One colour via CSS mask (`--mu`, `--fg` on hover). Files in `public/logos/`, from Wikimedia Commons.
+- Logos: one strip under the homepage hero (WHOOP, Avanos Medical, Georgia Tech, Emory University Hospital; `logos` in `portfolio.yaml`), logos only, no label. Nowhere else, and never next to the same name in text. One colour via CSS mask (`--mu`, `--fg` on hover). Files in `public/logos/`, from Wikimedia Commons.
 
 ## Portfolio structure: What, Why, How, Results
 The site exists to show the what, why, how and results of every experience, project and research entry. Every deep dive opens with its hero, then `<Brief what why how results />` (`src/components/Brief.astro`), then the interactives that show the how in depth. Homepage cards lead with what and a result. Every fact must come from Akkhil or his files; if a "why" is not confirmed, keep it modest and log it as `[?]` in `docs/`.
@@ -78,6 +79,6 @@ The site exists to show the what, why, how and results of every experience, proj
 Commit messages: short, imperative ("Add Metrix case study").
 
 ## More context
-- `docs/content-experience.md`: WHOOP, Avanos, GT Medical Robotics content, open questions.
-- `docs/content-projects-research.md`: projects, research, open questions, parked quality work.
+- `src/data/portfolio.yaml`: every entry's content, facts, sources and open questions (`npm run open`).
+- `docs/interactives.md`: how each custom visual is built, plus parked quality ideas.
 - `DEPLOY.md`: Vercel and domain setup.

@@ -1,0 +1,385 @@
+# ============================================================================
+#  PORTFOLIO: the single source of truth for akkhilmorkonda.com
+# ============================================================================
+#  Every fact on the site lives here: homepage copy, card text, deep-dive
+#  openings (headline, role, lead, stats, What/Why/How/Results), plus the
+#  confirmed facts, sources and open questions behind each entry.
+#
+#  Loaded and validated by src/data/site.js on every build. A live deep dive
+#  (an entry with `page:`) must have a headline, lead and a full brief, or the
+#  build fails.
+#
+#  Rules (see CLAUDE.md): real facts only; no em or en dashes; "to" for ranges;
+#  headlines 8 words or fewer. `open:` lists questions for Akkhil.
+#  Order within each list = order on the site.
+# ============================================================================
+
+site:
+  name: Akkhil Morkonda
+  description: Biomedical engineer at Georgia Tech. I build sensors, robots, and the systems that test them.
+  email: amorkonda28@gmail.com
+  linkedin: https://linkedin.com/in/akkhil-morkonda
+  github: null      # add a GitHub URL if wanted
+  resume: null      # add /resume.pdf (consider removing phone number first)
+  portrait: null    # add /portrait.jpg (4:5); About shows it only when set
+
+hero:
+  headline: Engineering by Akkhil, built and tested.
+  sub: Biomedical engineer at Georgia Tech. I build sensors, robots, and the systems that test them.
+
+# Akkhil's own wording (Sept 25, 2026).
+about: >-
+  Fourth-year Biomedical Engineering student at Georgia Tech with a minor in
+  Embedded Devices. 5+ years building and leading end-to-end biomedical product
+  innovation across medical devices, robotics and digital health sensing, in
+  regulated environments. Passionate about optimizing human performance through
+  recovery and rehabilitation technology.
+
+education:
+  school: Georgia Institute of Technology
+  degree: B.S. Biomedical Engineering
+  minor: Minor in Embedded Devices   # confirmed Sept 25, 2026 (not Computer Science)
+  dates: Aug 2023 to May 2027
+  gpa: "4.0"
+  ta:
+    course: Intro to Biomedical Engineering Design
+    dates: Jan to Dec 2025
+    text: Led milestone design reviews for 100+ students on verification planning, FMEA and engineering trade-offs. Final project performance up 22%.
+
+# Logo strip under the hero. Files in public/logos/ (Wikimedia Commons), one colour via CSS mask.
+logos:
+  - { name: WHOOP, src: /logos/whoop.svg, ratio: "200 / 32", h: 20 }
+  - { name: Avanos Medical, src: /logos/avanos-medical.svg, ratio: "1000 / 159", h: 20 }
+  - { name: Georgia Tech, src: /logos/georgia-tech.svg, ratio: "720 / 162", h: 30 }
+  - { name: Emory University Hospital, src: /logos/emory-university-hospital.png, ratio: "266 / 134", h: 40 }
+
+# ============================================================================
+#  EXPERIENCE
+# ============================================================================
+experience:
+
+  - slug: whoop
+    company: WHOOP
+    role: Manufacturing Test Engineering Intern
+    dates: Jan 2026 to Jun 2026
+    summary: Distributed test infrastructure, automated optical validation, and embedded diagnostic systems.
+    stat: $1.8M
+    statLabel: saved by battery diagnostics
+    page:
+      title: WHOOP
+      crumb: WHOOP
+      description: "Scaling hardware-in-the-loop test at WHOOP: an optical testbed for LED characterization and battery diagnostics that saved $1.8M."
+      headline: Scaling test for a wearable fleet.
+      roleLine: Manufacturing Test Engineering Intern, WHOOP, Jan 2026 to Jun 2026
+      lead: Rebuilt the hardware-in-the-loop test system across 12 fixtures and built the optical testbed that characterizes the sensor's LEDs.
+      stats:
+        - { value: 30%, label: faster test time }
+        - { value: 95%, label: pytest coverage }
+        - { value: $1.8M, label: saved by battery diagnostics }
+        - { value: 40%, label: fewer false failures }
+      brief:
+        what: Rebuilt WHOOP's hardware-in-the-loop test system across 12 fixtures and built the optical testbed that characterizes the sensor's LEDs.
+        why: Legacy ATE ran every step in series and did not scale as the fixture fleet grew.
+        how:
+          - Distributed, DAG-scheduled HIL test in Python with pytest
+          - Thorlabs 3-axis stage, fiber probe and Feasa analysers mapping each LED in 3D
+          - Firmware streams battery current over BLE; FFT features feed an inline logistic regression
+        results:
+          - 30% faster test time
+          - 95% pytest coverage
+          - $1.8M saved; 99% accuracy flagging bad capacitors
+          - 40% fewer false failures
+    facts:
+      - Thorlabs 3-axis translation stage (NOT 5-axis; the resume should also say 3-axis). Thorlabs K-Cube motor controllers.
+      - DUT is a WHOOP 5.0, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it.
+      - Rig is an optical breadboard, vertical fiber probe, Feasa LED Analyser and Feasa IR Analyser, cardboard blackout enclosure.
+      - Output is 3D volumetric brightness plots (x/y/z relative mm), one per LED.
+      - WHOOP 5.0 public specs used for the model are 5 LEDs (3 green, 1 red, 1 IR), 4 photodiodes, 28 g. Exact LED layout approximated.
+      - Never publish the real rig photo. No standalone WHOOP hero render.
+      - Battery check interactive was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
+    sources: [Resume (Sept 2026), Akkhil's corrections]
+    open:
+      - "Problem: what broke first in the legacy ATE (throughput, flaky results, maintenance)?"
+      - CAD of the testbed or fixtures (STEP/GLB), or Thorlabs part numbers.
+      - NDA OK to say "capacitor" and "$1.8M" publicly (resume already does)?
+      - DAG scheduler stack (Airflow, Prefect, custom)?
+      - How was $1.8M calculated? One sentence.
+      - Scan grid size and step; what the "fit model" fits; can real scan data (CSV) be exported?
+
+  - slug: avanos
+    company: Avanos Medical
+    role: R&D Engineering Intern
+    dates: May to Aug 2025
+    summary: Electromechanical validation, quality systems automation, and robotic controls development.
+    stat: 1000+
+    statLabel: hours of validation automated
+    page:
+      title: Avanos Medical
+      crumb: Avanos Medical
+      description: "R&D engineering at Avanos Medical: a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures."
+      headline: Root-causing failures in high-pressure pumps.
+      roleLine: R&D Engineering Intern, Avanos Medical, May to Aug 2025
+      lead: Built the test fixture, robot automation and analytics that traced electromechanical pump failures back to their cause.
+      stats:
+        - { value: $40M, label: inventory covered by the CAPA }
+        - { value: 1000+, label: hours of manual validation automated }
+        - { value: 95%, label: faster failure analysis }
+        - { value: 6-axis, label: "robot, C++ control software" }
+      brief:
+        what: A test fixture, robot automation and an analytics platform that traced high-pressure pump failures to their cause.
+        why: Electromechanical failures in high-pressure pumps put $40M of inventory on the line.
+        how:
+          - LabVIEW and NI myDAQ fixture to reproduce failures on the bench
+          - "C++ control for a 6-axis robot: trajectory interpolation, joint kinematics, TCP streaming under ISO 12207"
+          - CI/CD-deployed analytics joining SAP and Salesforce data
+        results:
+          - ISO-compliant CAPA covering $40M of inventory
+          - 1000+ hours of manual validation automated
+          - 95% faster failure analysis
+    sources: [Resume (Sept 2026)]
+    open:
+      - Pump type or product line that can be named? Root cause at whatever level is allowed?
+      - Robot brand and model? Photo or video?
+      - Fixture photo or LabVIEW front-panel screenshot?
+
+  - slug: gt-medical-robotics
+    company: GT Medical Robotics
+    role: Mechanical Engineering Team Lead
+    dates: Sept 2023 to Dec 2025
+    summary: Led electromechanical integration of a trans-radial prosthetic arm across a 17-member team.
+    stat: +35%
+    statLabel: wrist factor of safety, at lower weight
+    page:
+      title: GT Medical Robotics
+      crumb: GT Medical Robotics
+      description: "Mechanical Engineering Team Lead on a trans-radial prosthetic arm: electromechanical integration and a multi-DOF wrist redesign with a 35% higher factor of safety."
+      headline: A lighter, stronger prosthetic wrist.
+      roleLine: Mechanical Engineering Team Lead, Georgia Tech Medical Robotics, Sept 2023 to Dec 2025
+      lead: Owned electromechanical integration of a trans-radial prosthetic arm across a 17-member team, then redesigned its multi-DOF wrist.
+      stats:
+        - { value: +35%, label: wrist factor of safety }
+        - { value: "17", label: engineers on the team }
+        - { value: Multi-DOF, label: "wrist, CAD and dynamic FEA" }
+        - { value: Lighter, label: "wrist mass, same targets met" }
+      brief:
+        what: Led electromechanical integration of a trans-radial prosthetic arm and redesigned its multi-DOF wrist.
+        why: The wrist had to hit torque and range-of-motion targets without adding weight.
+        how:
+          - Owned how actuation, sensing and structure fit together across a 17-member team
+          - Iterated the wrist in CAD and FEA under dynamic loading
+        results:
+          - +35% wrist factor of safety
+          - Lower wrist mass, same targets met
+    sources: [Resume (Sept 2026)]
+    open:
+      - How much lighter is the wrist?
+      - "Result: built and tested? Demo, competition, user trial?"
+      - CAD of the arm and wrist (the most valuable asset for the whole site). FEA screenshots before and after?
+      - Photos of the arm, team photo?
+      - Actuators and sensors used? Link to the EMG lab work?
+
+# ============================================================================
+#  PROJECTS (order of importance; status: live = main grid, in-progress = Coming soon)
+# ============================================================================
+projects:
+
+  - name: MediScan
+    slug: mediscan
+    status: live
+    feature: true
+    tag: I2CE Lab VIP, team lead, 2026
+    text: "Portable point-of-care diagnostics for low-resource clinics. Led the electromechanical design: 65°C closed-loop heating, four-channel optical detection and a solar-charged power board."
+    page:
+      title: MediScan
+      crumb: MediScan
+      description: "MediScan, I2CE Lab VIP: a portable point-of-care diagnostic platform for low-resource clinics. Led the electromechanical design across the NAAT, fluorescence and power modules."
+      headline: Point-of-care diagnostics for low-resource clinics.
+      roleLine: Team Lead, Cluster 4, I2CE Lab VIP, Jan to May 2026
+      lead: MediScan screens a urine sample for multiple diseases without a central lab. I led the electromechanical design across its NAAT, fluorescence and power modules.
+      stats:
+        - { value: $3.08, label: per NAAT test }
+        - { value: 65°C, label: closed-loop heating }
+        - { value: "4", label: optical channels on the sensing board }
+        - { value: 9.1%, label: battery per 20-minute reading }
+      brief:
+        what: "MediScan: a portable, non-invasive platform that screens a urine sample for multiple diseases at the point of care."
+        why: Nearly 47% of the world lacks access to essential diagnostics (WHO, 2021), so diseases are caught late.
+        how:
+          - "NAAT held at 65°C by an ESP32 PI loop: boost converter, MOSFET PWM, thermistor, thermal fuse"
+          - Four blue-LED and photodiode channels reading fluorescence in reflection
+          - Solar and USB-C charged power board shared by the NAAT and fluorescence modules
+        results:
+          - $3.08 per test, $57.22 per NAAT device
+          - 9.1% of the battery per 20-minute reading
+          - Boards finalized and sent for fabrication
+    facts:
+      - Akkhil was team lead and led the electromechanical design across the NAAT, fluorescence and power modules (confirmed Sept 25, 2026).
+      - "NAAT: LAMP at constant 65°C for Zika (NS5), dengue (3' UTR), malaria (18S rRNA), RNase P internal control. ESP32 PI(D) heater loop, 5V heater via boost converter (3.3 to 5V), low-side MOSFET PWM 1 to 2 kHz, thermistor, soldered thermal fuse. Blue LED excitation, green fluorescence read in reflection by photodiodes."
+      - "CAD (public/models/*.glb via tools/cad-to-glb.py): NAAT sensing board 17.7 x 69.3 mm with 4 Lite-On blue LEDs and 4 Vishay TEMD6200 photodiodes on the underside, TI boost IC and 10 mm inductor, MOSFET, JST and Molex connectors. Hybrid board 47.9 x 57.4 mm with ESP32-WROOM-32E, USB-C, Silicon Labs USB-UART, 2 tactile buttons, display connector."
+      - "Fluorescence: ESP32-S3, two AS7341 sensors (control and test line); HE4, LYVE-1, PSA, KIM-1, NGAL."
+      - "Power: 3.7V 5000 mAh LiPo, solar and USB-C charging, 3.3V regulator, 2.4 inch TFT. Worst case 4.45 W; 1.69 Wh (9.1%) per 20-minute reading; about 37 h full solar charge."
+      - "Cost: $57.22 per NAAT device, $3.08 per test."
+      - The 4-channel to 4-target mapping in the sensing interactive is an inference from the CAD; labelled illustrative. Chip, heater plate and stacked layout in the 3D view are simplified.
+    sources: ["Documents/VIP/2026: Spring 2026 final deck and CAD (the Fall 2025 notebook is NOT a source)"]
+    open:
+      - Deck says "at least 12 measurements" per charge, but 18.5 Wh / 1.69 Wh is about 10.9. Site says "about ten". Which is right?
+      - Team size? Photos of the built prototype?
+
+  - name: Partial Weight Bearing Insole
+    slug: pwb-insole
+    status: live
+    tag: Jan to Jul 2025
+    text: Force sensors, embedded C++ and ESP32 telemetry for real-time plantar load monitoring in partial-weight-bearing rehab. ±3% accuracy.
+    page:
+      title: Partial Weight Bearing Insole
+      crumb: Partial Weight Bearing Insole
+      description: A smart insole that measures plantar load in real time for partial-weight-bearing rehabilitation, calibrated to ±3% accuracy.
+      headline: Weight-bearing, measured in real time.
+      roleLine: Project, Jan to Jul 2025
+      lead: Patients told to put only part of their weight on an injured leg have no way to know how much they actually are. This insole measures it on every step.
+      stats:
+        - { value: ±3%, label: load accuracy after calibration }
+        - { value: ESP32, label: wireless telemetry }
+        - { value: C++, label: embedded firmware }
+        - { value: t-tests, label: paired validation with power analysis }
+      brief:
+        what: A smart insole that measures plantar load in real time for partial-weight-bearing rehab.
+        why: Patients told to put only part of their weight on an injured leg have no way to know how much they actually are.
+        how:
+          - Force-sensitive resistors under the foot
+          - Embedded C++ firmware with ESP32 wireless telemetry
+          - Calibration and regression against known loads
+        results:
+          - ±3% load accuracy
+          - Validated with paired t-tests and power analysis
+    facts:
+      - Sensor sites in the interactive are placeholders (heel, lateral midfoot, 5th met head, 1st met head, hallux).
+    sources: [Resume (Sept 2026)]
+    open:
+      - Team or solo? Class project or independent?
+      - Number and placement of FSRs, target load limit, photos of the insole or app.
+
+  - name: Smart Respirator
+    status: live
+    tag: Aug 2024 to Jan 2025
+    text: Prototyped a filtering facepiece respirator that monitors pressure and dust concentration inside the mask to confirm a proper face seal and that the respirator is working. Root cause analysis and ISO regulations.
+    sources: ["Resume: Smart Filtering Facepiece Respirator | Root Cause Analysis, ISO Regulations | Aug 2024 to Jan 2025"]
+    open:
+      - "For a deep dive: team or solo, sensors used, any results, photos."
+
+  - name: Guitar amp head
+    slug: amp-head
+    status: live
+    tag: Personal build
+    text: TDA2040 power stage, TL072 preamp and a Fender-style tone stack, designed in KiCad and checked in SPICE, housed in a custom clear enclosure.
+    page:
+      title: Guitar Amp Head
+      crumb: Guitar amp head
+      description: "A guitar amp head: TL072 preamp, Fender-style tone stack and TDA2040 power stage, designed in KiCad and checked in SPICE."
+      headline: An amp head, from schematic up.
+      roleLine: Personal build
+      lead: A guitar amplifier designed in KiCad and checked in SPICE, now being built into a custom clear enclosure so the circuit stays visible.
+      chain:
+        - { label: Input, sub: 1/4" jack }
+        - { label: Preamp, sub: TL072 op-amp }
+        - { label: Tone stack, sub: "Bass, mid, treble", on: true }
+        - { label: Power amp, sub: TDA2040 }
+        - { label: Speaker, sub: cab out }
+      brief:
+        what: A guitar amplifier head designed from the schematic up.
+        why: "A personal build: take an amplifier from circuit design to working hardware."
+        how:
+          - TL072 preamp for gain and buffering
+          - Fender-style passive tone stack
+          - TDA2040 power stage, laid out in KiCad
+        results:
+          - Gain and frequency response checked in SPICE before hardware
+          - Now being built into a custom clear enclosure
+    facts:
+      - Tone curve uses the Yeh and Smith closed form with '59 Bassman values; noon gives about -12 dB at 1 kHz, "Scooped" about -18 dB.
+      - Now assembled from amp and pedal modules in a custom clear, industrial-style enclosure (page does not mention modules yet).
+    open:
+      - Why did you build it? The brief's "why" is a placeholder.
+      - Is the enclosure finished? Photos? Describe the pivot to modules or only the design work?
+
+  - name: Betcha
+    status: live
+    tag: HackMIT 2026
+    text: A prediction market for friend groups, with per-category Elo ratings setting the odds.
+    facts:
+      - Formerly BetCircle (renamed Sept 25, 2026). Fake currency, per-category Elo ratings drive odds, evidence-based resolution with circle vote fallback.
+    sources: ["Betcha HackMIT 2026 pitch deck (PDF in Downloads)"]
+    open:
+      - Did it get built at HackMIT? Demo link, repo, prizes?
+
+  - name: FIXT
+    status: in-progress
+    tag: Startup, co-founder
+    text: Agents that understand hardware well enough to run, monitor and control the test line end to end.
+    link: https://usefixt.ai
+    facts:
+      - Link is https://usefixt.ai (was fixt.run). No deep dive while in progress.
+      - "Possible case study later: an agent reading a failing test log, proposing a fix, re-running on the fixture."
+    open:
+      - Co-founder named or not? Demo video, screenshots, early users or pilots to mention?
+
+  - name: Non-invasive BP monitor for LVAD patients
+    status: in-progress
+    tag: Sponsored by Emory Hospital
+    text: Continuous-flow heart pumps flatten the pulse, so standard cuffs often cannot get a reading.
+    facts:
+      - Sponsored by Emory Hospital (confirmed Sept 25, 2026). No logo on the card (Akkhil removed it); Emory is in the hero logo strip.
+      - Title names the system being built; text gives the why. They must not repeat each other. The why is general clinical background, not a project claim.
+    open:
+      - Lab or team, role, approach.
+
+# ============================================================================
+#  RESEARCH
+# ============================================================================
+research:
+
+  - slug: wearable-robotics
+    lab: Physiology of Wearable Robotics Lab
+    role: Undergraduate Research Assistant
+    dates: May 2025 to present
+    text: Designed EMG acquisition protocols for 50+ human-subject studies and built MATLAB pipelines for time-series analysis and real-time control.
+    page:
+      title: Physiology of Wearable Robotics Lab
+      crumb: Wearable Robotics Lab
+      description: "Undergraduate research at Georgia Tech's Physiology of Wearable Robotics Lab: EMG acquisition protocols for 50+ human-subject studies and MATLAB pipelines for real-time control."
+      headline: Reading muscle signals for real-time control.
+      roleLine: Undergraduate Research Assistant, Physiology of Wearable Robotics Lab, May 2025 to present
+      lead: Designed the EMG acquisition protocols behind 50+ human-subject studies and built the MATLAB pipelines that turn raw muscle signals into analysis and control.
+      stats:
+        - { value: 50+, label: human-subject studies }
+        - { value: EMG, label: acquisition protocols }
+        - { value: MATLAB, label: time-series and control pipelines }
+        - { value: Real-time, label: control output }
+      brief:
+        what: EMG acquisition protocols and MATLAB analysis and control pipelines for the Physiology of Wearable Robotics Lab.
+        why: Human-subject studies need consistent EMG recordings and a reliable path from raw signal to control.
+        how:
+          - Designed the acquisition protocols used across studies
+          - MATLAB pipelines for time-series analysis and real-time control
+        results:
+          - Protocols behind 50+ human-subject studies
+    sources: [Resume (Sept 2026)]
+    open:
+      - The brief's "why" is general; replace with the real study goal.
+      - PI name to credit? Which device or study (exoskeleton, prosthesis control)? Any publication, poster or abstract?
+
+  - lab: Structured Information for Precision Neuroengineering Lab
+    role: Undergraduate Research Assistant
+    dates: Dec 2024 to May 2025
+    text: Built 40+ test cases and Brian2 simulation environments for closed-loop electrophysiology, modeling neural dynamics under raster-scanned calcium imaging.
+    sources: [Resume (Sept 2026)]
+    open:
+      - PI name? One-sentence research question in plain words?
+
+# ============================================================================
+#  SITE-WIDE OPEN ITEMS
+# ============================================================================
+open:
+  - Resume PDF for download (remove phone number?), GitHub link, portrait photo (4:5).
+  - Research interests line for the Research section (earlier notes mention BCI and wearable sensing, with the Inan and Flavin labs as fits). Mention those or not?
+  - "Parked quality: real CAD/STEP for the WHOOP testbed, prosthetic arm and robot; exact WHOOP 5.0 sensor layout; SSAO/HDRI lighting; real scan data in the brightness volume."
