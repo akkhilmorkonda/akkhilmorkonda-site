@@ -5,10 +5,11 @@ const { e } = Astro.props;
 const p = e.page;
 const words = p.headline.split(' ');
 ---
-<section class="hero sc-hero">
+<section class={`hero sc-hero${p.image ? ' has-img' : ''}`}>
   <div><h1>{words.map((w, i) => <>{w.includes('-') ? <span class="nw">{w}</span> : w}{i < words.length - 1 ? ' ' : ''}</>)}</h1><div class="role">{p.roleLine}</div>
     <p class="lead">{p.lead}</p>
   </div>
+  {p.image && <figure class="sc-img"><img src={p.image.src} alt={p.image.alt} width="900" height="900" /><figcaption>{p.image.credit}</figcaption></figure>}
 </section>
 <nav class="sc-index" aria-label="Projects on this page">
   {p.core.map(c => (

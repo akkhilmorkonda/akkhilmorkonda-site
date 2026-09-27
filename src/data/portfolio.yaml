@@ -71,6 +71,10 @@ experience:
       description: "WHOOP project showcase: an optical characterization fixture, a current-based capacitor triage screen that saved $1.8M, and DAG-based ATE test software."
       showcase: true
       headline: Project showcase.
+      image:
+        src: /images/whoop-leatherluxe.webp
+        alt: WHOOP wearable on a black LeatherLuxe band
+        credit: Image from the WHOOP media kit.
       roleLine: Manufacturing Test Engineering Intern, WHOOP, Jan 2026 to Jun 2026
       lead: Three core systems I built across R&D and Manufacturing Engineering, each from requirements to deployment and handoff, plus smaller yield, AI and characterization projects.
       core:

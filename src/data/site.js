@@ -15,6 +15,7 @@ const page = z.object({
   // or, on a showcase page, once per core project
   brief: z.object({ what: str, why: str, how: z.array(str).min(1), results: z.array(str).min(1) }).optional(),
   showcase: z.boolean().optional(),
+  image: z.object({ src: str, alt: str, credit: str }).optional(),
   core: z.array(z.object({
     key: str, title: str, num: z.union([str, z.number()]).transform(String).optional(), summary: str,
     what: str, why: str, how: z.array(str).min(1), stack: z.array(str).optional(), results: z.array(str).min(1),
