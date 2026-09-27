@@ -164,17 +164,37 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .brief .res li::before{background:var(--ac)}
 @media (max-width:1000px){.brief{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.brief{grid-template-columns:1fr;margin-bottom:64px}.brief p,.brief li{font-size:16px}}
-/* core projects inside a deep dive (CoreProject.astro) and additional projects */
-.core-sec{padding:110px 0 64px;border-top:1px solid var(--ln)}
-.core{max-width:72ch}
-.core .n{display:block;font:700 44px/1 var(--fd);color:var(--ac);margin-bottom:14px;font-variant-numeric:tabular-nums}
-.core h2{font-size:clamp(26px,3vw,40px)}
-.core .core-sum{margin-top:14px;font-size:18px;line-height:1.5;color:var(--fg)}
-.core .pts{list-style:none;display:grid;gap:10px;margin-top:20px}
-.core .pts li{position:relative;padding-left:18px;font-size:16px;line-height:1.55;color:var(--fg2)}
-.core .pts li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:1px;background:var(--mu)}
-.core .core-res{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-top:22px;padding-top:16px;border-top:1px solid var(--ln);font:500 14px/1.5 var(--fm);color:var(--ac)}
-.core .core-res span{font-size:12px;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+/* showcase pages (ShowcaseHero.astro, ShowcaseProject.astro) */
+.sc-hero{padding-bottom:28px}
+.sc-index{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ln);border:1px solid var(--ln);margin-bottom:24px}
+.sc-card{display:flex;flex-direction:column;gap:8px;background:var(--bg);padding:22px 20px;transition:background .25s}
+.sc-card:hover{background:var(--sf)}
+.sc-card .n{font:700 34px/1 var(--fd);color:var(--ac);font-variant-numeric:tabular-nums}
+.sc-card .sc-t{margin-top:10px;font:700 16px/1.2 var(--fd);text-transform:uppercase}
+.sc-card .sc-s{font-size:14px;line-height:1.5;color:var(--fg2)}
+.sc-card .go{margin-top:auto;padding-top:10px;font:12px var(--fm);color:var(--mu);transition:color .2s}
+.sc-card:hover .go{color:var(--ac)}
+.sp{padding-top:104px;border-top:1px solid var(--ln);margin-top:88px}
+.sp-head .n{display:block;font:700 44px/1 var(--fd);color:var(--ac);margin-bottom:14px;font-variant-numeric:tabular-nums}
+.sp-head h2{font-size:clamp(21px,5.6vw,46px)}
+.sp h3{font:500 12px var(--fm);color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.sp-qs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln);margin-top:32px}
+.sp-q{background:var(--bg);padding:22px 20px}
+.sp-q p{font-size:16px;line-height:1.6;color:var(--fg)}
+.sp-how{margin-top:40px;max-width:78ch}
+.sp .pts{list-style:none;display:grid;gap:10px}
+.sp .pts li{position:relative;padding-left:18px;font-size:16px;line-height:1.55;color:var(--fg2)}
+.sp .pts li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:1px;background:var(--mu)}
+.sp .demo{margin-top:36px}
+.sp .explode{margin-top:48px}
+.sp .vol{padding:64px 0 8px}
+.sp .bat,.sp .fleet{padding:0;border:0}
+.sp-res{margin-top:40px;background:#101a15;border:1px solid var(--ln);padding:22px 20px}
+.sp-res h3{color:var(--ac)}
+.sp-res ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 28px}
+.sp-res li{position:relative;padding-left:14px;font-size:16px;line-height:1.5;color:var(--fg)}
+.sp-res li::before{content:"";position:absolute;left:0;top:.7em;width:6px;height:1px;background:var(--ac)}
+@media (max-width:900px){.sc-index,.sp-qs{grid-template-columns:1fr}.sp{padding-top:72px;margin-top:64px}}
 .xtra{padding:110px 0 120px;border-top:1px solid var(--ln)}
 .xtra h2{font-size:clamp(26px,3vw,40px);margin-bottom:28px}
 .xrows{border-top:1px solid var(--ln)}
@@ -187,3 +207,5 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .stack{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
 .stack li{font:500 12px/1 var(--fm);color:var(--fg2);border:1px solid var(--ln);padding:6px 8px}
 .xrow .stack{margin-top:10px}
+/* small phones: case-study titles and the battery demo bar must fit 320px */
+@media (max-width:560px){.hero h1{font-size:clamp(27px,9vw,40px)}.bbar{flex-wrap:wrap;gap:12px}}

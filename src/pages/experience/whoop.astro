@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CaseHero from '../../components/CaseHero.astro';
-import CoreProject from '../../components/CoreProject.astro';
+import ShowcaseHero from '../../components/ShowcaseHero.astro';
+import ShowcaseProject from '../../components/ShowcaseProject.astro';
 import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('experience', 'whoop');
@@ -9,11 +9,10 @@ const e = entry('experience', 'whoop');
 <Base title={e.page.title} crumb={e.page.crumb} description={e.page.description}>
 <div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
 
-<div class="wrap"><CaseHero e={e} />
-</div>
+<div class="wrap"><ShowcaseHero e={e} /></div>
 
-<div class="wrap"><section class="core-sec" id="optical"><CoreProject c={core(e, 'optical')} /></section></div>
-
+<ShowcaseProject c={core(e, 'optical')}>
+  <Fragment slot="demo">
 <section class="explode" id="explode"><div class="stick"><canvas id="rig" role="img" aria-label="Exploded 3D model of the optical testbed; each step below highlights one part"></canvas>
   <div class="steps"><h2>Inside the testbed</h2>
     <div class="st"><b>Blackout enclosure</b><p>Blocks ambient light so only the LED under test reaches the probe.</p></div>
@@ -35,27 +34,32 @@ const e = entry('experience', 'whoop');
     <button class="btn2" id="scan">Replay the scan</button>
     <div><div class="bar"></div><div class="barl"><span>Dim</span><span>Relative brightness</span><span>Peak</span></div><p class="note">Illustrative model. Swap in exported scan data for the real site.</p></div>
    </div></div>
-</section>
+</section></div>
+  </Fragment>
+</ShowcaseProject>
 
-<section class="bat" id="bat">
-  <CoreProject c={core(e, 'capacitor')} num="$1.8M" />
+<ShowcaseProject c={core(e, 'capacitor')}>
+  <div slot="demo" class="wrap demo bat" id="bat">
   <div class="bbox">
     <div class="bbar"><div class="seg3" id="dut"><button class="on" data-h="1">Healthy unit</button><button data-h=".1">Bad capacitor</button></div><div class="verdict" id="vd" role="status" aria-live="polite"><span class="ico">&#10003;</span><b>PASS</b></div></div>
     <div class="bc"><canvas id="cF" role="img" aria-label="Battery current spectrum; a bad capacitor adds a ripple peak that trips the FLAG verdict"></canvas><div class="tip2" id="tF"></div></div>
   </div>
   <p class="note">Current spectrum of one unit. Illustrative model, not WHOOP data.</p>
-</section>
+  </div>
+</ShowcaseProject>
 
-<section class="fleet" id="fleet">
-  <CoreProject c={core(e, 'ate')} num="30%" />
+<ShowcaseProject c={core(e, 'ate')}>
+  <div slot="demo" class="wrap demo fleet" id="fleet">
   <div class="fbox">
     <div class="fbar"><div class="seg3 fseg"><button class="on" data-m="legacy">Legacy ATE</button><button data-m="dag">DAG scheduler</button></div><div class="fres"><span>Fleet run time</span><b class="ftime">100%</b></div></div>
     <div class="fchart"><div class="lanes"></div><div class="over"><div class="endline"></div></div></div>
     <div class="flegend"><span><b>F</b> Flash</span><span><b>B</b> Boot</span><span><b>S</b> Sensors</span><span><b>P</b> Battery</span><span><b>O</b> Optical</span><span><b>R</b> Radio</span></div>
   </div>
   <p class="note">Illustrative step names and timings.</p>
-</section>
+  </div>
+</ShowcaseProject>
 
+<div class="wrap">
 <section class="xtra" id="more">
   <h2>Additional projects</h2>
   <div class="xrows">

@@ -68,55 +68,58 @@ experience:
     page:
       title: WHOOP
       crumb: WHOOP
-      description: "Manufacturing test engineering at WHOOP: an optical characterization fixture, a current-based capacitor triage screen that saved $1.8M, and DAG-based ATE test software."
-      headline: Scaling test for a wearable fleet.
+      description: "WHOOP project showcase: an optical characterization fixture, a current-based capacitor triage screen that saved $1.8M, and DAG-based ATE test software."
+      showcase: true
+      headline: Project showcase.
       roleLine: Manufacturing Test Engineering Intern, WHOOP, Jan 2026 to Jun 2026
-      lead: Led three core systems across R&D and Manufacturing Engineering, an optical characterization fixture, a capacitor triage screen and ATE test software, plus yield, AI and characterization work.
-      stats:
-        - { value: $1.8M, label: saved by capacitor triage }
-        - { value: 20 s, label: "battery screen, down from 250 s" }
-        - { value: 30%, label: faster fleet test time }
-        - { value: 40%, label: fewer false failures }
-      brief:
-        what: Built WHOOP's optical characterization fixture, a production screen that triages failing capacitors from current alone, and DAG-based ATE test software, owning each from requirements through validation, deployment and handoff.
-        why: Production test had to scale with the fixture fleet and catch more battery failures without adding cycle time, and new sensors needed a repeatable way to be characterized.
-        how:
-          - "Optical fixture: motion control and data acquisition for a Thorlabs 3-axis stage and Feasa LED and IR analysers"
-          - "Capacitor triage: BLE current streaming, FFT features and an inline machine-learning (logistic regression) classifier, with a Python, PyQt and Streamlit monitoring platform"
-          - "ATE software: dependency-aware DAG test orchestration in Python and pytest across 12 fixtures"
-        results:
-          - $1.8M saved; 99% accuracy flagging bad capacitors
-          - Battery screen cut from 250 s to about 20 s
-          - 30% faster test time, 95% pytest coverage
-          - 40% fewer false failures
+      lead: Three core systems I built across R&D and Manufacturing Engineering, each from requirements to deployment and handoff, plus smaller yield, AI and characterization projects.
       core:
         - key: optical
           title: Optical characterization fixture
-          summary: Automated 3-axis optical test fixture that maps the sensor's LED output in 3D, taken from design to a documented platform the team runs.
-          points:
+          num: 3-axis
+          summary: Automated optical fixture that maps the sensor's LED output in 3D.
+          what: An automated 3-axis optical test fixture that maps the sensor's LED output in 3D, taken from design to a documented platform the team runs.
+          why: The sensor's optical readings depend on exactly where the probe sits relative to the LEDs. We built this to identify the manufacturing tolerances for optical testing, the basis for test limits and hardware choices like glass versus plastic.
+          how:
             - Built motion control and data acquisition for a Thorlabs 3-axis stage (K-Cube controllers) and Feasa LED and IR analysers read through a fiber probe, with configurable scan volumes and user-defined motion profiles
-            - Designed and toleranced the fixture, then ran repeatability and probe-tolerance studies on WHOOP 5.0 and next-generation hardware, including glass versus plastic optics
+            - Designed and toleranced the fixture, then ran repeatability and probe-tolerance studies on WHOOP 5.0 and next-generation hardware
             - Wrote the LED calibration method and visualization tooling, documented SOPs, and onboarded engineers to run it independently
           stack: [Python, NumPy, pandas, Matplotlib, Plotly, PyQt, Streamlit, Thorlabs K-Cube, Feasa LED and IR analysers, Fixture design and tolerancing]
-          result: Defined hardware-specific limits for optical testing on a platform handed off to the team
+          results:
+            - Identified the manufacturing tolerances for optical testing, with repeatability limits and probe tolerances for WHOOP 5.0 and next-generation hardware
+            - Characterized glass versus plastic optical configurations
+            - Documented platform handed off; engineers now run it independently
         - key: capacitor
           title: Capacitor triage from current alone
+          num: $1.8M
           summary: Production screen that flags failing battery capacitors from their current signature.
-          points:
+          what: A production screen that flags failing battery capacitors from their current signature, running at the contract manufacturers during final assembly.
+          why: A battery capacitor failure was reaching the field. Nothing at the time could reliably identify it in a short enough time for production; state-of-charge and voltage tests both fell short.
+          how:
             - Streamed raw battery current from device firmware over BLE and extracted FFT features for an inline logistic-regression classifier
             - Validated against failure-analysis teardowns, CT-scan correlation and a large production DOE run with the contract manufacturer
             - Built the full-stack monitoring platform (Python backend, PyQt and Streamlit front ends), deployed locally at the contract manufacturers during final assembly and integrated into the production test system behind a feature flag
           stack: [Python, NumPy, SciPy, scikit-learn, pandas, PyQt, Streamlit, BLE, FFT, Machine learning, DOE]
-          result: $1.8M saved, 99% accuracy, screen cut from 250 s to about 20 s
+          results:
+            - $1.8M saved
+            - 99% accuracy flagging bad capacitors
+            - Screen cut from 250 s to about 20 s
+            - Shipped to production at the contract manufacturers
         - key: ate
           title: ATE test software
+          num: 30%
           summary: Distributed hardware-in-the-loop test framework across a 12-fixture fleet.
-          points:
+          what: A distributed hardware-in-the-loop test framework that runs independent test steps side by side across a 12-fixture fleet.
+          why: Legacy ATE ran every test step in series, so fleet run time grew with every step and fixture added.
+          how:
             - Re-architected serial legacy ATE into dependency-aware, DAG-scheduled test orchestration in Python across 12 fixtures
             - Raised pytest coverage to 95% and used fleet-wide analysis to separate rig faults from real device defects
             - Prototyped and demoed the DAG orchestration layer for next-generation test software
           stack: [Python, pytest, DAG orchestration, Hardware-in-the-loop]
-          result: 30% faster test time, 95% pytest coverage, 40% fewer false failures
+          results:
+            - 30% faster test time
+            - 95% pytest coverage
+            - 40% fewer false failures
       more:
         - title: IR yield improvement
           summary: Root-caused IR LED measurement noise to test-software timing in the analog front end across 10+ experiments, then shipped the fix to manufacturing software.
@@ -144,12 +147,12 @@ experience:
       - WHOOP 5.0 public specs used for the model are 5 LEDs (3 green, 1 red, 1 IR), 4 photodiodes, 28 g. Exact LED layout approximated.
       - Never publish the real rig photo. No standalone WHOOP hero render.
       - Battery check interactive was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
+      - "Whys confirmed Sept 27, 2026: optical fixture built to identify manufacturing tolerances for optical testing; capacitor screen because nothing could reliably identify the failure in a short enough time; ATE because legacy ATE ran every step in series."
       - FFT feature extraction and inline logistic regression for the capacitor screen confirmed accurate (Sept 26, 2026). Tag it as "Machine learning".
       - "Stack confirmed Sept 26, 2026: Python backend with PyQt and Streamlit front ends; capacitor monitoring platform deployed locally at the contract manufacturers during final assembly, integrated into the test system; FA Bot uses Postgres for vector embeddings, local Hugging Face sentence transformers for semantic search, OpenAI to fill gaps, with benchmarks and evals of sentence transformers on manufacturing data; IMU over I2C. Libraries confirmed Sept 27, 2026: capacitor screen used NumPy, SciPy, scikit-learn, pandas; optical fixture used NumPy, pandas, Matplotlib, Plotly; both had PyQt and Streamlit front ends."
       - "Public wording (Sept 26, 2026): no internal project or program codenames, no manufacturer name, next-generation instead of the unreleased generation name, no ranking of field failure modes. Full detail is in the private master resume."
     sources: [Resume (Sept 2026), Akkhil's corrections, "WHOOP co-op summary doc (PDF in Downloads, Sept 2026)"]
     open:
-      - "Problem: what broke first in the legacy ATE (throughput, flaky results, maintenance)?"
       - CAD of the testbed or fixtures (STEP/GLB), or Thorlabs part numbers.
       - NDA OK to say "capacitor" and "$1.8M" publicly (resume already does)?
       - DAG scheduler stack (Airflow, Prefect, custom)?

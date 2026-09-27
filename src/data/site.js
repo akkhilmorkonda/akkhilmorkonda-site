@@ -11,12 +11,16 @@ const page = z.object({
   headline: str, roleLine: str, lead: str,
   stats: z.array(stat).optional(),
   chain: z.array(z.object({ label: str, sub: str, on: z.boolean().optional() })).optional(),
-  // every deep dive answers What, Why, How, Results (CLAUDE.md)
-  brief: z.object({ what: str, why: str, how: z.array(str).min(1), results: z.array(str).min(1) }),
-  // optional: headline projects with their own section, and smaller additional projects
-  core: z.array(z.object({ key: str, title: str, summary: str, points: z.array(str).min(1), stack: z.array(str).optional(), result: str })).optional(),
+  // every deep dive answers What, Why, How, Results (CLAUDE.md): once for the page,
+  // or, on a showcase page, once per core project
+  brief: z.object({ what: str, why: str, how: z.array(str).min(1), results: z.array(str).min(1) }).optional(),
+  showcase: z.boolean().optional(),
+  core: z.array(z.object({
+    key: str, title: str, num: z.union([str, z.number()]).transform(String).optional(), summary: str,
+    what: str, why: str, how: z.array(str).min(1), stack: z.array(str).optional(), results: z.array(str).min(1),
+  })).optional(),
   more: z.array(z.object({ title: str, summary: str, stack: z.array(str).optional(), result: str.optional() })).optional(),
-});
+}).refine(p => p.brief || (p.showcase && p.core?.length), p => ({ message: `page "${p.title}" needs a brief, or showcase: true with core projects` }));
 const notes = { facts: z.array(str).optional(), sources: z.array(str).optional(), open: z.array(str).optional() };
 
 const schema = z.object({

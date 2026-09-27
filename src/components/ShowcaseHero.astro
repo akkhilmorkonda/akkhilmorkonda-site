@@ -1,0 +1,22 @@
+---
+// Top of a showcase page (page.showcase in portfolio.yaml): title, role, intro,
+// then one card per core project that jumps to its section.
+const { e } = Astro.props;
+const p = e.page;
+const words = p.headline.split(' ');
+---
+<section class="hero sc-hero">
+  <div><h1>{words.map((w, i) => <>{w.includes('-') ? <span class="nw">{w}</span> : w}{i < words.length - 1 ? ' ' : ''}</>)}</h1><div class="role">{p.roleLine}</div>
+    <p class="lead">{p.lead}</p>
+  </div>
+</section>
+<nav class="sc-index" aria-label="Projects on this page">
+  {p.core.map(c => (
+    <a class="sc-card" href={`#${c.key}`}>
+      {c.num && <b class="n">{c.num}</b>}
+      <span class="sc-t">{c.title}</span>
+      <span class="sc-s">{c.summary}</span>
+      <span class="go" aria-hidden="true">See the project</span>
+    </a>
+  ))}
+</nav>

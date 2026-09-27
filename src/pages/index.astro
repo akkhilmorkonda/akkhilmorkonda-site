@@ -35,7 +35,7 @@ import { site, hero, logos, about, education, experience, projects, inProgress, 
         <a class="row" href={`/experience/${e.slug}`}>
           <div class="who"><h3>{e.company}</h3><span>{e.role}</span><span class="d">{e.dates}</span></div>
           <p>{e.summary}</p>
-          <div class="st"><b>{e.stat}</b><span>{e.statLabel}</span><span class="go" aria-hidden="true">Read case study</span></div>
+          <span class="go" aria-hidden="true">Read case study</span>
         </a>
       ))}
     </div>
@@ -124,15 +124,13 @@ import { site, hero, logos, about, education, experience, projects, inProgress, 
   .ta{margin-top:20px;font-size:15px;line-height:1.55;color:var(--fg2);max-width:80ch}
   .ta b{color:var(--fg);font-weight:600}
   .rows{border-top:1px solid var(--ln)}
-  .row{display:grid;grid-template-columns:1fr 1.4fr .8fr;gap:32px;align-items:start;padding:32px 0;border-bottom:1px solid var(--ln);position:relative;transition:background .25s}
+  .row{display:grid;grid-template-columns:1fr 1.6fr auto;gap:32px;align-items:start;padding:32px 0;border-bottom:1px solid var(--ln);position:relative;transition:background .25s}
   .row:hover{background:var(--sf)}
   .row h3{font:700 22px/1.1 var(--fd);text-transform:uppercase}
   .who span{display:block;margin-top:6px;font-size:14px;color:var(--mu)}
   .who .d{font:12px var(--fm)}
   .row p{font-size:16px;line-height:1.55;color:var(--fg2)}
-  .row .st b{display:block;font:700 34px/1 var(--fd);color:var(--ac)}
-  .row .st span{display:block;margin-top:8px;font-size:13px;color:var(--mu)}
-  .row .st .go{margin-top:18px;font:12px var(--fm);color:var(--mu);transition:color .2s}
+  .row .go{align-self:center;font:12px var(--fm);color:var(--mu);transition:color .2s;white-space:nowrap}
   .row:hover .go{color:var(--ac)}
   .bento{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-auto-flow:dense;gap:1px;background:var(--ln);border:1px solid var(--ln)}
   .cell{position:relative;background:var(--bg);padding:28px;min-height:220px;display:flex;flex-direction:column}

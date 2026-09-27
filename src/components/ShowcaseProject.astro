@@ -1,0 +1,23 @@
+---
+// One core project on a showcase page: What, Why, How (bullets, stack, then the
+// interactive passed in the "demo" slot), Results. Text sits in .wrap; the demo slot
+// may be full-bleed (e.g. the sticky testbed explode).
+const { c } = Astro.props;
+---
+<section class="sp" id={c.key}>
+  <div class="wrap">
+    <header class="sp-head">{c.num && <b class="n">{c.num}</b>}<h2>{c.title}</h2></header>
+    <div class="sp-qs">
+      <div class="sp-q"><h3>What</h3><p>{c.what}</p></div>
+      <div class="sp-q"><h3>Why</h3><p>{c.why}</p></div>
+    </div>
+    <div class="sp-how"><h3>How</h3>
+      <ul class="pts">{c.how.map(h => <li>{h}</li>)}</ul>
+      {c.stack && <ul class="stack" aria-label="Tech stack">{c.stack.map(t => <li>{t}</li>)}</ul>}
+    </div>
+  </div>
+  <slot name="demo" />
+  <div class="wrap">
+    <div class="sp-res"><h3>Results</h3><ul>{c.results.map(r => <li>{r}</li>)}</ul></div>
+  </div>
+</section>
