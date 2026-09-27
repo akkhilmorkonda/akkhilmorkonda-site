@@ -37,13 +37,21 @@ const e = entry('experience', 'whoop');
 </ShowcaseProject>
 
 <ShowcaseProject c={core(e, 'ate')}>
-  <div slot="demo" class="wrap demo fleet" id="fleet">
-  <div class="fbox">
-    <div class="fbar"><div class="seg3 fseg"><button class="on" data-m="legacy">Legacy ATE</button><button data-m="dag">DAG scheduler</button></div><div class="fres"><span>Fleet run time</span><b class="ftime">100%</b></div></div>
-    <div class="fchart"><div class="lanes"></div><div class="over"><div class="endline"></div></div></div>
-    <div class="flegend"><span><b>F</b> Flash</span><span><b>B</b> Boot</span><span><b>S</b> Sensors</span><span><b>P</b> Battery</span><span><b>O</b> Optical</span><span><b>R</b> Radio</span></div>
-  </div>
-  <p class="note">Illustrative step names and timings.</p>
+  <div slot="demo" class="wrap demo" id="ateDag">
+    <div class="dag-box">
+      <div class="dag-bar">
+        <div class="seg3" id="dagMode"><button class="on" data-m="dag">DAG scheduler</button><button data-m="serial">Legacy serial</button></div>
+        <button class="btn2" id="dagRun" type="button">Run again</button>
+        <div class="dag-clock"><span>Elapsed</span><b id="dagT">0 s</b></div>
+      </div>
+      <div class="dag-graph"><svg aria-hidden="true"></svg></div>
+      <div class="dag-times">
+        <div data-bar="serial"><span>Legacy serial</span><div class="trk"><i class="fill"></i></div><b></b></div>
+        <div data-bar="dag"><span>DAG scheduler</span><div class="trk"><i class="fill"></i></div><b></b></div>
+      </div>
+      <p class="dag-status" id="dagStatus" role="status" aria-live="polite">Ready</p>
+    </div>
+    <p class="note">Click any step to make it fail on the next run. Illustrative steps and timings.</p>
   </div>
 </ShowcaseProject>
 
@@ -61,5 +69,5 @@ const e = entry('experience', 'whoop');
 <script>
   import '../../scripts/testbed.js';
   import '../../scripts/battery.js';
-  import '../../scripts/fleet.js';
+  import '../../scripts/ate-dag.js';
 </script>
