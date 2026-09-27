@@ -69,7 +69,7 @@ When a role has several major projects, its page is a project showcase (`page.sh
 ## Confirmed facts (Akkhil corrected these; keep them right)
 - Minor is **Embedded Devices** (not Computer Science), per Akkhil Sept 25, 2026. About text is Akkhil's own wording.
 - WHOOP optical testbed: **Thorlabs 3-axis** translation stage (NOT 5-axis), Thorlabs **K-Cube** controllers, Feasa LED + IR analysers via fiber probe, blackout enclosure, optical breadboard.
-- DUT is a **WHOOP 5.0**, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it. Testbed steps end on the DUT, then zoom in with LEDs on, leading into "What it measures".
+- DUT is a **WHOOP 5.0**, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it. Testbed steps end on the DUT, then zoom in with LEDs on, then the project Results (the brightness viewer was removed Sept 27, 2026).
 - **Never publish the real rig photo.** No standalone WHOOP hero render.
 - Battery diagnostics section was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
 - Contact: amorkonda28@gmail.com, linkedin.com/in/akkhil-morkonda.

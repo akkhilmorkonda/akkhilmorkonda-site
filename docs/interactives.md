@@ -3,8 +3,7 @@
 Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`. This file only records how the custom visuals work. Every simulated visual carries an "illustrative" caption.
 
 ## WHOOP (`/experience/whoop`)
-- **Exploded testbed** (`testbed.js`, scroll, 6 steps): blackout enclosure, breadboard + K-Cube controllers, Thorlabs 3-axis stage, precision fixture, fiber + Feasa analysers, WHOOP 5.0. Ends by zooming into the DUT with LEDs on, leading into "What it measures". Camera pulls back on narrow canvases so the rig stays in frame.
-- **Brightness volume viewer** (`volume.js`): green / IR LED, volume / slice view, slice height, threshold, scan replay.
+- **Exploded testbed** (`testbed.js`, scroll, 6 steps): blackout enclosure, breadboard + K-Cube controllers, Thorlabs 3-axis stage, precision fixture, fiber + Feasa analysers, WHOOP 5.0. Ends by zooming into the DUT with LEDs on, then the project Results. Camera pulls back on narrow canvases so the rig stays in frame.
 - **Battery check** (`battery.js`, simplified at Akkhil's request): Healthy / Bad capacitor toggle, spectrum, PASS/FLAG.
 - **Fleet chart** (`fleet.js`): 12 fixture lanes, Legacy ATE vs DAG scheduler, run time 100% to 70%; switches to DAG on scroll.
 

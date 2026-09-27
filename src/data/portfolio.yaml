@@ -87,10 +87,10 @@ experience:
           stack: [Python, NumPy, pandas, Matplotlib, Plotly, PyQt, Streamlit, Thorlabs K-Cube, Feasa LED and IR analysers, Fixture design and tolerancing]
           results:
             - Identified the manufacturing tolerances for optical testing, with repeatability limits and probe tolerances for WHOOP 5.0 and next-generation hardware
-            - Characterized glass versus plastic optical configurations
+            - Created a hardware abstraction layer and simulation software, reused across other projects
             - Documented platform handed off; engineers now run it independently
         - key: capacitor
-          title: Capacitor triage from current alone
+          title: On-device capacitor triage system
           num: $1.8M
           summary: Production screen that flags failing battery capacitors from their current signature.
           what: A production screen that flags failing battery capacitors from their current signature, running at the contract manufacturers during final assembly.
@@ -101,7 +101,7 @@ experience:
             - Built the full-stack monitoring platform (Python backend, PyQt and Streamlit front ends), deployed locally at the contract manufacturers during final assembly and integrated into the production test system behind a feature flag
           stack: [Python, NumPy, SciPy, scikit-learn, pandas, PyQt, Streamlit, BLE, FFT, Machine learning, DOE]
           results:
-            - $1.8M saved
+            - $1.8M saved on device returns and logistics costs
             - 99% accuracy flagging bad capacitors
             - Screen cut from 250 s to about 20 s
             - Shipped to production at the contract manufacturers

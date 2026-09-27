@@ -23,18 +23,6 @@ const e = entry('experience', 'whoop');
     <div class="st"><b>WHOOP 5.0</b><p>Sensor side up in its pocket. The LEDs switch on and the probe maps the light above them.</p></div>
   </div><div class="prog" id="prog"></div></div></section>
 
-<div class="wrap"><section class="vol">
-  <div class="head"><h2>What it measures</h2><p>The probe steps through a 3D grid above each LED and records brightness at every point. The result is a map of how the light spreads, compared LED to LED and device to device.</p></div>
-  <div class="viewer"><div class="cv" id="cv"><span class="hint">Drag to rotate. Hover a point for its reading.</span><canvas id="vol" role="img" aria-label="3D point cloud of LED brightness measured above the sensor"></canvas><div class="tip" id="tip"></div></div>
-   <div class="ctl">
-    <div><label>LED</label><div class="seg" id="led"><button class="on" data-v="g">Green</button><button data-v="ir">Infrared</button></div></div>
-    <div><label>View</label><div class="seg" id="view"><button class="on" data-v="vol">Volume</button><button data-v="slice">Slice</button></div></div>
-    <div><label>Slice height <span class="val" id="zv">6.0 mm</span></label><input type="range" id="z" min="0" max="15" value="6"></div>
-    <div><label>Hide below <span class="val" id="tv">8%</span></label><input type="range" id="t" min="0" max="60" value="8"></div>
-    <button class="btn2" id="scan">Replay the scan</button>
-    <div><div class="bar"></div><div class="barl"><span>Dim</span><span>Relative brightness</span><span>Peak</span></div><p class="note">Illustrative model. Swap in exported scan data for the real site.</p></div>
-   </div></div>
-</section></div>
   </Fragment>
 </ShowcaseProject>
 
@@ -72,7 +60,6 @@ const e = entry('experience', 'whoop');
 </Base>
 <script>
   import '../../scripts/testbed.js';
-  import '../../scripts/volume.js';
   import '../../scripts/battery.js';
   import '../../scripts/fleet.js';
 </script>

@@ -46,7 +46,7 @@ import { RM, AC, mkRenderer, fit, mkPipe, makePod } from './whoop-common.js';
  // DUT: WHOOP 5.0 sensor pod, sensor side up in the base-plate pocket
  const dut=G('dut');const pod=makePod();pod.g.position.set(-60,22.4,70);dut.add(pod.g);const ledMats=pod.ledMats;
  const glow=new THREE.PointLight(0x3dff9a,0,160,2);glow.position.set(-60,42,70);S.add(glow);
- // light cone above the LEDs (bridges into "What it measures")
+ // light cone above the LEDs (the scan the fixture performs)
  const NC=1400,cp=new Float32Array(NC*3),cs=new Float32Array(NC);for(let i=0;i<NC;i++){const h=Math.random()**.8*70,a=Math.random()*6.283,rr=Math.random()**.6*(3+h*.55);cp.set([-60+Math.cos(a)*rr,34+h,68+Math.sin(a)*rr],i*3);cs[i]=Math.max(.05,(1-rr/(3+h*.55))*(1-h/80))}
  const cg=new THREE.BufferGeometry();cg.setAttribute('position',new THREE.BufferAttribute(cp,3));cg.setAttribute('size',new THREE.BufferAttribute(cs,1));
  const cmat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:{op:{value:0},px:{value:Math.min(2,devicePixelRatio)}},
