@@ -127,19 +127,19 @@ experience:
         - title: IR yield improvement
           summary: Root-caused IR LED measurement noise to test-software timing in the analog front end across 10+ experiments, then shipped the fix to manufacturing software.
           stack: [Root-cause analysis, GRR studies, AFE timing]
-          result: About 95% less IR measurement noise (expected)
+          result: About 95% less IR measurement noise
         - title: FA Bot
           summary: AI failure-analysis assistant over the first consolidated failure-analysis database. Benchmarked and evaluated sentence-transformer models on manufacturing-specific retrieval, served semantic search from local Hugging Face models with embeddings in Postgres, and used OpenAI to fill the gaps. Piloted in manufacturing.
           stack: [Hugging Face sentence transformers, PostgreSQL, OpenAI API, RAG, Model benchmarks and evals]
           result: Search 40 s to 140 ms; startup 60 s to 6 s
-        - title: LED and photodiode benchtop test
-          summary: Set fixture geometry, distances and materials for RGB, IR and SWIR optical tests and standardized the procedure for other engineers.
-          stack: [Optical test design, RGB, IR and SWIR, SOPs]
-        - title: IMU characterization
-          summary: IMU test fixture and I2C tooling, with reverse-engineered protocols.
-          stack: [I2C, Protocol reverse engineering]
-        - title: JTAG feasibility study
-          summary: Evaluated JTAG boundary-scan for manufacturing test and recommended against it.
+        - title: Optical stack MFG testing
+          summary: Devised manufacturing test methods for dark noise, black-box, and LED and photodiode assessments at board and assembly level on the manufacturing line.
+          stack: [Manufacturing test design, Dark noise, Black-box testing, LED and photodiode test]
+        - title: IMU QC fixture
+          summary: Developed software to monitor fixture reference IMU drift over time, and built benchtop fixtures to recalibrate them.
+          stack: [I2C, Drift monitoring, Fixture design]
+        - title: JTAG research
+          summary: Conducted extensive JTAG boundary-scan implementation research on current and NPI hardware, coordinating with suppliers and contract manufacturers.
           stack: [JTAG]
           result: Avoided a low-ROI investment
     facts:
