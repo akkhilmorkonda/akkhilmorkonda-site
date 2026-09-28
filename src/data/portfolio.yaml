@@ -169,31 +169,55 @@ experience:
     page:
       title: Avanos Medical
       crumb: Avanos Medical
-      description: "R&D engineering at Avanos Medical: a LabVIEW test fixture, 6-axis robot control software and an analytics platform to root-cause pump failures."
-      headline: Root-causing failures in high-pressure pumps.
+      description: "Avanos Medical project showcase: a LabVIEW fixture that reproduces high-pressure pump failures, a SAP and Salesforce failure analytics platform, and C++ control software for a 6-axis validation robot."
+      showcase: true
+      headline: Project showcase
       roleLine: R&D Engineering Intern, Avanos Medical, May to Aug 2025
-      lead: Built the test fixture, robot automation and analytics that traced electromechanical pump failures back to their cause.
-      stats:
-        - { value: $40M, label: inventory covered by the CAPA }
-        - { value: 1000+, label: hours of manual validation automated }
-        - { value: 95%, label: faster failure analysis }
-        - { value: 6-axis, label: "robot, C++ control software" }
-      brief:
-        what: A test fixture, robot automation and an analytics platform that traced high-pressure pump failures to their cause.
-        why: Electromechanical failures in high-pressure pumps put $40M of inventory on the line.
-        how:
-          - LabVIEW and NI myDAQ fixture to reproduce failures on the bench
-          - "C++ control for a 6-axis robot: trajectory interpolation, joint kinematics, TCP streaming under ISO 12207"
-          - CI/CD-deployed analytics joining SAP and Salesforce data
-        results:
-          - ISO-compliant CAPA covering $40M of inventory
-          - 1000+ hours of manual validation automated
-          - 95% faster failure analysis
+      lead: Three systems I built in R&D to trace electromechanical failures in high-pressure pumps, from the bench to the field data to automated validation.
+      core:
+        - key: fixture
+          title: Pump failure test fixture
+          summary: Bench fixture that reproduces electromechanical failures in high-pressure pumps.
+          what: A LabVIEW and NI myDAQ test fixture that reproduces electromechanical failures in high-pressure pumps on the bench.
+          why: Electromechanical failures in high-pressure pumps put $40M of inventory on the line. The failure had to be reproduced on the bench before its cause could be confirmed and corrected.
+          how:
+            - Built the data acquisition and test sequencing in LabVIEW on NI myDAQ hardware
+            - Reproduced the field failure mode on the bench to confirm its root cause
+            - Fed the results into an ISO-compliant corrective and preventive action (CAPA)
+          stack: [LabVIEW, NI myDAQ, Data acquisition, Root-cause analysis, CAPA]
+          results:
+            - ISO-compliant CAPA covering $40M of inventory
+        - key: analytics
+          title: Failure analytics platform
+          summary: Platform that joins SAP and Salesforce data to catch SKU-level reporting discrepancies.
+          what: A CI/CD-deployed analytics platform that joins SAP and Salesforce data to catch SKU-level reporting discrepancies.
+          why: Failure data lived in two systems, and SKU-level discrepancies between them slowed failure analysis.
+          how:
+            - Joined SAP and Salesforce records at the SKU level to flag reporting discrepancies automatically
+            - Deployed and updated through a CI/CD pipeline
+          stack: [SAP, Salesforce, CI/CD]
+          results:
+            - 95% faster failure analysis
+        - key: robot
+          title: 6-axis robot validation software
+          summary: C++ control software that lets a 6-axis robot run validation on its own.
+          what: C++ control software that drives a 6-axis robot through validation testing without an operator.
+          why: Validation was run by hand, costing more than 1000 hours of engineering time.
+          how:
+            - Wrote 3D trajectory interpolation and joint kinematics in C++
+            - Streamed motion commands to the robot controller over TCP
+            - Developed to the ISO 12207 software life-cycle standard
+          stack: [C++, Robot kinematics, Trajectory interpolation, TCP/IP, ISO 12207]
+          results:
+            - 1000+ hours of manual validation automated
     sources: [Resume (Sept 2026)]
     open:
-      - Pump type or product line that can be named? Root cause at whatever level is allowed?
-      - Robot brand and model? Photo or video?
-      - Fixture photo or LabVIEW front-panel screenshot?
+      - "Hero image: Game Ready control unit and wrap (sent in chat Sept 28, 2026); needs the file saved to disk. OK to name Game Ready as the product?"
+      - Pump failure mode and root cause, at whatever level is allowed?
+      - "Fixture why: the second sentence (reproduce on the bench before confirming the cause) is inferred; confirm or correct."
+      - "Analytics why (discrepancies between SAP and Salesforce slowed failure analysis) is inferred; confirm. Language and tools (Python? SQL? which CI/CD)?"
+      - "Robot: brand and model? What did it validate (which test, how many cycles)?"
+      - Any smaller Avanos projects for an Additional projects list?
 
   - slug: gt-medical-robotics
     company: GT Medical Robotics

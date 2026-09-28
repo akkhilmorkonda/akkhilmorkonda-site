@@ -68,6 +68,8 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .verdict{display:flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid var(--ac);color:var(--ac);transition:all .25s}
 .verdict b{font:700 18px var(--fd);letter-spacing:.04em}
 .verdict.flag{border-color:#ff5a5a;color:#ff5a5a}
+.verdict.wait{border-color:var(--ln);color:var(--mu)}
+.pump-c{height:340px}
 .bat .note{margin-top:12px;font:12px var(--fm);color:var(--mu)}
 .jt{display:grid;gap:8px}
 .jt div{display:flex;justify-content:space-between;font-size:13px;color:var(--mu)}

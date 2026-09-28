@@ -1,29 +1,54 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CaseHero from '../../components/CaseHero.astro';
-import { entry } from '../../data/site.js';
+import ShowcaseHero from '../../components/ShowcaseHero.astro';
+import ShowcaseProject from '../../components/ShowcaseProject.astro';
+import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('experience', 'avanos');
 ---
 <Base title={e.page.title} crumb={e.page.crumb} description={e.page.description}>
 <div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
-<div class="wrap"><CaseHero e={e} />
 
+<div class="wrap"><ShowcaseHero e={e} /></div>
 
-<section class="vol">
-  <div class="head"><h2>A robot that repeats the test</h2><p>C++ control software interpolates a 3D trajectory, computes joint kinematics and streams TCP commands to a 6-axis robot, so a thousand hours of hand validation run on their own.</p></div>
-  <div class="viewer"><div class="cv"><canvas id="robot" aria-label="6-axis robot arm tracing a trajectory around a pump body"></canvas></div>
-    <div class="ctl">
-      <div><label>Trajectory</label><input type="range" id="rT" min="0" max="1000" value="0" aria-label="Trajectory position"></div>
-      <button class="btn2" id="rPlay">Pause</button>
-      <div id="rJ" class="jt"><div><span>J1 base</span><b>0°</b></div><div><span>J2 shoulder</span><b>0°</b></div><div><span>J3 elbow</span><b>0°</b></div><div><span>J4 wrist roll</span><b>0°</b></div><div><span>J5 wrist pitch</span><b>0°</b></div><div><span>J6 flange</span><b>0°</b></div></div>
-      <p class="note">Drag the view to rotate. Illustrative robot and path.</p>
-    </div></div>
-</section>
+<ShowcaseProject c={core(e, 'fixture')}>
+  <div slot="demo" class="wrap demo bat" id="pump">
+    <div class="bbox">
+      <div class="bbar"><div class="seg3" id="pumpUnit"><button class="on" data-f="0">Healthy pump</button><button data-f="1">Failing pump</button></div><div class="verdict wait" id="pumpVd" role="status" aria-live="polite"><b>TESTING</b></div></div>
+      <div class="bc pump-c"><canvas id="pumpC" role="img" aria-label="Fixture trace of pump pressure and motor current over one test cycle; a failing pump crosses the limits and trips the FAIL verdict"></canvas></div>
+    </div>
+    <p class="note">One fixture test cycle. Illustrative signals, not Avanos data.</p>
+  </div>
+</ShowcaseProject>
 
-<section class="beats">
-  <div><h3>Test fixture</h3><p>A LabVIEW and NI myDAQ fixture reproduced the electromechanical failures on the bench and fed an ISO-compliant CAPA covering $40M of inventory.</p></div>
-  <div><h3>Analytics</h3><p>A CI/CD-deployed platform joined SAP and Salesforce data to catch SKU-level reporting discrepancies, cutting failure analysis time 95%.</p></div>
+<ShowcaseProject c={core(e, 'analytics')} />
+
+<ShowcaseProject c={core(e, 'robot')}>
+  <div slot="demo" class="wrap demo">
+    <div class="viewer"><div class="cv"><canvas id="robot" aria-label="6-axis robot arm tracing a trajectory around a pump body"></canvas></div>
+      <div class="ctl">
+        <div><label>Trajectory</label><input type="range" id="rT" min="0" max="1000" value="0" aria-label="Trajectory position"></div>
+        <button class="btn2" id="rPlay">Pause</button>
+        <div id="rJ" class="jt"><div><span>J1 base</span><b>0°</b></div><div><span>J2 shoulder</span><b>0°</b></div><div><span>J3 elbow</span><b>0°</b></div><div><span>J4 wrist roll</span><b>0°</b></div><div><span>J5 wrist pitch</span><b>0°</b></div><div><span>J6 flange</span><b>0°</b></div></div>
+        <p class="note">Drag the view to rotate. Illustrative robot and path.</p>
+      </div></div>
+  </div>
+</ShowcaseProject>
+
+{e.page.more?.length && (
+<div class="wrap">
+<section class="xtra" id="more">
+  <h2>Additional projects</h2>
+  <div class="xrows">
+    {e.page.more.map(m => (
+      <div class="xrow"><h3>{m.title}</h3><div><p>{m.summary}</p>{m.stack && <ul class="stack" aria-label="Tech stack">{m.stack.map(t => <li>{t}</li>)}</ul>}</div></div>
+    ))}
+  </div>
 </section></div>
+)}
+
 </Base>
-<script>import '../../scripts/robot.js';</script>
+<script>
+  import '../../scripts/pump-trace.js';
+  import '../../scripts/robot.js';
+</script>

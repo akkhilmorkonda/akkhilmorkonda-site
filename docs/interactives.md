@@ -16,8 +16,10 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **Battery check** (`battery.js`, simplified at Akkhil's request): Healthy / Bad capacitor toggle, spectrum, PASS/FLAG.
 - **Live test DAG** (`ate-dag.js`, replaced the fleet chart Sept 27, 2026): six test steps as a dependency graph (Flash, Boot, then Sensors to Optical and Battery to Radio in parallel). DAG vs legacy serial toggle, clock, shared-scale timeline bars (50 s vs 35 s, 30% faster). Click a step to make it fail: DAG skips only its dependents, serial aborts the rest. Runs once on scroll into view. Illustrative steps and timings.
 
-## Avanos (`/experience/avanos`)
-- **Robot viewer** (`robot.js`): 6-axis arm replaying an interpolated path, scrubber, play/pause, live joint angles. Not built: pump cross-section.
+## Avanos (`/experience/avanos`, showcase since Sept 28, 2026: fixture, analytics, robot)
+- **Pump fixture trace** (`pump-trace.js`): one test cycle swept like a scope, with pressure (lower limit armed after build-up) and motor current (upper limit armed after inrush). The Healthy / Failing pump toggle gives the failing unit two stalls: pressure sags, current spikes, out-of-limit stretches turn red, and the verdict goes TESTING to PASS or FAIL. On phones the lane labels move inside the lanes. Dev hook: `__pump.shot(t, failing)`. Illustrative.
+- **Robot viewer** (`robot.js`): 6-axis arm replaying an interpolated path, scrubber, play/pause, live joint angles. It is the robot project's demo.
+- Analytics project has no interactive yet.
 
 ## GT Medical Robotics (`/experience/gt-medical-robotics`)
 - **Explodable arm** (`prosthesis.js`): explode slider, Original / Redesign wrist toggle, relative peak stress and factor of safety readouts.
