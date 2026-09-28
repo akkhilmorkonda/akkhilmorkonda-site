@@ -121,11 +121,11 @@ experience:
             - 95% pytest coverage
             - 40% fewer false failures
       more:
-        - title: IR yield improvement
+        - title: Sensor yield improvement
           summary: Root-caused IR LED measurement noise to test-software timing in the analog front end across 10+ experiments, then shipped the fix to manufacturing software.
           stack: [Root-cause analysis, GRR studies, AFE timing]
           result: About 95% less IR measurement noise
-        - title: FA Bot
+        - title: Failure Analysis Bot
           summary: AI failure-analysis assistant over the first consolidated failure-analysis database. Benchmarked and evaluated sentence-transformer models on manufacturing-specific retrieval, served semantic search from local Hugging Face models with embeddings in Postgres, and used OpenAI to fill the gaps. Piloted in manufacturing.
           stack: [Hugging Face sentence transformers, PostgreSQL, OpenAI API, RAG, Model benchmarks and evals]
           result: Search 40 s to 140 ms; startup 60 s to 6 s
