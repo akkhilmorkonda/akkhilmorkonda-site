@@ -32,8 +32,30 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **Hero callouts** (`hero-callouts.js`): drawing marks measured from live word boxes after the intro wipe lands.
 - **Scroll motion** (`scroll-fx.js`): see CLAUDE.md.
 
-## Testbed geometry plan (next phase)
-Model from Thorlabs drawings (use their STEP only as reference; do not publish converted Thorlabs meshes without Thorlabs' permission, their site terms forbid redistribution). Thorlabs STEP and PDF drawings: product page, item row, Docs. URL pattern `https://media.thorlabs.com/globalassets/items/{a}/{ab}/{abc}/{part}/{id}-e0w.step` (swap `.step` for `.pdf` for the dimensioned drawing).
+## Testbed geometry (phase 5, in progress Sept 27, 2026)
+Phases 1 to 4 (the `mkStudio` render pipeline above) are live. Phase 5 rebuilds the testbed parts in `testbed.js` from Thorlabs drawings; Akkhil approved it Sept 27, 2026 ("model from Thorlabs drawings").
+
+Model from Thorlabs drawings (use their STEP only as reference; do not publish converted Thorlabs meshes without Thorlabs' permission, their site terms forbid redistribution). Thorlabs STEP and PDF drawings: product page, item row, Docs. URL pattern `https://media.thorlabs.com/globalassets/items/{a}/{ab}/{abc}/{part}/{id}-e0w.step` (swap `.step` for `.pdf` for the dimensioned drawing). Checked Sept 27, 2026 (all return 200, no login):
+
+| Part | Base URL (`.../globalassets/items/` + ) | STEP | PDF |
+|---|---|---|---|
+| MT3/M-Z9 stage | `m/mt/mt3/mt3_m-z9/ttn330847-e0w` | 50 MB | 213 KB |
+| KDC101 K-Cube | `k/kd/kdc/kdc101/etn017655-e0w` | 30 MB | 620 KB |
+| MB3045/M breadboard | `m/mb/mb3/mb3045_m/6280-e0w` | 4 MB | 182 KB |
+
+Download STEP files to a scratch folder only (never `public/`). Read dimensions from the PDF drawings first, and open the STEP only when the drawing leaves a shape unclear.
+
+**Keep working when the geometry is replaced:**
+- Explode groups `[enc, bb, ctrl, bp, sx, sy, sz, za, fx, ana, fib, dut]` with their EX/AW offsets.
+- Step highlights `[['enc'], ['board','ctrl'], ['stX','stY','stZ','zAct'], ['fx','baseplate'], ['ana','fib'], ['dut']]`, and the matching step text in `whoop.astro`.
+- The DUT is `makePod()` placed sensor-side up in the base-plate pocket; the stage carries the fiber probe above it.
+- The final zoom onto the lit LEDs, `P.exclude(enc, cone, glow)` for the contact shadow, the enclosure's `keepEnv`, and the mobile camera pull-back.
+
+**Review loop:**
+1. Run `npm run dev` (preview name `astro-dev`).
+2. Start `node tools/shotsrv.mjs <folder>`, which saves frames POSTed to `127.0.0.1:4399`.
+3. In the page console, `__tb.shot(progress, t)` renders a scroll position, which you copy to a 900 px canvas and POST as `{name, data}` (snippet in the tool's header).
+4. Check the frames at progress 0, 0.2, 0.4, 0.6, 0.8 and 1, then at 390 px and 320 px widths.
 - **Stage: MT3/M-Z9** (Akkhil confirmed): 12 mm travel per axis, 0.2 um minimum repeatable incremental motion; one axis 197.7 x 61.2 x 20.6 mm; MT402 bracket for Z; three KDC101. STEP: `.../m/mt/mt3/mt3_m-z9/ttn330847-e0w.step`.
 - **KDC101 K-Cube:** 60.0 x 60.0 x 49.2 mm; dark maroon ribbed side panels, black front and top; backlit display and velocity wheel on top; gold TRIG 1/2 connectors, red power switch, micro-USB on the front; black clip-on base plate. STEP: `.../k/kd/kdc/kdc101/etn017655-e0w.step` (30 MB, decimate). Hub KEH3 193.5 x 70 x 27 mm.
 - **Breadboard:** MB series, matte black anodized, 12.7 mm thick, M6 on 25 mm, first hole 12.5 mm from each edge (e.g. MB3045/M 300 x 450).
@@ -41,6 +63,16 @@ Model from Thorlabs drawings (use their STEP only as reference; do not publish c
 - **Probe holder (unconfirmed):** VH1/M V-clamp on a TR30/M post, or a custom block.
 - **Enclosure:** XE25 25 mm black extrusion frame with TB4 black hardboard panels (e.g. XE25C7/M 375 x 225 x 300).
 - Detail that sells it: 0.3 to 0.8 mm chamfers, instanced socket-head screws, catenary cable sag, printed labels via CanvasTexture.
+
+## WHOOP 5.0 device model (open, Sept 27, 2026)
+Akkhil asked how to make the DUT (`makePod()` in `whoop-common.js`) look realistic. Today it is a primitive rounded box, 32.6 x 9.6 x 23.4 scene units, with a lens, a ring, five LEDs in a row (G G R IR G) and four photodiodes, and a `0x0c0c0d` shell (metalness .1, roughness .5).
+- **Limits:** no AI-generated WHOOP imagery, and never the real rig photo. Use public specs only: 5 LEDs (3 green, 1 red, 1 IR), 4 photodiodes, 28 g, about 7% smaller than the 4.0.
+- **Options to put to Akkhil:**
+  1. Model it from published dimensions and review photos.
+  2. Use a licensed 3D model.
+  3. Photograph the underside of his own device as a texture reference.
+  4. Photogrammetry of his own device.
+- **Research findings:** pending (a research pass was running when this was written). Record the sourced dimensions, the underside layout and the chosen approach here.
 
 ## Parked quality ideas
 - Upgrade three.js 0.149 to current (about 0.186): OutputPass with Neutral/AgX tone mapping, N8AO ambient occlusion, anisotropic milled aluminium, `scene.environmentIntensity`. Needs visual retuning of every 3D scene (hex colours darken, light units change).

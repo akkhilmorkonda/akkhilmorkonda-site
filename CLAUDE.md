@@ -29,7 +29,9 @@ npm run build    # must pass before every commit
 
 Projects are listed in order of importance (MediScan, Partial Weight Bearing Insole, Smart Respirator, Guitar amp head, Betcha); in-progress work goes in `inProgress` (homepage "Coming soon", no deep dives, external link only). A card links to its deep dive when its `site.js` entry has a `slug`: `/experience/<slug>`, `/projects/<slug>`, `/research/<slug>`. Goal: every experience, project and research entry gets one. New case study = new `.astro` page using `Base` + `case.css`, then add the slug.
 
-`tools/make-preview.py` only builds a relative-path copy for claude.ai previews. Not part of the deploy.
+`tools/make-preview.py` only builds a relative-path copy for claude.ai previews. Not part of the deploy. `tools/shotsrv.mjs` saves 3D frames from the dev server for review (workflow in `docs/interactives.md`, "Review loop").
+
+Git: work on branch `design-pass`, then fast-forward `main` to it and push both (Vercel deploys `main`).
 
 ## Design system (do not drift)
 - Dark: `--bg #0e0e0f`, `--fg #ececea`, `--mu #8e8e8a`, `--sf #18181a`, `--ln #2a2a2d`, text on accent `--on #04150d`.
