@@ -236,6 +236,13 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .sc-img::before{content:"";position:absolute;inset:6% 6% 12%;background:radial-gradient(closest-side,#1d1d20,transparent);z-index:0}
 .sc-img img{position:relative;z-index:1;display:block;width:100%;height:auto;max-width:420px;margin-left:auto}
 .sc-img figcaption{position:relative;z-index:1;margin-top:8px;text-align:right;font:12px var(--fm);color:var(--mu)}
+/* showcase image: slides in from the right and settles, then floats slowly (motion only under html.fx) */
+@keyframes sc-in{from{opacity:0;transform:translateX(56px) rotate(6deg) scale(.95)}to{opacity:1;transform:none}}
+@keyframes sc-float{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -9px;rotate:-1.2deg}}
+@keyframes sc-glow{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.sc-hero.has-img{overflow-x:clip}
+.fx .sc-img img{animation:sc-in 1.4s var(--ease) .3s both,sc-float 6.5s ease-in-out 1.7s infinite}
+.fx .sc-img::before{animation:sc-glow 1.8s var(--ease) .2s both}
 @media (max-width:900px){.sc-hero.has-img{grid-template-columns:1fr}.sc-img img{max-width:260px;margin:0 auto}.sc-img figcaption{text-align:center}}
 /* showcase title: smaller than case-study headlines */
 .hero.sc-hero h1{font-size:clamp(28px,3.6vw,52px)}
