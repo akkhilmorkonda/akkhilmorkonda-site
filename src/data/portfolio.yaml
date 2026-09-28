@@ -137,7 +137,7 @@ experience:
           stack: [I2C, Drift monitoring, Fixture design]
         - title: JTAG research
           summary: Conducted extensive JTAG boundary-scan implementation research on current and NPI hardware, coordinating with suppliers and contract manufacturers.
-          stack: [JTAG]
+          stack: [JTAG, FPGAs, International communication]
           result: Avoided a low-ROI investment
     facts:
       - Thorlabs 3-axis translation stage (NOT 5-axis; the resume should also say 3-axis). Thorlabs K-Cube motor controllers.

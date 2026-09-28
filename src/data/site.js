@@ -20,6 +20,7 @@ const page = z.object({
     key: str, title: str, summary: str,
     what: str, why: str, how: z.array(str).min(1), stack: z.array(str).optional(), results: z.array(str).min(1),
   })).optional(),
+  // `result` is kept for the record (resume use) but not shown on the page (Akkhil, Sept 27, 2026)
   more: z.array(z.object({ title: str, summary: str, stack: z.array(str).optional(), result: str.optional() })).optional(),
 }).refine(p => p.brief || (p.showcase && p.core?.length), p => ({ message: `page "${p.title}" needs a brief, or showcase: true with core projects` }));
 const notes = { facts: z.array(str).optional(), sources: z.array(str).optional(), open: z.array(str).optional() };
