@@ -108,11 +108,11 @@ experience:
             - Shipped to production at the contract manufacturers
         - key: ate
           title: ATE test software
-          summary: Distributed hardware-in-the-loop test framework across a 12-fixture fleet.
-          what: A distributed hardware-in-the-loop test framework that runs independent test steps side by side across a 12-fixture fleet.
+          summary: Distributed hardware-in-the-loop test framework across a fleet of fixtures.
+          what: A distributed hardware-in-the-loop test framework that runs independent test steps side by side across a fleet of fixtures.
           why: Legacy ATE ran every test step in series, so fleet run time grew with every step and fixture added.
           how:
-            - Re-architected serial legacy ATE into dependency-aware, DAG-scheduled test orchestration in Python across 12 fixtures
+            - Re-architected serial legacy ATE into dependency-aware, DAG-scheduled test orchestration in Python across a fleet of fixtures
             - Raised pytest coverage to 95% and used fleet-wide analysis to separate rig faults from real device defects
             - Prototyped and demoed the DAG orchestration layer for next-generation test software
           stack: [Python, pytest, DAG orchestration, Hardware-in-the-loop]

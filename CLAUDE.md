@@ -54,7 +54,7 @@ When a role has several major projects, its page is a project showcase (`page.sh
 - No em-dashes or en-dashes anywhere (`grep -rn "—\|–" src` must be empty). Use "to" for ranges ("May to Aug 2025").
 - Headlines 8 words or fewer. Only real numbers from Akkhil; never invent metrics.
 - Hyphenated words in an `h1` go in `<span class="nw">` so they never split across lines on screens 600px and wider (on phones the words are too wide to keep whole).
-- Every simulated visual carries a short mono caption saying it is illustrative.
+- Every simulated visual carries a short mono caption saying it is illustrative. Exception: the WHOOP testbed explode has none (Akkhil's call, Sept 27, 2026).
 
 ## Interactives
 - Canvas charts: DPR-aware sizing (cap at 2), redraw on resize, pause via IntersectionObserver when off screen.
