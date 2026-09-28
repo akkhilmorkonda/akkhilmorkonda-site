@@ -133,12 +133,12 @@ import { RM, AC, mkStudio, PBR, makePod, rrShape, slab } from './whoop-common.js
  const halos=new THREE.Group();S.add(halos);const haloMats=pod.leds.map(l=>{const c=new THREE.Color(l.userData.c),m=new THREE.SpriteMaterial({map:halo,color:c.multiplyScalar(.8),blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:0});
   const sp=new THREE.Sprite(m);sp.scale.setScalar(l.userData.c==0x5a0818?3:7.5);sp.position.copy(l.position).add(pod.g.position);sp.position.y+=.4;halos.add(sp);return m});
  // light cone above the LEDs (the scan the fixture performs)
- const NC=1400,cp=new Float32Array(NC*3),cs=new Float32Array(NC);for(let i=0;i<NC;i++){const h=Math.random()**.8*70,a=Math.random()*6.283,rr=Math.random()**.6*(3+h*.55);cp.set([BX+Math.cos(a)*rr,DUTP.y+1+h,BZ+Math.sin(a)*rr],i*3);cs[i]=Math.max(.05,(1-rr/(3+h*.55))*(1-h/80))}
+ const NC=1400,cp=new Float32Array(NC*3),cs=new Float32Array(NC);for(let i=0;i<NC;i++){const h=Math.random()**.8*70,a=Math.random()*6.283,rr=Math.random()**.6*(3+h*.55);cp.set([Math.cos(a)*rr,h,Math.sin(a)*rr],i*3);cs[i]=Math.max(.05,(1-rr/(3+h*.55))*(1-h/80))}
  const cg=new THREE.BufferGeometry();cg.setAttribute('position',new THREE.BufferAttribute(cp,3));cg.setAttribute('size',new THREE.BufferAttribute(cs,1));
  const cmat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:{op:{value:0},px:{value:Math.min(2,devicePixelRatio)}},
   vertexShader:`attribute float size;varying float vS;uniform float px;void main(){vS=size;vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=(1.5+size*5.)*px*(160./-mv.z);gl_Position=projectionMatrix*mv;}`,
   fragmentShader:`varying float vS;uniform float op;void main(){float d=length(gl_PointCoord-.5);if(d>.5)discard;gl_FragColor=vec4(mix(vec3(.05,.55,.35),vec3(.75,1.,.9),vS),op*(.25+.75*vS)*smoothstep(.5,.1,d));}`});
- const cone=new THREE.Points(cg,cmat);S.add(cone);P.exclude(enc,cone,glow,halos);
+ const cone=new THREE.Points(cg,cmat);cone.position.set(BX,DUTP.y+1,BZ);S.add(cone);   // anchored at the LEDs so it can riseP.exclude(enc,cone,glow,halos);
 
  const groups=[enc,bb,ctrl,bp,sx,sy,sz,za,fx,ana,fib,dut];
  // fewer draw calls: within each explode group, merge opaque meshes that share a material into one mesh
@@ -159,15 +159,17 @@ import { RM, AC, mkStudio, PBR, makePod, rrShape, slab } from './whoop-common.js
   const r=sec.getBoundingClientRect(),tot=r.height-innerHeight;const p=clamp(-r.top/tot);sp+=(p-sp)*(RM?1:.12);prog.style.width=(sp*100)+'%';
   P.adapt(t-lastT);lastT=t;pose(sp,t);if(Math.abs(sp-shSp)>.0008||shSp<0){P.shadow();shSp=sp}P.render();warm=true}
  function pose(sp,t){
-  const step=Math.min(5,Math.floor(sp*6)),ex=ease(clamp(sp/.6)),zm=sm(clamp((sp-.8)/.17));
+  // steps 1 to 5 share the first 60% of the scroll; the lit sensor holds the last 40%
+  const step=sp<.6?Math.floor(sp/.12):5,ex=ease(clamp(sp/.5)),zm=sm(clamp((sp-.6)/.12)),hold=sm(clamp((sp-.72)/.28));
   steps.forEach((s,i)=>s.classList.toggle('on',i==step));
   groups.forEach(g=>{const e=EX[g.name]||[0,0,0],w=AW[g.name]||[0,0,0];g.position.set(base[g.name].x+e[0]*ex+w[0]*zm,base[g.name].y+e[1]*ex+w[1]*zm,base[g.name].z+e[2]*ex+w[2]*zm)});
   const fade=1-clamp(ex*3);fm.opacity=1-clamp(ex*2);P.bloom.strength=.5+zm*1.3;P.bloom.radius=.5+zm*.35;P.bloom.enabled=cone.visible=halos.visible=zm>0||!warm;   // light count stays fixed (no recompile); only the lit LEDs bloom: skip that work before the zoom
   const on=new Set(HL[step]);glowMats.forEach((n,mat)=>{mat.emissive.setHex(on.has(n)&&step<5?AC:0);mat.emissiveIntensity=on.has(n)?.028:0});
-  const led=zm>0?zm*(10+(RM?0:1.5*Math.sin(t/160))):0;ledMats.forEach(m=>m.emissiveIntensity=led);haloMats.forEach(m=>m.opacity=zm*(1+(RM?0:.12*Math.sin(t/160))));glow.intensity=zm*1.6;cmat.uniforms.op.value=zm*.9;
+  const led=zm>0?zm*(10+(RM?0:1.5*Math.sin(t/160))):0;ledMats.forEach(m=>m.emissiveIntensity=led);haloMats.forEach(m=>m.opacity=zm*(1+(RM?0:.12*Math.sin(t/160))));glow.intensity=zm*1.6;cmat.uniforms.op.value=zm*.9;cone.scale.y=.25+.75*hold;
   const a=(RM?0:t/10000)+.75+sp*1.1,rad=lerp(1000+ex*80,150,zm);
   const orbit=new THREE.Vector3(Math.sin(a)*rad,420+ex*120,Math.cos(a)*rad),tgt=new THREE.Vector3(-5,125+ex*90,-15);
-  const closeP=new THREE.Vector3(DUTP.x+58,DUTP.y+86,DUTP.z+100),closeT=new THREE.Vector3(DUTP.x,DUTP.y+10,DUTP.z);
+  const closeP=new THREE.Vector3(58,86,100).applyAxisAngle(UP,-hold*1.05).multiplyScalar(1-hold*.18).add(DUTP),   // slow orbit round the pod while the light field rises
+   closeT=new THREE.Vector3(DUTP.x,DUTP.y+10,DUTP.z);
   cam.position.lerpVectors(orbit,closeP,zm);tgt.lerp(closeT,zm);
   // narrow (phone) canvases: pull back so the whole rig stays in frame at every orbit angle
   const k=innerWidth>900?1:Math.min(1.6,Math.max(1,1.15/cam.aspect));cam.position.sub(tgt).multiplyScalar(k).add(tgt);cam.lookAt(tgt);
