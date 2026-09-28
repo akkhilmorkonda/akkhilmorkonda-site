@@ -70,7 +70,7 @@ When a role has several major projects, its page is a project showcase (`page.sh
 - Minor is **Embedded Devices** (not Computer Science), per Akkhil Sept 25, 2026. About text is Akkhil's own wording.
 - WHOOP optical testbed: **Thorlabs 3-axis** translation stage (NOT 5-axis), Thorlabs **K-Cube** controllers, Feasa LED + IR analysers via fiber probe, blackout enclosure, optical breadboard.
 - DUT is a **WHOOP 5.0**, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it. Testbed steps end on the DUT, then zoom in with LEDs on, then the project Results (the brightness viewer was removed Sept 27, 2026).
-- **Never publish the real rig photo.** No AI-generated WHOOP imagery. The WHOOP showcase uses one official image from WHOOP's press-center media kit (`public/images/whoop-leatherluxe.webp`, credited "Image from the WHOOP media kit."), approved by Akkhil Sept 27, 2026; this replaced the older "no standalone WHOOP hero render" rule.
+- **Never publish the real rig photo.** No AI-generated WHOOP imagery. The WHOOP showcase uses one product image Akkhil supplied (`public/images/whoop-5.webp`, WHOOP 5.0 on a black knit band, white background removed), top right, no caption (Akkhil's call, Sept 27, 2026). This replaced the older "no standalone WHOOP hero render" rule.
 - Battery diagnostics section was deliberately simplified (Healthy / Bad capacitor toggle, spectrum, PASS/FLAG). Keep it simple.
 - Contact: amorkonda28@gmail.com, linkedin.com/in/akkhil-morkonda.
 

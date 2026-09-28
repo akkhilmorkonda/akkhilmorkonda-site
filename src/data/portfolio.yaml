@@ -72,9 +72,8 @@ experience:
       showcase: true
       headline: Project showcase.
       image:
-        src: /images/whoop-leatherluxe.webp
-        alt: WHOOP wearable on a black LeatherLuxe band
-        credit: Image from the WHOOP media kit.
+        src: /images/whoop-5.webp
+        alt: WHOOP 5.0 on a black knit band
       roleLine: Manufacturing Test Engineering Intern, WHOOP, Jan 2026 to Jun 2026
       lead: Three core systems I built across R&D and Manufacturing Engineering, each from requirements to deployment and handoff, plus smaller yield, AI and characterization projects.
       core:
