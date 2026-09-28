@@ -9,7 +9,7 @@
 .stats div:first-child b{color:var(--ac)}
 .stats span{display:block;margin-top:8px;font-size:13px;color:var(--mu);line-height:1.35}
 /* explode */
-.explode{position:relative;height:660vh;border-top:1px solid var(--ln)}
+.explode{position:relative;height:600vh;border-top:1px solid var(--ln)}
 .stick{position:sticky;top:64px;height:calc(100dvh - 64px);display:grid;grid-template-columns:1.35fr .65fr;overflow:hidden}
 .stick canvas{width:100%;height:100%;display:block}
 .steps{padding:clamp(24px,4vw,56px) clamp(16px,3vw,48px) 0 clamp(28px,3.2vw,56px);border-left:1px solid var(--ln);display:flex;flex-direction:column;gap:6px;justify-content:center}

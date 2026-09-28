@@ -159,8 +159,8 @@ import { RM, AC, mkStudio, PBR, makePod, rrShape, slab } from './whoop-common.js
   const r=sec.getBoundingClientRect(),tot=r.height-innerHeight;const p=clamp(-r.top/tot);sp+=(p-sp)*(RM?1:.12);prog.style.width=(sp*100)+'%';
   P.adapt(t-lastT);lastT=t;pose(sp,t);if(Math.abs(sp-shSp)>.0008||shSp<0){P.shadow();shSp=sp}P.render();warm=true}
  function pose(sp,t){
-  // steps 1 to 5 share the first 60% of the scroll; the lit sensor holds the last 40%
-  const step=sp<.6?Math.floor(sp/.12):5,ex=ease(clamp(sp/.5)),zm=sm(clamp((sp-.6)/.12)),hold=sm(clamp((sp-.72)/.28));
+  // steps 1 to 5 share the first 70% of the scroll; the lit sensor holds the last 30%
+  const step=sp<.7?Math.floor(sp/.14):5,ex=ease(clamp(sp/.58)),zm=sm(clamp((sp-.7)/.1)),hold=sm(clamp((sp-.8)/.2));
   steps.forEach((s,i)=>s.classList.toggle('on',i==step));
   groups.forEach(g=>{const e=EX[g.name]||[0,0,0],w=AW[g.name]||[0,0,0];g.position.set(base[g.name].x+e[0]*ex+w[0]*zm,base[g.name].y+e[1]*ex+w[1]*zm,base[g.name].z+e[2]*ex+w[2]*zm)});
   const fade=1-clamp(ex*3);fm.opacity=1-clamp(ex*2);P.bloom.strength=.5+zm*1.3;P.bloom.radius=.5+zm*.35;P.bloom.enabled=cone.visible=halos.visible=zm>0||!warm;   // light count stays fixed (no recompile); only the lit LEDs bloom: skip that work before the zoom
