@@ -70,7 +70,7 @@ experience:
       crumb: WHOOP
       description: "WHOOP project showcase: an optical characterization fixture, a current-based capacitor triage screen that saved $1.8M, and DAG-based ATE test software."
       showcase: true
-      headline: Project showcase.
+      headline: Project showcase
       image:
         src: /images/whoop-5.webp
         alt: WHOOP 5.0 on a black knit band
