@@ -10,4 +10,5 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { ACESFilmicToneMappingShader } from 'three/examples/jsm/shaders/ACESFilmicToneMappingShader.js';
 import { HorizontalBlurShader } from 'three/examples/jsm/shaders/HorizontalBlurShader.js';
 import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShader.js';
-export const THREE = Object.assign({}, T, { RoomEnvironment, EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, GammaCorrectionShader, RoundedBoxGeometry, GLTFLoader, ACESFilmicToneMappingShader, HorizontalBlurShader, VerticalBlurShader });
+import { mergeBufferGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+export const THREE = Object.assign({}, T, { RoomEnvironment, EffectComposer, RenderPass, UnrealBloomPass, ShaderPass, GammaCorrectionShader, RoundedBoxGeometry, GLTFLoader, ACESFilmicToneMappingShader, HorizontalBlurShader, VerticalBlurShader, mergeBufferGeometries });

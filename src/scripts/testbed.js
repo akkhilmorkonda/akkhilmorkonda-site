@@ -141,6 +141,11 @@ import { RM, AC, mkStudio, PBR, makePod, rrShape, slab } from './whoop-common.js
  const cone=new THREE.Points(cg,cmat);S.add(cone);P.exclude(enc,cone,glow,halos);
 
  const groups=[enc,bb,ctrl,bp,sx,sy,sz,za,fx,ana,fib,dut];
+ // fewer draw calls: within each explode group, merge opaque meshes that share a material into one mesh
+ groups.forEach(g=>{g.updateMatrixWorld(true);const inv=g.matrixWorld.clone().invert(),bk=new Map();
+  g.traverse(m=>{if(!m.isMesh||m.isInstancedMesh||m.material.transparent||ledMats.includes(m.material))return;const k=m.material.uuid+m.castShadow+m.receiveShadow;bk.has(k)?bk.get(k).push(m):bk.set(k,[m])});
+  bk.forEach(ms=>{if(ms.length<2)return;const geos=ms.map(m=>{const q=m.geometry.index?m.geometry.toNonIndexed():m.geometry.clone();q.applyMatrix4(inv.clone().multiply(m.matrixWorld));Object.keys(q.attributes).forEach(a=>['position','normal','uv'].includes(a)||q.deleteAttribute(a));return q});
+   const mm=new THREE.Mesh(THREE.mergeBufferGeometries(geos),ms[0].material);mm.castShadow=ms[0].castShadow;mm.receiveShadow=ms[0].receiveShadow;ms.forEach(m=>{m.parent.remove(m);m.geometry.dispose()});g.add(mm)})});
  const EX={enc:[0,170,-330],ctrl:[0,40,-70],stX:[0,18,0],stY:[0,55,0],stZ:[0,100,0],zAct:[0,190,0],fx:[0,100,80],ana:[20,45,30]};
  const AW={fx:[0,340,-200],stZ:[0,220,-180],zAct:[0,280,-180],stY:[0,0,-120],stX:[0,0,-120],ana:[80,0,60],ctrl:[0,0,-60]};
  const HL=[['enc'],['board','ctrl'],['stX','stY','stZ','zAct'],['fx','baseplate'],['ana','fib'],['dut']];
@@ -149,15 +154,15 @@ import { RM, AC, mkStudio, PBR, makePod, rrShape, slab } from './whoop-common.js
  const sec=document.getElementById('explode'),steps=[...document.querySelectorAll('.st')],prog=document.getElementById('prog');
  let vis=true;new IntersectionObserver(e=>vis=e[0].isIntersecting).observe(sec);
  const clamp=x=>Math.min(1,Math.max(0,x)),ease=x=>x<.5?2*x*x:1-(-2*x+2)**2/2,sm=x=>x*x*(3-2*x),lerp=(a,b,t)=>a+(b-a)*t;
- let sp=0,shSp=-1;
+ let sp=0,shSp=-1,lastT=0,warm=false;   // first frame renders everything once so no shader compiles mid-scroll
  function frame(t){requestAnimationFrame(frame);if(!vis)return;
   const r=sec.getBoundingClientRect(),tot=r.height-innerHeight;const p=clamp(-r.top/tot);sp+=(p-sp)*(RM?1:.12);prog.style.width=(sp*100)+'%';
-  pose(sp,t);if(Math.abs(sp-shSp)>.0008||shSp<0){P.shadow();shSp=sp}P.render()}
+  P.adapt(t-lastT);lastT=t;pose(sp,t);if(Math.abs(sp-shSp)>.0008||shSp<0){P.shadow();shSp=sp}P.render();warm=true}
  function pose(sp,t){
   const step=Math.min(5,Math.floor(sp*6)),ex=ease(clamp(sp/.6)),zm=sm(clamp((sp-.8)/.17));
   steps.forEach((s,i)=>s.classList.toggle('on',i==step));
   groups.forEach(g=>{const e=EX[g.name]||[0,0,0],w=AW[g.name]||[0,0,0];g.position.set(base[g.name].x+e[0]*ex+w[0]*zm,base[g.name].y+e[1]*ex+w[1]*zm,base[g.name].z+e[2]*ex+w[2]*zm)});
-  const fade=1-clamp(ex*3);fm.opacity=1-clamp(ex*2);P.bloom.strength=.5+zm*1.3;P.bloom.radius=.5+zm*.35;
+  const fade=1-clamp(ex*3);fm.opacity=1-clamp(ex*2);P.bloom.strength=.5+zm*1.3;P.bloom.radius=.5+zm*.35;P.bloom.enabled=cone.visible=halos.visible=zm>0||!warm;   // light count stays fixed (no recompile); only the lit LEDs bloom: skip that work before the zoom
   const on=new Set(HL[step]);glowMats.forEach((n,mat)=>{mat.emissive.setHex(on.has(n)&&step<5?AC:0);mat.emissiveIntensity=on.has(n)?.028:0});
   const led=zm>0?zm*(10+(RM?0:1.5*Math.sin(t/160))):0;ledMats.forEach(m=>m.emissiveIntensity=led);haloMats.forEach(m=>m.opacity=zm*(1+(RM?0:.12*Math.sin(t/160))));glow.intensity=zm*1.6;cmat.uniforms.op.value=zm*.9;
   const a=(RM?0:t/10000)+.75+sp*1.1,rad=lerp(1000+ex*80,150,zm);
@@ -171,5 +176,9 @@ import { RM, AC, mkStudio, PBR, makePod, rrShape, slab } from './whoop-common.js
   bars.forEach(({n,m,c})=>{const op=(c?1-sm(clamp((v.dot(n)-.3)/.3)):1)*fade;m.opacity=op;m.depthWrite=op>.99;m.visible=op>.01})}
  requestAnimationFrame(frame);
  // dev-only capture hook for reviewing renders (stripped from production builds)
- if(import.meta.env.DEV)window.__tb={shot(p,t=0){sp=p;shSp=-1;pose(p,t);P.shadow();shSp=p;P.render();return cv}};
+ if(import.meta.env.DEV)window.__tb={shot(p,t=0){sp=p;shSp=-1;pose(p,t);P.shadow();shSp=p;P.render();warm=true;return cv},
+  // time n full frames at progress p (GPU-synced with a 1 px read), with draw-call counts
+  bench(p,n=30){const gl=P.r.getContext(),px=new Uint8Array(4);pose(p,0);P.render();warm=true;const pr0=P.r.info.programs.length;gl.readPixels(0,0,1,1,gl.RGBA,gl.UNSIGNED_BYTE,px);P.r.info.autoReset=false;P.r.info.reset();const t0=performance.now();
+   for(let i=0;i<n;i++){pose(p,i*16);if(Math.abs(p-shSp)>.0008){P.shadow();shSp=p}P.render()}gl.readPixels(0,0,1,1,gl.RGBA,gl.UNSIGNED_BYTE,px);const ms=(performance.now()-t0)/n;const c=P.r.info.render.calls/n;P.r.info.autoReset=true;
+   return {ms:+ms.toFixed(2),calls:Math.round(c),tris:Math.round(P.r.info.render.triangles/n),programs:P.r.info.programs.length,compiledDuring:P.r.info.programs.length-pr0,px:[cv.width,cv.height]}}};
 })();

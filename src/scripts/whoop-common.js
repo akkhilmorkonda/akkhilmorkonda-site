@@ -111,7 +111,7 @@ export function mkStudio(cv, S, cam, o = {}) {
   const pr = Math.min(2, devicePixelRatio), exposure = o.exposure ?? 1;
   const r = new THREE.WebGLRenderer({ canvas: cv, antialias: false, alpha: true, powerPreference: 'high-performance' });
   r.setPixelRatio(pr); r.outputEncoding = THREE.sRGBEncoding; r.physicallyCorrectLights = false;
-  r.shadowMap.enabled = !!o.shadows; r.shadowMap.type = THREE.PCFShadowMap;   // PCF so shadow.radius softens (it is ignored by PCFSoft in r149)
+  r.shadowMap.enabled = !!o.shadows; r.shadowMap.autoUpdate = false; r.shadowMap.type = THREE.PCFShadowMap;   // PCF so shadow.radius softens (it is ignored by PCFSoft in r149)
   r.setClearColor(bgFor(exposure), 1);
   S.environment = studioEnv(r);
   const rt = new THREE.WebGLRenderTarget(2, 2, { type: THREE.HalfFloatType, samples: r.capabilities.isWebGL2 ? 4 : 0 });
@@ -119,8 +119,9 @@ export function mkStudio(cv, S, cam, o = {}) {
   comp.addPass(new THREE.RenderPass(S, cam));
   // threshold far above any lit surface (a softbox reflected in metal reaches ~3) so only the LEDs, driven to ~8, bloom
   const bloom = new THREE.UnrealBloomPass(new THREE.Vector2(512, 512), o.bloom ?? .55, .5, o.threshold ?? 4.5); comp.addPass(bloom);
-  const aces = new THREE.ShaderPass(THREE.ACESFilmicToneMappingShader); aces.uniforms.exposure.value = exposure; comp.addPass(aces);
-  comp.addPass(new THREE.ShaderPass(THREE.GammaCorrectionShader));
+  // ACES tone mapping and sRGB output in one full-screen pass
+  const A = THREE.ACESFilmicToneMappingShader, aces = new THREE.ShaderPass({ ...A, fragmentShader: A.fragmentShader.replace('gl_FragColor = vec4( ACESFilmicToneMapping( tex.rgb ), tex.a );', 'gl_FragColor = LinearTosRGB( vec4( ACESFilmicToneMapping( tex.rgb ), tex.a ) );') });
+  aces.uniforms.exposure.value = exposure; comp.addPass(aces);
   let tuned = false, shadow = null; const ex = [];
   if (o.floor) {
     // faint studio floor pool under the rig, fading out to the page background
@@ -131,9 +132,15 @@ export function mkStudio(cv, S, cam, o = {}) {
     floor.position.y = o.floor.y - .5; floor.renderOrder = 0; S.add(floor);
     ex.push(floor); shadow = contactShadow(S, r, { ...o.floor, exclude: ex });
   }
+  // adaptive resolution: only if frames stay slow (after warm-up) step the pixel ratio down, never below 1
+  let prNow = pr, ema = 16, n = 0;
+  const adapt = dt => {
+    if (!(dt > 0 && dt < 250)) return; ema += (dt - ema) * .05;
+    if (++n > 90 && ema > 24 && prNow > 1) { prNow = Math.max(1, prNow - .25); r.setPixelRatio(prNow); comp.setPixelRatio(prNow); n = 60; ema = 16; }
+  };
   return {
-    r, comp, bloom,
-    shadow: () => shadow && shadow(),
+    r, comp, bloom, adapt,
+    shadow: () => { r.shadowMap.needsUpdate = true; shadow && shadow(); },   // call when parts move (the shadow map is not redrawn every frame)
     exclude: (...m) => ex.push(...m),        // objects kept out of the contact shadow (glass, fades, glows)
     render() {
       if (!tuned) { tuned = true; S.traverse(m => { if (m.isMesh && m.material && 'envMapIntensity' in m.material && !m.userData.keepEnv) m.material.envMapIntensity = o.env ?? 1; }); }
