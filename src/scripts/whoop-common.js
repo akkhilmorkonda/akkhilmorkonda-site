@@ -86,7 +86,27 @@ export const PBR = {
   rubber:      () => std({ color: lin(.012), metalness: 0, roughness: .85 }, false),
   brass:       () => std({ color: lin(.9, .64, .3), metalness: 1, roughness: .3 }, false),
   hole:        () => new THREE.MeshStandardMaterial({ color: lin(.002), metalness: 0, roughness: 1 }),
+  satin:       () => std({ color: lin(.6, .58, .55), metalness: 1, roughness: .3 }),
+  kRed:        () => std({ color: lin(.2, .012, .016), metalness: 1, roughness: .42 }),   // K-Cube side extrusion
+  hardboard:   () => std({ color: lin(.01), metalness: 0, roughness: .92 }),
 };
+// rounded rectangle centred on the origin (a Shape, or a Path when used as a hole)
+export function rrShape(w, d, r, T = THREE.Shape) {
+  const s = new T(), x = w / 2, y = d / 2; r = Math.max(.01, Math.min(r, x, y));
+  s.moveTo(-x + r, -y); s.lineTo(x - r, -y); s.absarc(x - r, -y + r, r, -Math.PI / 2, 0);
+  s.lineTo(x, y - r); s.absarc(x - r, y - r, r, 0, Math.PI / 2);
+  s.lineTo(-x + r, y); s.absarc(-x + r, y - r, r, Math.PI / 2, Math.PI);
+  s.lineTo(-x, -y + r); s.absarc(-x + r, -y + r, r, Math.PI, Math.PI * 1.5);
+  return s;
+}
+// rounded-rectangle prism: outer size w x h x d (x, y, z), plan corner radius r, edges softened by b,
+// bottom at y = 0. Holes are Paths in plan coordinates (x, -z).
+export function slab(w, d, h, r, b, mat, holes = []) {
+  const s = rrShape(w - 2 * b, d - 2 * b, r - b); s.holes.push(...holes);
+  const g = new THREE.ExtrudeGeometry(s, { depth: Math.max(.01, h - 2 * b), bevelEnabled: b > 0, bevelThickness: b, bevelSize: b, bevelSegments: 3, curveSegments: 12 });
+  g.rotateX(-Math.PI / 2); g.translate(0, b, 0);
+  const m = new THREE.Mesh(g, mat); m.castShadow = m.receiveShadow = true; return m;
+}
 export function mkStudio(cv, S, cam, o = {}) {
   const pr = Math.min(2, devicePixelRatio), exposure = o.exposure ?? 1;
   const r = new THREE.WebGLRenderer({ canvas: cv, antialias: false, alpha: true, powerPreference: 'high-performance' });
@@ -105,7 +125,8 @@ export function mkStudio(cv, S, cam, o = {}) {
   if (o.floor) {
     // faint studio floor pool under the rig, fading out to the page background
     const c = document.createElement('canvas'); c.width = c.height = 256; const x = c.getContext('2d'), gr = x.createRadialGradient(128, 128, 0, 128, 128, 128);
-    [[0, 1], [.25, .55], [.45, .15], [.62, 0]].forEach(([p, a]) => gr.addColorStop(p, `rgba(255,255,255,${a})`));   // fades out well before the plane edge: no horizon line x.fillStyle = gr; x.fillRect(0, 0, 256, 256);
+    [[0, 1], [.2, .6], [.45, .2], [.7, .05], [.9, 0]].forEach(([p, a]) => gr.addColorStop(p, `rgba(255,255,255,${a})`));   // fades out well before the plane edge: no horizon line
+    x.fillStyle = gr; x.fillRect(0, 0, 256, 256);
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(o.floor.size, o.floor.size).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: lin(o.floor.tone ?? .02), alphaMap: new THREE.CanvasTexture(c), transparent: true, depthWrite: false }));
     floor.position.y = o.floor.y - .5; floor.renderOrder = 0; S.add(floor);
     ex.push(floor); shadow = contactShadow(S, r, { ...o.floor, exclude: ex });
@@ -121,18 +142,34 @@ export function mkStudio(cv, S, cam, o = {}) {
   };
 }
 
-// WHOOP 5.0 sensor pod, sensor side up. Public specs: 5 LEDs (3 green, 1 red, 1 IR) and 4 photodiodes;
-// footprint approximated from WHOOP 4.0 (about 34 x 24 mm) scaled 7% smaller. Layout approximated.
-export function makePod(){const g=new THREE.Group(),ledMats=[];
- const shell=new THREE.MeshStandardMaterial({color:0x0c0c0d,metalness:.1,roughness:.5});
- const body=new THREE.Mesh(new THREE.RoundedBoxGeometry(32.6,9.6,23.4,6,4.2),shell);body.position.y=4.8;body.castShadow=body.receiveShadow=true;g.add(body);
- const lens=new THREE.Mesh(new THREE.RoundedBoxGeometry(21,1.6,13.5,5,3),new THREE.MeshPhysicalMaterial({color:0x0a0b0d,metalness:.1,roughness:.08,clearcoat:1,clearcoatRoughness:.05,envMapIntensity:1.3}));lens.position.y=9.9;g.add(lens);
- const ring=new THREE.Mesh(new THREE.RoundedBoxGeometry(22.6,.9,15.1,5,3.4),new THREE.MeshStandardMaterial({color:0x2a2b2f,metalness:.6,roughness:.35}));ring.position.y=9.4;g.add(ring);
- // LED row: G G R IR G ; photodiodes at the four corners of the window
- [[0x3dff9a,-6.4],[0x3dff9a,-3.2],[0xff3040,0],[0x7a1030,3.2],[0x3dff9a,6.4]].forEach(([c,x])=>{const m=new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:0,roughness:.3});ledMats.push(m);const s=new THREE.Mesh(new THREE.RoundedBoxGeometry(1.8,.5,1.8,2,.3),m);s.position.set(x,10.8,0);g.add(s)});
- const pdM=new THREE.MeshStandardMaterial({color:0x2c3a4a,metalness:.5,roughness:.2});
- [[-7.8,4],[7.8,4],[-7.8,-4],[7.8,-4]].forEach(([x,z])=>{const s=new THREE.Mesh(new THREE.RoundedBoxGeometry(3.2,.4,2.6,2,.3),pdM);s.position.set(x,10.75,z);g.add(s)});
- // strap clasp slots on the short ends
- [-17.2,17.2].forEach(x=>{const s=new THREE.Mesh(new THREE.BoxGeometry(1.2,4,16),new THREE.MeshStandardMaterial({color:0x0c0c0d,roughness:.8}));s.position.set(x,4.8,0);g.add(s)});
- return {g,ledMats}}
-
+// WHOOP 5.0 sensor pod, sensor side up (+y), long axis along x. Official size 34.7 x 24 x 10.6 mm
+// (WHOOP support). Underside from review photos: a raised glossy plateau with one recessed window;
+// along the length 2 photodiodes, a line of 5 LEDs (3 green, 1 red, 1 IR) across the width, 2 photodiodes.
+// Component sizes and LED order are approximated.
+export function makePod() {
+  const g = new THREE.Group(), ledMats = [], leds = [], L = 34.7, W = 24, HB = 9.6;
+  g.add(slab(L, W, HB, 5.4, 1.6, std({ color: lin(.012), metalness: 0, roughness: .55 })));   // matte black body
+  const dark = new THREE.MeshStandardMaterial({ color: lin(.002), roughness: 1 });
+  [1, -1].forEach(sd => { const m = new THREE.Mesh(new THREE.BoxGeometry(L - 12, .8, .14), dark); m.position.set(0, 7.3, sd * (W / 2 + .02)); g.add(m); });   // band rail groove
+  // glossy plateau with the window cut through it (hole oversized by the bevel)
+  const WL = 20.4, WW = 9.8, gloss = new THREE.MeshPhysicalMaterial({ color: lin(.006), metalness: .5, roughness: .12, clearcoat: 1, clearcoatRoughness: .04 });
+  const plat = slab(30.4, 19.6, 1, 4.2, .3, gloss, [rrShape(WL + .6, WW + .6, 3.3, THREE.Path)]); plat.position.y = HB - .02; g.add(plat);
+  const floor = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(WL + .4, WW + .4, 3.2)).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: lin(.004), roughness: .5 }));
+  floor.position.y = HB + .2; g.add(floor);
+  // photodiodes: dark violet dies with a gold pad strip on the outer edge
+  const pd = new THREE.MeshStandardMaterial({ color: lin(.03, .012, .06), metalness: .3, roughness: .22 }), gold = new THREE.MeshStandardMaterial({ color: lin(.9, .64, .3), metalness: 1, roughness: .3 });
+  [-7.3, -3.9, 3.9, 7.3].forEach(x => {
+    const d = new THREE.Mesh(new THREE.BoxGeometry(2.6, .3, 6.4), pd); d.position.set(x, HB + .35, 0); g.add(d);
+    const s = new THREE.Mesh(new THREE.BoxGeometry(.5, .32, 6.4), gold); s.position.set(x + Math.sign(x) * 1.05, HB + .36, 0); g.add(s);
+  });
+  // LEDs: pale dies when off, driven emissive by the scene
+  [0x12ff4a, 0x12ff4a, 0xff1424, 0x5a0818, 0x12ff4a].forEach((c, i) => {   // saturated so the lit dies read as colour, not white
+    const m = new THREE.MeshStandardMaterial({ color: lin(.25), emissive: c, emissiveIntensity: 0, roughness: .3 }); ledMats.push(m);
+    const s = new THREE.Mesh(new THREE.BoxGeometry(1.1, .3, 1.1), m); s.position.set(0, HB + .35, (i - 2) * 1.55); s.userData.c = c; leds.push(s); g.add(s);
+  });
+  // window glass, flush just under the plateau top
+  const glass = new THREE.Mesh(new THREE.ShapeGeometry(rrShape(WL + .4, WW + .4, 3.2)).rotateX(-Math.PI / 2), new THREE.MeshPhysicalMaterial({ color: lin(.01), metalness: 0, roughness: .04, clearcoat: 1, transparent: true, opacity: .3, depthWrite: false }));
+  glass.position.y = HB + .8; g.add(glass);
+  const loz = slab(2.8, 6, .14, 1.35, .05, std({ color: lin(.05), metalness: .8, roughness: .35 })); loz.position.set(12.8, HB + .96, 0); g.add(loz);   // plain lozenge at the clasp end
+  return { g, ledMats, leds };
+}

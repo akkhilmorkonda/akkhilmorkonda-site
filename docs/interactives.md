@@ -3,9 +3,9 @@
 Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`. This file only records how the custom visuals work. Every simulated visual carries an "illustrative" caption.
 
 ## WHOOP (`/experience/whoop`)
-- **Rendering** (Sept 27, 2026): `mkStudio()` in `whoop-common.js`. Half-float 4x MSAA buffer, bloom threshold 4.5 (only LEDs driven to about 8 bloom), ACES filmic tone mapping, background colour solved so the canvas matches the page after tone mapping, PMREM studio environment of softbox strips (edge highlights on black anodize), PCF shadows with radius, contact shadow on a faint floor pool (re-rendered only when parts move), physically based material recipes (`PBR`) with a shared noise roughness map. MediScan still uses the older `mkPipe()`.
+- **Rendering** (Sept 27, 2026): `mkStudio()` in `whoop-common.js`. Half-float 4x MSAA buffer, bloom threshold 4.5 (only LEDs driven to about 8 bloom), ACES filmic tone mapping, background colour solved so the canvas matches the page after tone mapping, PMREM studio environment of softbox strips (edge highlights on black anodize), PCF shadows with radius, contact shadow on a faint floor pool (re-rendered only when parts move; the pool's gradient fill was commented out by accident until Sept 27, 2026, so keep its tone low, about .008, or it shows a horizon arc), physically based material recipes (`PBR`) with a shared noise roughness map. MediScan still uses the older `mkPipe()`.
 - **Dev capture hook:** in `npm run dev`, `window.__tb.shot(progress, t)` renders a given scroll position so frames can be saved for review (stripped from production builds).
-- **Exploded testbed** (`testbed.js`, scroll, 6 steps): blackout enclosure, breadboard + K-Cube controllers, Thorlabs 3-axis stage, precision fixture, fiber + Feasa analysers, WHOOP 5.0. Ends by zooming into the DUT with LEDs on, then the project Results. Camera pulls back on narrow canvases so the rig stays in frame.
+- **Exploded testbed** (`testbed.js`, scroll, 6 steps): blackout enclosure, breadboard + K-Cube controllers, Thorlabs 3-axis stage, precision fixture, fiber + Feasa analysers, WHOOP 5.0. Ends by zooming into the DUT with LEDs on, then the project Results. Camera pulls back on narrow canvases so the rig stays in frame. Enclosure panels and frame bars on the camera side cut away as the camera orbits. Lit LEDs get a coloured halo sprite each, because ACES turns the bright dies white. Caption: "Illustrative model from public drawings and specs, not the real rig."
 - **Battery check** (`battery.js`, simplified at Akkhil's request): Healthy / Bad capacitor toggle, spectrum, PASS/FLAG.
 - **Live test DAG** (`ate-dag.js`, replaced the fleet chart Sept 27, 2026): six test steps as a dependency graph (Flash, Boot, then Sensors to Optical and Battery to Radio in parallel). DAG vs legacy serial toggle, clock, shared-scale timeline bars (50 s vs 35 s, 30% faster). Click a step to make it fail: DAG skips only its dependents, serial aborts the rest. Runs once on scroll into view. Illustrative steps and timings.
 
@@ -32,8 +32,23 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **Hero callouts** (`hero-callouts.js`): drawing marks measured from live word boxes after the intro wipe lands.
 - **Scroll motion** (`scroll-fx.js`): see CLAUDE.md.
 
-## Testbed geometry (phase 5, in progress Sept 27, 2026)
-Phases 1 to 4 (the `mkStudio` render pipeline above) are live. Phase 5 rebuilds the testbed parts in `testbed.js` from Thorlabs drawings; Akkhil approved it Sept 27, 2026 ("model from Thorlabs drawings").
+## Testbed geometry (phase 5, built Sept 27, 2026)
+Phases 1 to 4 (the `mkStudio` render pipeline above) and phase 5 (geometry from Thorlabs drawings, approved by Akkhil Sept 27, 2026) are done. Layout in `testbed.js` (mm, y up, breadboard top y = 12.7):
+- **Breadboard:** MB3045/M, 300 (x) by 450 (z), 216 M6 holes on 25 mm, five counterbored mounting screws.
+- **Stage:** MT3/M-Z9 centred at x -75, z -37.5, built from the drawing:
+  - MT401 base plate 61 x 2.9 x 108 with four slot screws, then two 61 x 24.15 x 61 MT1 axes.
+  - MT402 angle plate: a 61.1 L section with a concave quarter-round back.
+  - Vertical Z axis facing +z, and three Z912B actuators (Ø9.5 barrel, Ø15 housing, printed labels).
+  - X actuator points +x, Y points -z, Z points up (top at about 262).
+- **Fixture:** bead-blast aluminium adapter on the Z carriage with dowel pins, arm and clamp holding a Ø4.57 x 50 optical head. The tip sits 2.7 mm above the pod, and the head feeds a breakout into two fibers.
+- **Base plate:** 100 x 75 x 8 at z 62.5, with four counterbored M6 screws on the grid and a 35.3 x 24.6 pocket, 4 deep.
+- **K-Cubes:** three KDC101 at z -170, fronts toward the rig:
+  - red ribbed side extrusions, black plates, clip-on base with quick-release clamps
+  - gold SMA I/O, power switch, USB and power jack on the front; display showing a position, menu button and velocity wheel on top
+  - D-sub motor plugs on the back
+- **Feasa analysers:** LED (105 x 57 x 50, silver ribbed, black caps, 10 fiber ports) and IR (86 x 57 x 55, red ribbed, silver flanges, 2 ports), front right.
+- **Enclosure:** 25 mm T-slot frame 370 x 360 x 550 with TB4-style panels.
+- **Cables:** motor cables drape off the back edge of the board to the K-Cube plugs.
 
 Model from Thorlabs drawings (use their STEP only as reference; do not publish converted Thorlabs meshes without Thorlabs' permission, their site terms forbid redistribution). Thorlabs STEP and PDF drawings: product page, item row, Docs. URL pattern `https://media.thorlabs.com/globalassets/items/{a}/{ab}/{abc}/{part}/{id}-e0w.step` (swap `.step` for `.pdf` for the dimensioned drawing). Checked Sept 27, 2026 (all return 200, no login):
 
@@ -64,7 +79,7 @@ Download STEP files to a scratch folder only (never `public/`). Read dimensions 
 - **Enclosure:** XE25 25 mm black extrusion frame with TB4 black hardboard panels (e.g. XE25C7/M 375 x 225 x 300).
 - Detail that sells it: 0.3 to 0.8 mm chamfers, instanced socket-head screws, catenary cable sag, printed labels via CanvasTexture.
 
-## WHOOP 5.0 device model (open, Sept 27, 2026)
+## WHOOP 5.0 device model (built Sept 27, 2026)
 Akkhil asked how to make the DUT (`makePod()` in `whoop-common.js`) look realistic. Today it is a primitive rounded box, 32.6 x 9.6 x 23.4 scene units, with a lens, a ring, five LEDs in a row (G G R IR G) and four photodiodes, and a `0x0c0c0d` shell (metalness .1, roughness .5).
 - **Limits:** no AI-generated WHOOP imagery, and never the real rig photo. Use public specs only: 5 LEDs (3 green, 1 red, 1 IR), 4 photodiodes, 28 g, about 7% smaller than the 4.0.
 - **Options to put to Akkhil:**
@@ -72,9 +87,25 @@ Akkhil asked how to make the DUT (`makePod()` in `whoop-common.js`) look realist
   2. Use a licensed 3D model.
   3. Photograph the underside of his own device as a texture reference.
   4. Photogrammetry of his own device.
-- **Research findings:** pending (a research pass was running when this was written). Record the sourced dimensions, the underside layout and the chosen approach here.
+- **Findings (Sept 27, 2026):**
+  - **Size:** official 34.7 x 24 x 10.6 mm (support.whoop.com, WHOOP Basics and "Unlock New with WHOOP 5.0"). About 26.5 g with the band; pod-only weight is not published.
+  - **FCC IDs:** model WG50, FCC ID 2AJ2X-WG50. The MG is WS50.
+  - **Body:** matte black plastic, flat top with no logo, rounded-rectangle plan with tight corners, a band-rail groove near the sensor face on each long side.
+  - **Underside (from review photos: the5krunner, road.cc, Digital Trends):**
+    - a raised glossy plateau about 1 mm high, with one recessed near-black window about 55 to 60% of the length and 40% of the width
+    - inside the window, along the length: 2 photodiodes (dark violet dies with a gold edge strip), a line of 5 small LEDs across the width, 2 more photodiodes
+    - a small lozenge carrying the W mark at the clasp end
+  - **Charging:** wireless via the slide-on PowerPack. No exposed contacts.
+  - **Existing 3D models:** none usable. The 3dmodels.org terms bar extractable web use, TurboSquid WHOOP 4 models are editorial only, and the CGI agency assets are all rights reserved. Photogrammetry is a poor fit for a 35 mm glossy black part.
+- **Chosen and built:** option 1. `makePod()` is modelled procedurally from the official size and the photo layout: matte body with rail grooves, glossy clearcoat plateau with the window cut through, violet photodiodes with gold strips, 5 LED dies, window glass and a plain lozenge (no logo).
+- **Still open (for Akkhil):**
+  - Calipers check against his own 5.0.
+  - The LED order across the width (currently G G R IR G).
+  - The underside text on a plain 5.0.
+  - The plateau material.
+  - A reference photo of his own underside, to use for modelling only and never published.
 
 ## Parked quality ideas
 - Upgrade three.js 0.149 to current (about 0.186): OutputPass with Neutral/AgX tone mapping, N8AO ambient occlusion, anisotropic milled aluminium, `scene.environmentIntensity`. Needs visual retuning of every 3D scene (hex colours darken, light units change).
 - Move MediScan to `mkStudio()`; compress its GLBs with gltfpack meshopt (Vercel does not gzip .glb).
-- Real CAD for the prosthetic arm and robot; exact WHOOP 5.0 sensor layout.
+- Real CAD for the prosthetic arm and robot.
