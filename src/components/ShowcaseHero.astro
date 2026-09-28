@@ -14,7 +14,6 @@ const words = p.headline.split(' ');
 <nav class="sc-index" aria-label="Projects on this page">
   {p.core.map(c => (
     <a class="sc-card" href={`#${c.key}`}>
-      {c.num && <b class="n">{c.num}</b>}
       <span class="sc-t">{c.title}</span>
       <span class="sc-s">{c.summary}</span>
       <span class="go" aria-hidden="true">See the project</span>

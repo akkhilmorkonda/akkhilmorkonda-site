@@ -145,13 +145,11 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .sc-index{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ln);border:1px solid var(--ln);margin-bottom:24px}
 .sc-card{display:flex;flex-direction:column;gap:8px;background:var(--bg);padding:22px 20px;transition:background .25s}
 .sc-card:hover{background:var(--sf)}
-.sc-card .n{font:700 34px/1 var(--fd);color:var(--ac);font-variant-numeric:tabular-nums}
-.sc-card .sc-t{margin-top:10px;font:700 16px/1.2 var(--fd);text-transform:uppercase}
+.sc-card .sc-t{font:700 16px/1.2 var(--fd);text-transform:uppercase}
 .sc-card .sc-s{font-size:14px;line-height:1.5;color:var(--fg2)}
 .sc-card .go{margin-top:auto;padding-top:10px;font:12px var(--fm);color:var(--mu);transition:color .2s}
 .sc-card:hover .go{color:var(--ac)}
 .sp{padding-top:104px;border-top:1px solid var(--ln);margin-top:88px}
-.sp-head .n{display:block;font:700 44px/1 var(--fd);color:var(--ac);margin-bottom:14px;font-variant-numeric:tabular-nums}
 .sp-head h2{font-size:clamp(21px,5.6vw,46px)}
 .sp h3{font:500 12px var(--fm);color:var(--mu);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
 .sp-qs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln);margin-top:32px}

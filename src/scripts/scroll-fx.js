@@ -23,7 +23,7 @@ if (root.classList.contains('fx')) {
   });
 
   // 3. Numbers count up from zero the first time they are seen. Real values only, parsed from the text.
-  const counters = [...document.querySelectorAll('.row .st b, .t.acc b, .stats b, .bhead b.n, .more b.n, .sc-card .n, .sp-head .n')].filter(el => /\d/.test(el.textContent) && !/\d-[a-z]/i.test(el.textContent));  // counting '3-axis' from 0 reads oddly
+  const counters = [...document.querySelectorAll('.row .st b, .t.acc b, .stats b, .bhead b.n, .more b.n')].filter(el => /\d/.test(el.textContent) && !/\d-[a-z]/i.test(el.textContent));  // counting '3-axis' from 0 reads oddly
   const count = el => {
     const txt = el.textContent.trim(), m = txt.match(/^(\D*?)(\d+(?:\.\d+)?)(.*)$/);
     if (!m) return;

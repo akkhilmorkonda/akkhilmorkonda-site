@@ -6,7 +6,7 @@ const { c } = Astro.props;
 ---
 <section class="sp" id={c.key}>
   <div class="wrap">
-    <header class="sp-head">{c.num && <b class="n">{c.num}</b>}<h2>{c.title}</h2></header>
+    <header class="sp-head"><h2>{c.title}</h2></header>
     <div class="sp-qs">
       <div class="sp-q"><h3>What</h3><p>{c.what}</p></div>
       <div class="sp-q"><h3>Why</h3><p>{c.why}</p></div>

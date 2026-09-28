@@ -79,7 +79,6 @@ experience:
       core:
         - key: optical
           title: Optical characterization fixture
-          num: 3-axis
           summary: Automated optical fixture that maps the sensor's LED output in 3D.
           what: An automated 3-axis optical test fixture that maps the sensor's LED output in 3D with micrometer-level positioning accuracy, taken from design to a documented platform the team runs.
           why: The sensor's optical readings depend on exactly where the probe sits relative to the LEDs. We built this to identify the manufacturing tolerances for optical testing, the basis for test limits and hardware choices like glass versus plastic.
@@ -94,7 +93,6 @@ experience:
             - Documented platform handed off; engineers now run it independently
         - key: capacitor
           title: On-device capacitor triage system
-          num: $1.8M
           summary: Production screen that flags failing battery capacitors from their current signature.
           what: A production screen that flags failing battery capacitors from their current signature, running at the contract manufacturers during final assembly.
           why: A battery capacitor failure was reaching the field. Nothing at the time could reliably identify it in a short enough time for production; state-of-charge and voltage tests both fell short.
@@ -110,7 +108,6 @@ experience:
             - Shipped to production at the contract manufacturers
         - key: ate
           title: ATE test software
-          num: 30%
           summary: Distributed hardware-in-the-loop test framework across a 12-fixture fleet.
           what: A distributed hardware-in-the-loop test framework that runs independent test steps side by side across a 12-fixture fleet.
           why: Legacy ATE ran every test step in series, so fleet run time grew with every step and fixture added.
