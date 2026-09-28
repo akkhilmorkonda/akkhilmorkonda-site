@@ -3,6 +3,8 @@
 Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`. This file only records how the custom visuals work. Every simulated visual carries an "illustrative" caption.
 
 ## WHOOP (`/experience/whoop`)
+- **Rendering** (Sept 27, 2026): `mkStudio()` in `whoop-common.js`. Half-float 4x MSAA buffer, bloom threshold 4.5 (only LEDs driven to about 8 bloom), ACES filmic tone mapping, background colour solved so the canvas matches the page after tone mapping, PMREM studio environment of softbox strips (edge highlights on black anodize), PCF shadows with radius, contact shadow on a faint floor pool (re-rendered only when parts move), physically based material recipes (`PBR`) with a shared noise roughness map. MediScan still uses the older `mkPipe()`.
+- **Dev capture hook:** in `npm run dev`, `window.__tb.shot(progress, t)` renders a given scroll position so frames can be saved for review (stripped from production builds).
 - **Exploded testbed** (`testbed.js`, scroll, 6 steps): blackout enclosure, breadboard + K-Cube controllers, Thorlabs 3-axis stage, precision fixture, fiber + Feasa analysers, WHOOP 5.0. Ends by zooming into the DUT with LEDs on, then the project Results. Camera pulls back on narrow canvases so the rig stays in frame.
 - **Battery check** (`battery.js`, simplified at Akkhil's request): Healthy / Bad capacitor toggle, spectrum, PASS/FLAG.
 - **Live test DAG** (`ate-dag.js`, replaced the fleet chart Sept 27, 2026): six test steps as a dependency graph (Flash, Boot, then Sensors to Optical and Battery to Radio in parallel). DAG vs legacy serial toggle, clock, shared-scale timeline bars (50 s vs 35 s, 30% faster). Click a step to make it fail: DAG skips only its dependents, serial aborts the rest. Runs once on scroll into view. Illustrative steps and timings.
@@ -30,5 +32,17 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **Hero callouts** (`hero-callouts.js`): drawing marks measured from live word boxes after the intro wipe lands.
 - **Scroll motion** (`scroll-fx.js`): see CLAUDE.md.
 
+## Testbed geometry plan (next phase)
+Model from Thorlabs drawings (use their STEP only as reference; do not publish converted Thorlabs meshes without Thorlabs' permission, their site terms forbid redistribution). Thorlabs STEP and PDF drawings: product page, item row, Docs. URL pattern `https://media.thorlabs.com/globalassets/items/{a}/{ab}/{abc}/{part}/{id}-e0w.step` (swap `.step` for `.pdf` for the dimensioned drawing).
+- **Stage: MT3/M-Z9** (Akkhil confirmed): 12 mm travel per axis, 0.2 um minimum repeatable incremental motion; one axis 197.7 x 61.2 x 20.6 mm; MT402 bracket for Z; three KDC101. STEP: `.../m/mt/mt3/mt3_m-z9/ttn330847-e0w.step`.
+- **KDC101 K-Cube:** 60.0 x 60.0 x 49.2 mm; dark maroon ribbed side panels, black front and top; backlit display and velocity wheel on top; gold TRIG 1/2 connectors, red power switch, micro-USB on the front; black clip-on base plate. STEP: `.../k/kd/kdc/kdc101/etn017655-e0w.step` (30 MB, decimate). Hub KEH3 193.5 x 70 x 27 mm.
+- **Breadboard:** MB series, matte black anodized, 12.7 mm thick, M6 on 25 mm, first hole 12.5 mm from each edge (e.g. MB3045/M 300 x 450).
+- **Feasa LED Analyser:** silver ribbed aluminium extrusion, black end caps and top plate, about 105 x 57 x 50 mm (10 ch); fibers exit the top through black strain reliefs. **Feasa IR Analyser:** red anodized ribbed body, black top plate, silver end flanges, about 86 x 57 x 55 mm. Fibers 1 mm, 0.6 m, 15 mm bend radius; optical heads about 4.57 x 50 mm. No Feasa CAD (ask sales@feasa.ie).
+- **Probe holder (unconfirmed):** VH1/M V-clamp on a TR30/M post, or a custom block.
+- **Enclosure:** XE25 25 mm black extrusion frame with TB4 black hardboard panels (e.g. XE25C7/M 375 x 225 x 300).
+- Detail that sells it: 0.3 to 0.8 mm chamfers, instanced socket-head screws, catenary cable sag, printed labels via CanvasTexture.
+
 ## Parked quality ideas
-- Real CAD for the WHOOP testbed, prosthetic arm and robot; exact WHOOP 5.0 sensor layout; SSAO/HDRI lighting; real scan data in the brightness volume.
+- Upgrade three.js 0.149 to current (about 0.186): OutputPass with Neutral/AgX tone mapping, N8AO ambient occlusion, anisotropic milled aluminium, `scene.environmentIntensity`. Needs visual retuning of every 3D scene (hex colours darken, light units change).
+- Move MediScan to `mkStudio()`; compress its GLBs with gltfpack meshopt (Vercel does not gzip .glb).
+- Real CAD for the prosthetic arm and robot; exact WHOOP 5.0 sensor layout.

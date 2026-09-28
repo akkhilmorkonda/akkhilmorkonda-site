@@ -140,7 +140,7 @@ experience:
           stack: [JTAG, FPGAs, International communication]
           result: Avoided a low-ROI investment
     facts:
-      - Thorlabs 3-axis translation stage (NOT 5-axis; the resume should also say 3-axis). Thorlabs K-Cube motor controllers.
+      - Thorlabs 3-axis translation stage (NOT 5-axis; the resume should also say 3-axis). Stage is the MT3/M-Z9 (confirmed by Akkhil Sept 27, 2026; 12 mm travel per axis, 0.2 um minimum repeatable incremental motion, MT402 bracket for Z), driven by three Thorlabs KDC101 K-Cube controllers.
       - DUT is a WHOOP 5.0, fixed sensor-side up in a base-plate pocket; the stage moves the fiber probe above it.
       - Rig is an optical breadboard, vertical fiber probe, Feasa LED Analyser and Feasa IR Analyser, cardboard blackout enclosure.
       - Output is 3D volumetric brightness plots (x/y/z relative mm), one per LED.
