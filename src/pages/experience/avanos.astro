@@ -14,10 +14,11 @@ const e = entry('experience', 'avanos');
 <ShowcaseProject c={core(e, 'fixture')}>
   <div slot="demo" class="wrap demo bat" id="pump">
     <div class="bbox">
-      <div class="bbar"><div class="seg3" id="pumpUnit"><button class="on" data-f="0">Healthy pump</button><button data-f="1">Failing pump</button></div><div class="verdict wait" id="pumpVd" role="status" aria-live="polite"><b>TESTING</b></div></div>
-      <div class="bc pump-c"><canvas id="pumpC" role="img" aria-label="Fixture trace of pump pressure and motor current over one test cycle; a failing pump crosses the limits and trips the FAIL verdict"></canvas></div>
+      <div class="bbar"><span class="pump-h">10 pumps, 75 psi, 12 hours. Click a pump to make it leak.</span><div class="verdict wait" id="pumpVd" role="status" aria-live="polite"><b>0 h</b></div></div>
+      <div class="pgrid" id="pumpGrid" aria-label="Pumps on the fixture"></div>
+      <div class="bc pump-c"><canvas id="pumpC" role="img" aria-label="Pressure of 10 pumps held at 75 psi over a 12 hour test; a leaking pump falls past the leak threshold and its power is cut"></canvas></div>
     </div>
-    <p class="note">One fixture test cycle. Illustrative signals, not Avanos data.</p>
+    <p class="note">12-hour run compressed to seconds. Illustrative traces, not Avanos data.</p>
   </div>
 </ShowcaseProject>
 
@@ -25,7 +26,7 @@ const e = entry('experience', 'avanos');
 
 <ShowcaseProject c={core(e, 'robot')}>
   <div slot="demo" class="wrap demo">
-    <div class="viewer"><div class="cv"><canvas id="robot" aria-label="6-axis robot arm tracing a trajectory around a pump body"></canvas></div>
+    <div class="viewer"><div class="cv"><canvas id="robot" role="img" aria-label="6-axis robot arm following an interpolated path"></canvas></div>
       <div class="ctl">
         <div><label>Trajectory</label><input type="range" id="rT" min="0" max="1000" value="0" aria-label="Trajectory position"></div>
         <button class="btn2" id="rPlay">Pause</button>

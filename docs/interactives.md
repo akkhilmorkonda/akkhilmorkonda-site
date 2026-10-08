@@ -16,10 +16,16 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **Battery check** (`battery.js`, simplified at Akkhil's request): Healthy / Bad capacitor toggle, spectrum, PASS/FLAG.
 - **Live test DAG** (`ate-dag.js`, replaced the fleet chart Sept 27, 2026): six test steps as a dependency graph (Flash, Boot, then Sensors to Optical and Battery to Radio in parallel). DAG vs legacy serial toggle, clock, shared-scale timeline bars (50 s vs 35 s, 30% faster). Click a step to make it fail: DAG skips only its dependents, serial aborts the rest. Runs once on scroll into view. Illustrative steps and timings.
 
-## Avanos (`/experience/avanos`, showcase since Sept 28, 2026: fixture, analytics, robot)
-- **Pump fixture trace** (`pump-trace.js`): one test cycle swept like a scope, with pressure (lower limit armed after build-up) and motor current (upper limit armed after inrush). The Healthy / Failing pump toggle gives the failing unit two stalls: pressure sags, current spikes, out-of-limit stretches turn red, and the verdict goes TESTING to PASS or FAIL. On phones the lane labels move inside the lanes. Dev hook: `__pump.shot(t, failing)`. Illustrative.
+## Avanos (`/experience/avanos`, showcase since Sept 28, 2026; content from Akkhil's write-up, Oct 8, 2026)
+- **Projects:** pump leak-test fixture, failure reporting analytics (SAP and Salesforce), 6-axis robot validation software (DOBOT CR5A). The enteral feeding tube fixture is listed under Additional projects. Hero image `public/images/game-ready.webp`, from Akkhil's `gameready.jpg` with the white background and drop shadow removed.
+- **Pump leak-test monitor** (`pump-trace.js`): 10 pumps held at 75 psi over a 12-hour run, compressed to about 9 s, then a 2 s hold and repeat.
+  - Ten P1 to P10 buttons toggle a leak. P4 leaks by default because only a handful of the 115 pumps leaked.
+  - A leaking pump sags past the leak threshold, gets an X marker and "P# power cut", and its button reads CUT.
+  - The verdict reads hours elapsed, then "N LEAKS" or "ALL HOLD".
+  - The threshold is drawn without a number because Akkhil does not remember the real value.
+  - Dev hook: `__pump.shot(hours)`. Illustrative.
 - **Robot viewer** (`robot.js`): 6-axis arm replaying an interpolated path, scrubber, play/pause, live joint angles. It is the robot project's demo.
-- Analytics project has no interactive yet.
+- The analytics project has no interactive yet.
 
 ## GT Medical Robotics (`/experience/gt-medical-robotics`)
 - **Explodable arm** (`prosthesis.js`): explode slider, Original / Redesign wrist toggle, relative peak stress and factor of safety readouts.

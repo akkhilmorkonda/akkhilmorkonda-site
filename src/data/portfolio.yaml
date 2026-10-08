@@ -169,55 +169,64 @@ experience:
     page:
       title: Avanos Medical
       crumb: Avanos Medical
-      description: "Avanos Medical project showcase: a LabVIEW fixture that reproduces high-pressure pump failures, a SAP and Salesforce failure analytics platform, and C++ control software for a 6-axis validation robot."
+      description: "Avanos Medical project showcase: a 10-pump leak-test fixture and a SAP and Salesforce analytics platform that traced Game Ready pump complaints to their real cause, and C++ control software for a DOBOT 6-axis validation robot."
       showcase: true
       headline: Project showcase
       roleLine: R&D Engineering Intern, Avanos Medical, May to Aug 2025
-      lead: Three systems I built in R&D to trace electromechanical failures in high-pressure pumps, from the bench to the field data to automated validation.
+      lead: Three systems I built in R&D. A leak-test fixture and an analytics platform traced Game Ready pump complaints to their real cause, and C++ software automated robotic validation.
+      image: { src: /images/game-ready.webp, alt: Game Ready cryo-compression therapy control unit with a cold therapy wrap }
       core:
         - key: fixture
-          title: Pump failure test fixture
-          summary: Bench fixture that reproduces electromechanical failures in high-pressure pumps.
-          what: A LabVIEW and NI myDAQ test fixture that reproduces electromechanical failures in high-pressure pumps on the bench.
-          why: Electromechanical failures in high-pressure pumps put $40M of inventory on the line. The failure had to be reproduced on the bench before its cause could be confirmed and corrected.
+          title: Pump leak-test fixture
+          summary: 10-pump fixture that pressure-tests returned Game Ready pumps for leaks over 12 hours.
+          what: A LabVIEW and NI myDAQ fixture that holds 10 Game Ready water pumps at 75 psi for 12 hours and flags any that leak.
+          why: Game Ready, a cryo-compression therapy system for athletes, drew an alarming number of complaints about leaking water pumps. 115 pumps reported as leaking were pulled from the market, and each needed a controlled test to show whether it really leaked.
           how:
-            - Built the data acquisition and test sequencing in LabVIEW on NI myDAQ hardware
-            - Reproduced the field failure mode on the bench to confirm its root cause
-            - Fed the results into an ISO-compliant corrective and preventive action (CAPA)
-          stack: [LabVIEW, NI myDAQ, Data acquisition, Root-cause analysis, CAPA]
+            - Built the water circuit that circulates water to 10 powered pumps at a time, with a fluid pressure sensor on each pump
+            - Wired the sensors into an NI myDAQ and wrote the LabVIEW program that logs every pump's pressure for 12 hours at 75 psi
+            - Set a pressure-drop threshold that flags a leak and built the switching that cuts power to that pump automatically
+            - Tore down every sample pump and checked housings and sealing faces for warping against a granite surface plate with feeler gauges
+          stack: [LabVIEW, NI myDAQ, Pressure sensors, Data acquisition, Fixture design, Mechanical teardown, Flatness inspection]
           results:
-            - ISO-compliant CAPA covering $40M of inventory
+            - Pressure-tested the 115 returned pumps, 10 at a time
+            - Only a handful lost pressure, and teardown found no warping
+            - Showed the hardware could not explain the complaint rate, which pointed the investigation at the failure reports
         - key: analytics
-          title: Failure analytics platform
-          summary: Platform that joins SAP and Salesforce data to catch SKU-level reporting discrepancies.
-          what: A CI/CD-deployed analytics platform that joins SAP and Salesforce data to catch SKU-level reporting discrepancies.
-          why: Failure data lived in two systems, and SKU-level discrepancies between them slowed failure analysis.
+          title: Failure reporting analytics
+          summary: Full-stack tool that joins Salesforce complaints with SAP service records to find where failure reports go wrong.
+          what: A full-stack internal platform that pulls customer complaints from Salesforce and service-center findings from SAP and analyzes them side by side.
+          why: The fixture showed most pumps held pressure, so the problem had to be in how failures were reported. Complaints land in Salesforce, operators log root causes in SAP, and R&D engineers were not trained on SAP, which holds far more data than they need.
           how:
-            - Joined SAP and Salesforce records at the SKU level to flag reporting discrepancies automatically
-            - Deployed and updated through a CI/CD pipeline
-          stack: [SAP, Salesforce, CI/CD]
+            - Pulled SAP and Salesforce records through REST APIs
+            - Analyzed failure reports in Python with pandas, SciPy and Matplotlib, behind a Streamlit front end deployed through CI/CD
+            - Found the discrepancy. Operators who traced a leak to a non-pump fault still replaced pumps that looked old or rusted, logging them as pump failures and skewing the data
+            - "Wrote and ran the full CAPA: updated service work instructions, retrained operators, added SAP failure codes and kept the SAP and Salesforce reconciliation running"
+          stack: [Python, REST APIs, pandas, SciPy, Matplotlib, Streamlit, SAP, Salesforce, CI/CD, CAPA]
           results:
+            - CAPA covering $40M of inventory
+            - Avoided switching contract manufacturers
             - 95% faster failure analysis
+            - R&D and Quality engineers get failure data without SAP training
         - key: robot
           title: 6-axis robot validation software
-          summary: C++ control software that lets a 6-axis robot run validation on its own.
-          what: C++ control software that drives a 6-axis robot through validation testing without an operator.
-          why: Validation was run by hand, costing more than 1000 hours of engineering time.
+          summary: C++ control software that drives a DOBOT CR5A along a feeding-tube placement path.
+          what: C++ control software that turns a feeding-tube placement path into motion for a DOBOT CR5A 6-axis robot, used to validate an enteral feeding product.
+          why: Validation of the product ran by hand, costing more than 1000 hours.
           how:
-            - Wrote 3D trajectory interpolation and joint kinematics in C++
-            - Streamed motion commands to the robot controller over TCP
-            - Developed to the ISO 12207 software life-cycle standard
-          stack: [C++, Robot kinematics, Trajectory interpolation, TCP/IP, ISO 12207]
+            - Parsed 3D CSV points of a tube placement path and interpolated them into a smooth trajectory
+            - Computed the joint translations and rotations to follow the path and converted them into robot commands
+            - Streamed the commands to the robot over TCP
+            - Built a MATLAB GUI to control the robot and began software validation to ISO 12207
+          stack: [C++, Path interpolation, Inverse kinematics, TCP/IP, MATLAB, DOBOT CR5A, ISO 12207]
           results:
             - 1000+ hours of manual validation automated
-    sources: [Resume (Sept 2026)]
+      more:
+        - title: Enteral feeding tube test fixture
+          summary: Designed, built and validated a feasibility test fixture in two weeks, a deadline my supervisors did not expect me to hit. It tested whether an enteral feeding tube withstands flow rates above its intended use, following ISO requirements for enteral feeding tube testing.
+          stack: [Fixture design, Flow testing, ISO test methods]
+    sources: [Resume (Sept 2026), Akkhil's Avanos write-up and answers (Oct 8, 2026)]
     open:
-      - "Hero image: Game Ready control unit and wrap (sent in chat Sept 28, 2026); needs the file saved to disk. OK to name Game Ready as the product?"
-      - Pump failure mode and root cause, at whatever level is allowed?
-      - "Fixture why: the second sentence (reproduce on the bench before confirming the cause) is inferred; confirm or correct."
-      - "Analytics why (discrepancies between SAP and Salesforce slowed failure analysis) is inferred; confirm. Language and tools (Python? SQL? which CI/CD)?"
-      - "Robot: brand and model? What did it validate (which test, how many cycles)?"
-      - Any smaller Avanos projects for an Additional projects list?
+      - "Leak threshold value (Akkhil does not remember; page describes it without a number)."
 
   - slug: gt-medical-robotics
     company: GT Medical Robotics

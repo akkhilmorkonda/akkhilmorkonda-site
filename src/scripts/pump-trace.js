@@ -1,81 +1,71 @@
-// Avanos pump failure fixture: one test cycle drawn like a scope sweep. Top trace is pump pressure
-// (must stay above its limit once it has built up), bottom is motor current (must stay under its limit
-// after inrush). A failing pump stalls: pressure sags while current spikes, and the fixture calls FAIL.
-// Illustrative signals and limits, not Avanos data.
+// Avanos pump leak-test fixture: 10 Game Ready pumps held at 75 psi for 12 hours (compressed into a few
+// seconds). A pump marked leaking loses pressure; when it falls past the leak threshold the LabVIEW logic
+// flags it and cuts its power. Click a pump to toggle a leak. Illustrative traces; threshold not to scale.
 const root = document.getElementById('pump');
 if (root) {
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const FG = css('--fg'), MU = css('--mu'), LN = css('--ln'), AC = css('--ac'), RED = '#ff5a5a';
-  const c = document.getElementById('pumpC'), x = c.getContext('2d'), vd = document.getElementById('pumpVd');
-  const T = 6, PMIN = .84, IMAX = .78, P_ARM = 1.1, I_ARM = .7;          // cycle seconds, limits, when each limit arms
-  let fail = 0, cycle = 0, t0 = performance.now(), vis = false, raf = 0, events = [], seed = 1;
-  const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const noise = (t, k) => Math.sin(t * 91.7 + k) * .5 + Math.sin(t * 213.3 + k * 2.1) * .3 + Math.sin(t * 37.1 + k * 4.3) * .2;
-  function newCycle() { cycle++; seed = cycle * 7919 + 17; events = fail ? [1.9 + rnd() * .5, 3.6 + rnd() * .7] : []; }
-  // stall bump: 0 away from an event, 1 at its peak
-  const stall = t => events.reduce((m, e) => Math.max(m, Math.exp(-(((t - e) / .13) ** 2))), 0);
-  const pressure = t => { const up = 1 - Math.exp(-t / .32); return up * (1 + .018 * Math.sin(t * 2 * Math.PI * 6)) + .012 * noise(t, cycle) - .3 * stall(t) * up; };
-  const current = t => .44 + .5 * Math.exp(-t / .12) + .025 * Math.sin(t * 2 * Math.PI * 18) + .015 * noise(t, cycle + 3) + .5 * stall(t);
-  const P = { l: 116, r: 18, t: 22, b: 30, gap: 30 };
+  const c = document.getElementById('pumpC'), x = c.getContext('2d'), vd = document.getElementById('pumpVd'), grid = document.getElementById('pumpGrid');
+  const HRS = 12, RUN = 9, HOLD = 2.2, SET = 75, LIM = 66, LO = 40, HI = 82;   // seconds per run, psi
+  const leak = new Set([3]), start = {}, rate = {};                             // pump 4 leaks by default
+  let t0 = performance.now(), vis = false;
+  const seedFor = i => { start[i] = 1.5 + ((i * 37) % 10) * .55; rate[i] = 2.4 + ((i * 53) % 7) * .35; };   // leak onset (h) and psi per hour
+  for (let i = 0; i < 10; i++) seedFor(i);
+  const wob = (h, i) => .35 * Math.sin(h * 3.1 + i * 1.7) + .2 * Math.sin(h * 11.3 + i * 4.1);
+  // pressure of pump i at hour h, and the hour its power was cut (Infinity if never)
+  const cutAt = i => leak.has(i) ? start[i] + (SET - LIM) / rate[i] : Infinity;
+  const psi = (i, h) => { const k = cutAt(i); if (h >= k) return Math.max(0, LIM - (h - k) * 60); const d = leak.has(i) && h > start[i] ? (h - start[i]) * rate[i] : 0; return SET - d + wob(h, i) * (h > .15 ? 1 : 0) - (h < .15 ? (1 - h / .15) * SET : 0); };
 
-  function draw(now) {
+  const btns = [...Array(10)].map((_, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'pchan'; b.innerHTML = `<span>P${i + 1}</span><b></b>`;
+    b.addEventListener('click', () => { leak.has(i) ? leak.delete(i) : leak.add(i); t0 = performance.now(); if (RM) still(); });
+    grid.appendChild(b); return b;
+  });
+
+  function draw(h) {
     const r = c.getBoundingClientRect(), d = Math.min(2, devicePixelRatio);
     if (c.width !== Math.round(r.width * d) || c.height !== Math.round(r.height * d)) { c.width = Math.round(r.width * d); c.height = Math.round(r.height * d); }
     x.setTransform(d, 0, 0, d, 0, 0);
-    const w = r.width, h = r.height, narrow = w < 600; P.l = narrow ? 12 : 116;   // phones: labels sit inside the lanes
-    const W = w - P.l - P.r, H = (h - P.t - P.b - P.gap) / 2;
-    x.clearRect(0, 0, w, h); x.font = '12px JetBrains Mono, monospace'; x.lineWidth = 1;
-    const fx = t => P.l + t / T * W;
-    const lanes = [
-      { name: 'Pressure', f: pressure, y0: P.t, lim: PMIN, arm: P_ARM, bad: v => v < PMIN, lo: 0, hi: 1.15 },
-      { name: 'Motor current', f: current, y0: P.t + H + P.gap, lim: IMAX, arm: I_ARM, bad: v => v > IMAX, lo: .2, hi: 1.05 },
-    ];
-    let tripped = false;
-    for (const L of lanes) {
-      const fy = v => L.y0 + (1 - (v - L.lo) / (L.hi - L.lo)) * H;
-      x.strokeStyle = LN; x.strokeRect(P.l + .5, L.y0 + .5, W, H);
-      x.fillStyle = MU; x.fillText(L.name, narrow ? P.l + 8 : 8, L.y0 + (narrow ? 17 : 14));
-      // limit line, armed after the build-up / inrush window
-      x.setLineDash([4, 4]); x.strokeStyle = MU; x.beginPath(); x.moveTo(fx(L.arm), fy(L.lim)); x.lineTo(P.l + W, fy(L.lim)); x.stroke(); x.setLineDash([]);
-      x.fillText('limit', P.l + W - 40, fy(L.lim) + (L.bad(0) ? 16 : -6));
-      // trace up to the sweep time; out-of-limit stretches in red
-      const N = Math.max(2, Math.round(W)), tEnd = Math.min(T, now);
-      let prevBad = null; x.lineWidth = 1.6;
-      for (let i = 0; i <= N; i++) {
-        const t = i / N * T; if (t > tEnd) break;
-        const v = L.f(t), bad = t >= L.arm && L.bad(v); if (bad) tripped = true;
-        if (bad !== prevBad) { if (prevBad !== null) { x.lineTo(fx(t), fy(v)); x.stroke(); } x.strokeStyle = bad ? RED : FG; x.beginPath(); x.moveTo(fx(t), fy(v)); prevBad = bad; }
-        else x.lineTo(fx(t), fy(v));
-      }
-      x.stroke(); x.lineWidth = 1;
+    const w = r.width, H = r.height, narrow = w < 600, P = { l: narrow ? 44 : 64, r: 16, t: 18, b: 30 }, W = w - P.l - P.r, Hh = H - P.t - P.b;
+    const fx = hr => P.l + hr / HRS * W, fy = p => P.t + (1 - (Math.min(HI, Math.max(LO, p)) - LO) / (HI - LO)) * Hh;
+    x.clearRect(0, 0, w, H); x.font = '12px JetBrains Mono, monospace'; x.lineWidth = 1;
+    x.strokeStyle = LN; x.strokeRect(P.l + .5, P.t + .5, W, Hh);
+    x.fillStyle = MU; x.fillText(narrow ? '75' : '75 psi', 4, fy(SET) + 4); x.fillText('psi', 4, P.t + 10);
+    [0, 3, 6, 9, 12].forEach(hr => x.fillText(hr + ' h', fx(hr) - (hr ? (hr === 12 ? 30 : 12) : 0), H - 9));
+    x.setLineDash([4, 4]); x.strokeStyle = RED; x.globalAlpha = .7; x.beginPath(); x.moveTo(P.l, fy(LIM)); x.lineTo(P.l + W, fy(LIM)); x.stroke(); x.setLineDash([]); x.globalAlpha = 1;
+    x.fillStyle = RED; x.fillText('leak threshold', P.l + W - 112, fy(LIM) + 16);
+    const N = Math.max(60, Math.round(W / 2)), cuts = [];
+    for (let i = 0; i < 10; i++) {
+      const k = cutAt(i), bad = leak.has(i);
+      x.strokeStyle = bad ? RED : FG; x.globalAlpha = bad ? 1 : .55; x.lineWidth = bad ? 1.8 : 1.2; x.beginPath();
+      for (let j = 0; j <= N; j++) { const hr = j / N * HRS; if (hr > h || hr > k + .25) break; const X = fx(hr), Y = fy(psi(i, hr)); j ? x.lineTo(X, Y) : x.moveTo(X, Y); }
+      x.stroke(); x.globalAlpha = 1;
+      if (h >= k) cuts.push([i, k]);
     }
-    // sweep cursor and time axis
-    if (now < T) { x.strokeStyle = AC; x.globalAlpha = .6; x.beginPath(); x.moveTo(fx(now), P.t); x.lineTo(fx(now), h - P.b); x.stroke(); x.globalAlpha = 1; }
-    x.fillStyle = MU; [0, 2, 4, 6].forEach(s => x.fillText(s + ' s', fx(s) - (s ? 22 : 0), h - 9));
-    if (!narrow) x.fillText('Cycle ' + cycle, 8, h - 9);
-    return tripped;
+    x.lineWidth = 1;
+    cuts.forEach(([i, k]) => { const X = fx(k), Y = fy(LIM); x.strokeStyle = RED; x.beginPath(); x.moveTo(X - 5, Y - 5); x.lineTo(X + 5, Y + 5); x.moveTo(X + 5, Y - 5); x.lineTo(X - 5, Y + 5); x.stroke(); x.fillStyle = RED; x.fillText(`P${i + 1} power cut`, Math.min(X + 8, P.l + W - 110), Y - 8); });
+    if (h < HRS) { x.strokeStyle = AC; x.globalAlpha = .6; x.beginPath(); x.moveTo(fx(h), P.t); x.lineTo(fx(h), P.t + Hh); x.stroke(); x.globalAlpha = 1; }
+    return cuts.map(([i]) => i);
   }
 
-  function verdict(state) {
-    vd.classList.toggle('wait', state === 'wait'); vd.classList.toggle('flag', state === 'fail');
-    vd.innerHTML = state === 'fail' ? '<span class="ico">!</span><b>FAIL</b>' : state === 'pass' ? '<span class="ico">&#10003;</span><b>PASS</b>' : '<b>TESTING</b>';
+  function status(h, cut) {
+    btns.forEach((b, i) => { const isCut = cut.includes(i), lk = leak.has(i);
+      b.classList.toggle('leak', lk); b.classList.toggle('cut', isCut); b.querySelector('b').textContent = isCut ? 'CUT' : lk ? 'LEAK' : 'HOLD';
+      b.setAttribute('aria-pressed', String(lk)); b.setAttribute('aria-label', `Pump ${i + 1}: ${isCut ? 'leak detected, power cut' : lk ? 'leaking' : 'holding pressure'}. Press to ${lk ? 'stop the leak' : 'make it leak'}.`); });
+    const n = cut.length, done = h >= HRS;
+    vd.classList.toggle('wait', !n && !done); vd.classList.toggle('flag', n > 0);
+    vd.innerHTML = n ? `<span class="ico">!</span><b>${n} LEAK${n > 1 ? 'S' : ''}</b>` : done ? '<span class="ico">&#10003;</span><b>ALL HOLD</b>' : `<b>${Math.floor(h)} h</b>`;
   }
 
   function frame(n) {
-    raf = requestAnimationFrame(frame); if (!vis) return;
-    let t = (n - t0) / 1000;
-    if (t > T + 1.4) { t0 = n; t = 0; newCycle(); }                       // hold the finished trace briefly, then rerun
-    const tripped = draw(t);
-    verdict(tripped ? 'fail' : t >= T ? 'pass' : 'wait');
+    requestAnimationFrame(frame); if (!vis) return;
+    let s = (n - t0) / 1000; if (s > RUN + HOLD) { t0 = n; s = 0; }
+    const h = Math.min(HRS, s / RUN * HRS); status(h, draw(h));
   }
-
-  function still() { const tripped = draw(T); verdict(tripped ? 'fail' : 'pass'); }
-  const btn = [...root.querySelectorAll('#pumpUnit button')];
-  btn.forEach(b => b.addEventListener('click', () => { fail = +b.dataset.f; btn.forEach(q => q.classList.toggle('on', q === b)); newCycle(); t0 = performance.now(); if (RM) still(); }));
-  newCycle();
+  function still() { status(HRS, draw(HRS)); }
   new IntersectionObserver(e => { const was = vis; vis = e[0].isIntersecting; if (vis && !was) t0 = performance.now(); }).observe(root);
-  if (RM) { still(); addEventListener('resize', still); } else raf = requestAnimationFrame(frame);
-  // dev-only: render the trace at time t for a healthy (0) or failing (1) pump (stripped from production builds)
-  if (import.meta.env.DEV) window.__pump = { shot(t, f) { fail = f; newCycle(); const tr = draw(t); verdict(tr ? 'fail' : t >= T ? 'pass' : 'wait'); return c; } };
+  if (RM) { still(); addEventListener('resize', still); } else requestAnimationFrame(frame);
+  // dev-only: render the run at hour h (stripped from production builds)
+  if (import.meta.env.DEV) window.__pump = { shot(h) { status(h, draw(h)); return c; }, leak };
 }

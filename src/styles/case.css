@@ -69,7 +69,16 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .verdict b{font:700 18px var(--fd);letter-spacing:.04em}
 .verdict.flag{border-color:#ff5a5a;color:#ff5a5a}
 .verdict.wait{border-color:var(--ln);color:var(--mu)}
-.pump-c{height:340px}
+.pump-c{height:320px}
+.pump-h{font:12px/1.4 var(--fm);color:var(--mu)}
+.pgrid{display:grid;grid-template-columns:repeat(10,1fr);border-top:1px solid var(--ln);border-bottom:1px solid var(--ln)}
+.pchan{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:52px;background:var(--bg);border:0;border-right:1px solid var(--ln);color:var(--fg);font:600 13px var(--fb);cursor:pointer;transition:background .2s}
+.pchan:last-child{border-right:0}
+.pchan:hover{background:var(--sf)}
+.pchan b{font:500 11px var(--fm);color:var(--mu);letter-spacing:.06em}
+.pchan.leak b{color:#ff5a5a}
+.pchan.cut span{color:#ff5a5a}
+@media (max-width:600px){.pgrid{grid-template-columns:repeat(5,1fr)}.pchan:nth-child(5){border-right:0}.pchan:nth-child(-n+5){border-bottom:1px solid var(--ln)}}
 .bat .note{margin-top:12px;font:12px var(--fm);color:var(--mu)}
 .jt{display:grid;gap:8px}
 .jt div{display:flex;justify-content:space-between;font-size:13px;color:var(--mu)}
