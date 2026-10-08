@@ -1,7 +1,6 @@
 // GT Medical Robotics: the team's hand CAD (wrist and palm by Akkhil) as an exploded view.
 // public/models/hand.glb comes from tools/hand-to-glb.py: one node per part, millimetres, fingers along +y.
-// Drag to rotate; the Explode slider pulls parts out from the palm. Red palm and back plate, white digits,
-// as printed. Loaded lazily when the section nears the viewport.
+// Drag to rotate; the Explode slider pulls parts out from the palm. All printed parts white PLA. Loaded lazily when the section nears the viewport.
 import { THREE } from './three-lib.js';
 import { RM, AC, mkStudio, PBR } from './whoop-common.js';
 const cv = document.getElementById('handCv');
@@ -13,9 +12,8 @@ if (cv) {
   Object.assign(dl.shadow.camera, { left: -220, right: 220, top: 220, bottom: -220, near: 10, far: 1200 }); dl.shadow.bias = -.0006; dl.shadow.radius = 4; S.add(dl);
   const rl = new THREE.DirectionalLight(0x9fe8c8, .3); rl.position.set(-260, 160, -220); S.add(rl);
 
-  const RED = /^(palm|backplate)$/;
   const pla = c => new THREE.MeshStandardMaterial({ color: c, metalness: 0, roughness: .58, roughnessMap: PBR.plastic().roughnessMap });
-  const white = () => pla(new THREE.Color().setScalar(.5)), red = () => pla(new THREE.Color(.42, .022, .028));
+  const white = () => pla(new THREE.Color().setScalar(.5));
   const hw = () => PBR.satin();
   const root = new THREE.Group(); S.add(root);
   const parts = [];                                                    // { m, home, dir }
@@ -39,7 +37,7 @@ if (cv) {
       const palmC = new THREE.Box3().setFromObject(meshes.find(m => m.name === 'palm') || g.scene).getCenter(new THREE.Vector3());
       meshes.forEach(m => {
         const name = m.name || m.parent?.name || '';
-        m.material = name === 'palm_hw' ? hw() : RED.test(name) ? red() : white();
+        m.material = name === 'palm_hw' ? hw() : white();
         m.castShadow = m.receiveShadow = true; if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
         const pc = new THREE.Box3().setFromObject(m).getCenter(new THREE.Vector3());
         // explode along the line from the palm centre; the back plate lifts off its face, hardware drops out the front
