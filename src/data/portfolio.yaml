@@ -276,7 +276,7 @@ projects:
     slug: mediscan
     status: live
     feature: true
-    tag: I2CE Lab VIP, team lead, 2026
+    tag: I2CE Lab VIP, team lead, 2025 to present
     text: "Portable point-of-care diagnostics for low-resource clinics. Led the electromechanical design: 65°C closed-loop heating, four-channel optical detection and a solar-charged power board."
     page:
       title: MediScan
@@ -284,7 +284,7 @@ projects:
       description: "MediScan, Georgia Tech VIP: a portable molecular diagnostic for clinics without a lab, about $57 in parts. Team lead and owner of the electromechanical side: 65°C PID heating, fluorescence sensing validated in Zemax, and the PCBs."
       showcase: true
       headline: Project showcase
-      roleLine: Team Lead, Cluster 4, I2CE Lab VIP, Georgia Tech, Jan 2026 to present
+      roleLine: Team Lead, Cluster 4, I2CE Lab VIP, Georgia Tech, Jan 2025 to present
       lead: A portable diagnostic that brings molecular testing to clinics without a lab, for about $57 in parts. I lead the team and own the electromechanical side end to end.
       core:
         - key: heating
