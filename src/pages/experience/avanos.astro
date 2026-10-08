@@ -26,13 +26,10 @@ const e = entry('experience', 'avanos');
 
 <ShowcaseProject c={core(e, 'robot')}>
   <div slot="demo" class="wrap demo">
-    <div class="viewer"><div class="cv"><canvas id="robot" role="img" aria-label="6-axis robot arm following an interpolated path"></canvas></div>
-      <div class="ctl">
-        <div><label>Trajectory</label><input type="range" id="rT" min="0" max="1000" value="0" aria-label="Trajectory position"></div>
-        <button class="btn2" id="rPlay">Pause</button>
-        <div id="rJ" class="jt"><div><span>J1 base</span><b>0°</b></div><div><span>J2 shoulder</span><b>0°</b></div><div><span>J3 elbow</span><b>0°</b></div><div><span>J4 wrist roll</span><b>0°</b></div><div><span>J5 wrist pitch</span><b>0°</b></div><div><span>J6 flange</span><b>0°</b></div></div>
-        <p class="note">Drag the view to rotate. Illustrative robot and path.</p>
-      </div></div>
+    <div class="prod2">
+      <figure><div class="pt"><img src="/images/dobot-robot.webp" alt="DOBOT CR-series 6-axis collaborative robot arm" width="480" height="720" loading="lazy" /></div><figcaption>DOBOT CR-series 6-axis robot</figcaption></figure>
+      <figure><div class="pt"><img src="/images/cortrak-2.webp" alt="Avanos CORTRAK 2 enteral access system with its receiver and feeding tube stylet" width="300" height="300" loading="lazy" /></div><figcaption>Avanos CORTRAK 2, the system under validation</figcaption></figure>
+    </div>
   </div>
 </ShowcaseProject>
 
@@ -51,5 +48,4 @@ const e = entry('experience', 'avanos');
 </Base>
 <script>
   import '../../scripts/pump-trace.js';
-  import '../../scripts/robot.js';
 </script>

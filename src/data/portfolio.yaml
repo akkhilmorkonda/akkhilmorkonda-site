@@ -209,8 +209,8 @@ experience:
             - R&D and Quality engineers get failure data without SAP training
         - key: robot
           title: 6-axis robot validation software
-          summary: C++ control software that drives a DOBOT CR5A along a feeding-tube placement path.
-          what: C++ control software that turns a feeding-tube placement path into motion for a DOBOT CR5A 6-axis robot, used to validate an enteral feeding product.
+          summary: C++ control software that drives a DOBOT CR5A along a feeding-tube placement path to validate CORTRAK 2.
+          what: C++ control software that turns a feeding-tube placement path into motion for a DOBOT CR5A 6-axis robot, used to validate the Avanos CORTRAK 2 enteral access system.
           why: Validation of the product ran by hand, costing more than 1000 hours.
           how:
             - Parsed 3D CSV points of a tube placement path and interpolated them into a smooth trajectory
@@ -227,6 +227,8 @@ experience:
     sources: [Resume (Sept 2026), Akkhil's Avanos write-up and answers (Oct 8, 2026)]
     open:
       - "Leak threshold value (Akkhil does not remember; page describes it without a number)."
+      - "Robot photo supplied is labelled DOBOT CR20A; Akkhil said CR5A. Captioned 'DOBOT CR-series'. Confirm the model."
+      - "CORTRAK 2 named as the validated system from Akkhil's image (Oct 8, 2026); confirm naming is OK."
 
   - slug: gt-medical-robotics
     company: GT Medical Robotics
