@@ -227,8 +227,6 @@ experience:
     sources: [Resume (Sept 2026), Akkhil's Avanos write-up and answers (Oct 8, 2026)]
     open:
       - "Leak threshold value (Akkhil does not remember; page describes it without a number)."
-      - "Robot photo supplied is labelled DOBOT CR20A; Akkhil said CR5A. Captioned 'DOBOT CR-series'. Confirm the model."
-      - "CORTRAK 2 named as the validated system from Akkhil's image (Oct 8, 2026); confirm naming is OK."
 
   - slug: gt-medical-robotics
     company: GT Medical Robotics

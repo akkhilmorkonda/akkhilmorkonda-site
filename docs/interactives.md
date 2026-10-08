@@ -24,7 +24,7 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
   - The verdict reads hours elapsed, then "N LEAKS" or "ALL HOLD".
   - The threshold is drawn without a number because Akkhil does not remember the real value.
   - Dev hook: `__pump.shot(hours)`. Illustrative.
-- **Robot project:** no interactive (Akkhil's call, Oct 8, 2026). It shows two product photos on white tiles: the DOBOT robot (`dobot-robot.webp`, Akkhil's transparent PNG composited onto white) and the CORTRAK 2 it validated (`cortrak-2.webp`, near-white background lifted to pure white). The old `robot.js` viewer was removed.
+- **Robot project:** no interactive (Akkhil's call, Oct 8, 2026). It shows two product photos on white tiles: the DOBOT CR5A (`dobot-robot.webp`, Akkhil's transparent PNG composited onto white; model and CORTRAK naming confirmed Oct 8, 2026) and the CORTRAK 2 it validated (`cortrak-2.webp`, near-white background lifted to pure white). The old `robot.js` viewer was removed.
 - The analytics project has no interactive yet.
 
 ## GT Medical Robotics (`/experience/gt-medical-robotics`)
