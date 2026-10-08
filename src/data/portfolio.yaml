@@ -238,31 +238,34 @@ experience:
     page:
       title: GT Medical Robotics
       crumb: GT Medical Robotics
-      description: "Mechanical Engineering Team Lead on a trans-radial prosthetic arm: electromechanical integration and a multi-DOF wrist redesign with a 35% higher factor of safety."
-      headline: A lighter, stronger prosthetic wrist.
+      description: "GT Medical Robotics: mechanical lead on the wrist and palm of an EMG-controlled trans-radial prosthetic arm, with a 35% higher wrist factor of safety at lower weight and integration across a 17-member team."
+      showcase: true
+      headline: Project showcase
       roleLine: Mechanical Engineering Team Lead, Georgia Tech Medical Robotics, Sept 2023 to Dec 2025
-      lead: Owned electromechanical integration of a trans-radial prosthetic arm across a 17-member team, then redesigned its multi-DOF wrist.
-      stats:
-        - { value: +35%, label: wrist factor of safety }
-        - { value: "17", label: engineers on the team }
-        - { value: Multi-DOF, label: "wrist, CAD and dynamic FEA" }
-        - { value: Lighter, label: "wrist mass, same targets met" }
-      brief:
-        what: Led electromechanical integration of a trans-radial prosthetic arm and redesigned its multi-DOF wrist.
-        why: The wrist had to hit torque and range-of-motion targets without adding weight.
-        how:
-          - Owned how actuation, sensing and structure fit together across a 17-member team
-          - Iterated the wrist in CAD and FEA under dynamic loading
-        results:
-          - +35% wrist factor of safety
-          - Lower wrist mass, same targets met
-    sources: [Resume (Sept 2026)]
+      lead: As mechanical lead on a trans-radial prosthetic arm, I owned the wrist and palm, helped design the fingers, and ran integration across a 17-member team.
+      image: { src: /images/gt-hand.webp, alt: CAD render of the prosthetic hand with its wrist mount, palm, thumb and four fingers }
+      core:
+        - key: hand
+          title: Prosthetic wrist and palm
+          summary: Wrist and palm of an EMG-controlled trans-radial prosthetic arm, with wrist flexion, rotation and tendon-driven grip.
+          what: The wrist and palm of a trans-radial prosthetic arm, with wrist flexion and extension, wrist rotation and tendon-driven grip, plus the integration plan that kept the mechanical, electrical and software subteams building to one design.
+          why: The arm had to replicate natural wrist kinematics while staying ergonomic, lightweight and intuitive, and the wrist had to carry the motors and electronics without overloading the user's residual limb.
+          how:
+            - Led the wrist and palm architecture in SolidWorks, using anatomical wrist data to set joint spacing
+            - Prototyped multiple linkage configurations to maximize range of motion without overloading torque on the residual limb
+            - Iterated the wrist in SolidWorks Simulation FEA around PLA+ material limits
+            - Defined the mechanical and electrical interfaces, from Dynamixel servo mounting tolerances and cable routing to space for motor drivers, sensors and batteries, and the mounting and calibration of the wrist rotation encoder with Software
+            - Ran weekly integration syncs and kept a shared block diagram of physical and electrical interfaces, catching mismatches like joint speed and torque profiles against control-loop expectations
+            - Helped design the tendon-driven fingers
+          stack: [SolidWorks, SolidWorks Simulation, FEA, PLA+ 3D printing, Linkage design, Dynamixel servos, Rotary encoder, EMG control, Tendon-driven fingers, Systems integration]
+          results:
+            - 35% higher wrist factor of safety at lower weight
+            - Working end-to-end prototype, from EMG input to actuation
+            - Integration across a 17-member team
+    sources: [Resume (Sept 2026), Akkhil's GT write-up, survey answers and hand CAD (Oct 8, 2026)]
     open:
-      - How much lighter is the wrist?
-      - "Result: built and tested? Demo, competition, user trial?"
-      - CAD of the arm and wrist (the most valuable asset for the whole site). FEA screenshots before and after?
-      - Photos of the arm, team photo?
-      - Actuators and sensors used? Link to the EMG lab work?
+      - Exact weight saved on the redesigned wrist (not known; page says "at lower weight").
+
 
 # ============================================================================
 #  PROJECTS (order of importance; status: live = main grid, in-progress = Coming soon)

@@ -1,30 +1,27 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CaseHero from '../../components/CaseHero.astro';
-import { entry } from '../../data/site.js';
+import ShowcaseHero from '../../components/ShowcaseHero.astro';
+import ShowcaseProject from '../../components/ShowcaseProject.astro';
+import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('experience', 'gt-medical-robotics');
 ---
 <Base title={e.page.title} crumb={e.page.crumb} description={e.page.description}>
 <div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
-<div class="wrap"><CaseHero e={e} />
 
+<div class="wrap"><ShowcaseHero e={e} /></div>
 
-<section class="vol">
-  <div class="head"><h2>Inside the arm</h2><p>Actuation, sensing and structure had to fit inside a forearm-sized shell. Pull the arm apart, then compare the original and redesigned wrist under the same load.</p></div>
-  <div class="viewer"><div class="cv"><canvas id="arm" aria-label="Exploded prosthetic arm with wrist stress map"></canvas></div>
-    <div class="ctl">
-      <div><label>Explode</label><input type="range" id="aEx" min="0" max="100" value="35" aria-label="Explode the arm"></div>
-      <div><label>Wrist</label><div class="seg" id="aW"><button class="on" data-w="before">Original</button><button data-w="after">Redesign</button></div></div>
-      <div class="jt"><div><span>Peak stress, relative</span><b id="aPk">100%</b></div><div><span>Factor of safety</span><b id="aFs">baseline</b></div></div>
-      <div><div class="bar" style="background:linear-gradient(90deg,#1a1a1c,#732914,#ff6b3d,#ffede0)"></div><div class="barl"><span>Low</span><span>Stress</span><span>High</span></div></div>
-      <p class="note">Drag to rotate. Simplified geometry and illustrative stress field; team CAD and FEA to come.</p>
-    </div></div>
-</section>
+<ShowcaseProject c={core(e, 'hand')}>
+  <div slot="demo" class="wrap demo">
+    <div class="viewer hand-v"><div class="cv"><canvas id="handCv" tabindex="0" role="img" aria-label="Exploded 3D view of the team's prosthetic hand CAD: palm and wrist mount, back plate, thumb and four fingers. Drag or use the arrow keys to rotate."></canvas><p class="loading note">Loading the CAD model</p></div>
+      <div class="ctl">
+        <div><label for="hEx">Explode</label><input type="range" id="hEx" min="0" max="100" value="35" /></div>
+        <div class="seg3" id="hMode"><button class="on" data-m="all">Whole hand</button><button data-m="mine">My parts</button></div>
+        <p class="hand-key"><span></span>Wrist and palm, my design</p>
+        <p class="note">Team CAD, simplified for the web. Drag to rotate.</p>
+      </div></div>
+  </div>
+</ShowcaseProject>
 
-<section class="beats">
-  <div><h3>Integration</h3><p>Defined the actuation, sensing and structural interfaces so each sub-team could build to the same envelope.</p></div>
-  <div><h3>Wrist redesign</h3><p>Modeled the multi-DOF wrist in 3D CAD and iterated FEA under dynamic loading to hit torque and range-of-motion targets, raising factor of safety 35% while cutting weight.</p></div>
-</section></div>
 </Base>
-<script>import '../../scripts/prosthesis.js';</script>
+<script>import '../../scripts/gt-hand.js';</script>

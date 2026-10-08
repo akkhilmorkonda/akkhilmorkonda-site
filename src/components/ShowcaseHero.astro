@@ -11,7 +11,7 @@ const words = p.headline.split(' ');
   </div>
   {p.image && <figure class="sc-img"><img src={p.image.src} alt={p.image.alt} width="900" height="900" />{p.image.credit && <figcaption>{p.image.credit}</figcaption>}</figure>}
 </section>
-<nav class="sc-index" aria-label="Projects on this page">
+{p.core.length > 1 && <nav class="sc-index" aria-label="Projects on this page">
   {p.core.map(c => (
     <a class="sc-card" href={`#${c.key}`}>
       <span class="sc-t">{c.title}</span>
@@ -19,4 +19,4 @@ const words = p.headline.split(' ');
       <span class="go" aria-hidden="true">See the project</span>
     </a>
   ))}
-</nav>
+</nav>}
