@@ -44,6 +44,10 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 ## MediScan (`/projects/mediscan`)
 - **CAD explode** (`mediscan-explode.js`): real PCB CAD from the team's Altium STEP files, converted by `tools/cad-to-glb.py` into `public/models/*.glb` (one mesh per part group). Chip, heater plate and stacking are simplified blocks. Loaded lazily near the section.
 - **Sensing stack** (`mediscan-sense.js`): one channel in cross-section plus four amplification curves over 20 minutes; sample, heater on/off, channel select, time scrubber; RNase P control gates validity.
+- **Page (Oct 9, 2026):** a showcase with three subsystems: Closed-loop heating (the CAD explode is its demo), Fluorescence sensing (the sensing chart is its demo) and PCBs and power (no demo).
+- **Gallery:** "From the build" shows Akkhil's four images as `public/images/mediscan-*.webp`: housing photo, housing drawing, fluorescence schematic and fluorescence PCB layout. Each opens full size.
+  - The drawing's title block was corrected from "Angela Tan" to "Akkhil Morkonda" at his request.
+  - The drawing, schematic and layout are lossless WebP so thin lines stay crisp.
 
 ## Partial Weight Bearing Insole (`/projects/pwb-insole`)
 - **Insole** (`insole.js`): foot with five placeholder sensor sites, gait cycle, limit slider, WITHIN/OVER LIMIT state.

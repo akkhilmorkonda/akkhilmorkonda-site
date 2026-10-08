@@ -281,38 +281,68 @@ projects:
     page:
       title: MediScan
       crumb: MediScan
-      description: "MediScan, I2CE Lab VIP: a portable point-of-care diagnostic platform for low-resource clinics. Led the electromechanical design across the NAAT, fluorescence and power modules."
-      headline: Point-of-care diagnostics for low-resource clinics.
-      roleLine: Team Lead, Cluster 4, I2CE Lab VIP, Jan to May 2026
-      lead: MediScan screens a urine sample for multiple diseases without a central lab. I led the electromechanical design across its NAAT, fluorescence and power modules.
-      stats:
-        - { value: $3.08, label: per NAAT test }
-        - { value: 65°C, label: closed-loop heating }
-        - { value: "4", label: optical channels on the sensing board }
-        - { value: 9.1%, label: battery per 20-minute reading }
-      brief:
-        what: "MediScan: a portable, non-invasive platform that screens a urine sample for multiple diseases at the point of care."
-        why: Nearly 47% of the world lacks access to essential diagnostics (WHO, 2021), so diseases are caught late.
-        how:
-          - "NAAT held at 65°C by an ESP32 PI loop: boost converter, MOSFET PWM, thermistor, thermal fuse"
-          - Four blue-LED and photodiode channels reading fluorescence in reflection
-          - Solar and USB-C charged power board shared by the NAAT and fluorescence modules
-        results:
-          - $3.08 per test, $57.22 per NAAT device
-          - 9.1% of the battery per 20-minute reading
-          - Boards finalized and sent for fabrication
+      description: "MediScan, Georgia Tech VIP: a portable molecular diagnostic for clinics without a lab, about $57 in parts. Team lead and owner of the electromechanical side: 65°C PID heating, fluorescence sensing validated in Zemax, and the PCBs."
+      showcase: true
+      headline: Project showcase
+      roleLine: Team Lead, Cluster 4, I2CE Lab VIP, Georgia Tech, Jan 2026 to present
+      lead: A portable diagnostic that brings molecular testing to clinics without a lab, for about $57 in parts. I lead the team and own the electromechanical side end to end.
+      core:
+        - key: heating
+          title: Closed-loop heating
+          summary: ESP32 PID loop that holds the isothermal reaction at 65°C within ±0.5°C.
+          what: The heater and its closed-loop controller, holding the NAAT reaction at 65°C within ±0.5°C on an ESP32.
+          why: Isothermal amplification replaces the bulky thermal cycling of PCR, but it only works if the sample stays right at 65°C.
+          how:
+            - Wrote a PID loop on the ESP32 that reads a thermistor at the heater and drives it by PWM
+            - Lifted the 3.3V rail to 5V for the heater with a boost converter, switched low-side by a MOSFET at 1 to 2 kHz
+            - Added a soldered thermal fuse that cuts power on runaway
+            - Put the heating plate in direct contact with the microfluidic chip through thermal grease
+          stack: [ESP32, PID control, Thermistor, PWM, Boost converter, MOSFET, Thermal fuse]
+          results:
+            - Holds 65°C within ±0.5°C
+            - Running on fabricated hardware, validated subsystem by subsystem
+        - key: optics
+          title: Fluorescence sensing
+          summary: LED excitation and spectral sensing that read whether the DNA amplified, with the optical path validated in Zemax.
+          what: The optical readout. A 470 nm LED excites the sample; if the DNA amplified it fluoresces, and photodiodes and AS7341 spectral sensors pick up the light.
+          why: Fluorescence is the result itself, so the signal has to be clean enough to call a sample positive or negative.
+          how:
+            - "Validated the optical path in Zemax: LED-to-sample excitation, sensor placement, and stray light and crosstalk"
+            - Designed the fluorescence sensing PCB with four AS7341 spectral sensors and a fifth color channel behind a TCA9548A I2C multiplexer, two PWM-driven 470 nm LEDs and a 1.8V LDO
+            - On the NAAT module, each of four channels pairs a blue LED with a Vishay TEMD6200 photodiode, reading in reflection
+          stack: [Zemax, AS7341, TCA9548A, I2C, Photodiodes, 470 nm LEDs, PCB design]
+          results:
+            - Optical path validated in Zemax before fabrication
+            - Fluorescence board fabricated and brought up
+            - Validating results on real hardware with a wet lab
+        - key: pcbs
+          title: PCBs and power
+          summary: The boards that tie MediScan together, battery and solar power included, designed and brought up myself.
+          what: The PCBs that tie the system together, including battery and solar power, taken from a blank board to bring-up.
+          why: A device for clinics without a lab or reliable power has to run from its own battery and recharge from the sun.
+          how:
+            - Designed the control, sensing and power boards around an ESP32, with USB-C and solar charging for a 3.7V 5000 mAh LiPo and a 3.3V regulator
+            - Brought up every board myself after fabrication
+            - "Budgeted power: 4.45 W worst case with the heater on, 1.69 Wh per 20-minute reading, about 37 hours to refill by solar"
+            - Housed the NAAT and fluorescence modules in one printed enclosure, 119 x 86.56 mm
+          stack: [PCB design, ESP32, LiPo charging, Solar charging, USB-C, Power budgeting, Board bring-up, 3D printing]
+          results:
+            - About $57 in parts for the whole device, $3.08 per test
+            - 9.1% of the battery per 20-minute reading
+            - Boards fabricated and brought up
     facts:
       - Akkhil was team lead and led the electromechanical design across the NAAT, fluorescence and power modules (confirmed Sept 25, 2026).
       - "NAAT: LAMP at constant 65°C for Zika (NS5), dengue (3' UTR), malaria (18S rRNA), RNase P internal control. ESP32 PI(D) heater loop, 5V heater via boost converter (3.3 to 5V), low-side MOSFET PWM 1 to 2 kHz, thermistor, soldered thermal fuse. Blue LED excitation, green fluorescence read in reflection by photodiodes."
       - "CAD (public/models/*.glb via tools/cad-to-glb.py): NAAT sensing board 17.7 x 69.3 mm with 4 Lite-On blue LEDs and 4 Vishay TEMD6200 photodiodes on the underside, TI boost IC and 10 mm inductor, MOSFET, JST and Molex connectors. Hybrid board 47.9 x 57.4 mm with ESP32-WROOM-32E, USB-C, Silicon Labs USB-UART, 2 tactile buttons, display connector."
-      - "Fluorescence: ESP32-S3, two AS7341 sensors (control and test line); HE4, LYVE-1, PSA, KIM-1, NGAL."
+      - "Fluorescence (current board, confirmed Oct 9, 2026): four AS7341 spectral sensors plus a fifth AS7341 color channel behind a TCA9548A I2C mux, two PWM-driven 470 nm LEDs, TLV70018 1.8V LDO, Molex 53261 12-pin connector. Markers: HE4, LYVE-1, PSA, KIM-1, NGAL."
+      - "Heating: PID on the ESP32, holds 65°C within ±0.5°C (Akkhil, Oct 9, 2026). Optical path validated in Zemax (excitation path, sensor placement, stray light and crosstalk). Boards fabricated and brought up by Akkhil; subsystems validated individually; wet-lab validation on real hardware in progress. About $57 in parts for the whole device. Project ongoing."
       - "Power: 3.7V 5000 mAh LiPo, solar and USB-C charging, 3.3V regulator, 2.4 inch TFT. Worst case 4.45 W; 1.69 Wh (9.1%) per 20-minute reading; about 37 h full solar charge."
       - "Cost: $57.22 per NAAT device, $3.08 per test."
       - The 4-channel to 4-target mapping in the sensing interactive is an inference from the CAD; labelled illustrative. Chip, heater plate and stacked layout in the 3D view are simplified.
-    sources: ["Documents/VIP/2026: Spring 2026 final deck and CAD (the Fall 2025 notebook is NOT a source)"]
+    sources: ["Documents/VIP/2026: Spring 2026 final deck and CAD (the Fall 2025 notebook is NOT a source)", "Akkhil's overview, survey answers and images (Oct 9, 2026)"]
     open:
       - Deck says "at least 12 measurements" per charge, but 18.5 Wh / 1.69 Wh is about 10.9. Site says "about ten". Which is right?
-      - Team size? Photos of the built prototype?
+      - Team size?
 
   - name: Partial Weight Bearing Insole
     slug: pwb-insole

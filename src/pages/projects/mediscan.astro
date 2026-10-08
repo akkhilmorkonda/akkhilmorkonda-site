@@ -1,15 +1,24 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CaseHero from '../../components/CaseHero.astro';
-import { entry } from '../../data/site.js';
+import ShowcaseHero from '../../components/ShowcaseHero.astro';
+import ShowcaseProject from '../../components/ShowcaseProject.astro';
+import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('projects', 'mediscan');
+const gallery = [
+  { src: '/images/mediscan-housing.webp', w: 491, h: 300, alt: 'Printed white MediScan housing with a sensor window and screw holes', cap: 'Printed NAAT and fluorescence housing' },
+  { src: '/images/mediscan-housing-drawing.webp', w: 1164, h: 823, alt: 'Engineering drawing of the updated MediScan housing, 119 by 86.56 mm', cap: 'Housing drawing, 119 x 86.56 mm' },
+  { src: '/images/mediscan-fluor-schematic.webp', w: 1154, h: 800, alt: 'Schematic of the fluorescence sensing board: four AS7341 spectral sensors, a color sensor, a TCA9548A I2C multiplexer and two 470 nm LEDs', cap: 'Fluorescence sensing PCB, schematic' },
+  { src: '/images/mediscan-fluor-pcb.webp', w: 556, h: 797, alt: 'Two-layer layout of the fluorescence sensing PCB', cap: 'Fluorescence sensing PCB, layout' },
+];
 ---
 <Base title={e.page.title} crumb={e.page.crumb} section="Projects" description={e.page.description}>
 <div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
-<div class="wrap"><CaseHero e={e} />
-</div>
 
+<div class="wrap"><ShowcaseHero e={e} /></div>
+
+<ShowcaseProject c={core(e, 'heating')}>
+  <Fragment slot="demo">
 <section class="explode" id="msExplode"><div class="stick"><canvas id="msRig" role="img" aria-label="Exploded 3D model of the MediScan NAAT module: control and power board, sensing board, microfluidic chip and heating plate"></canvas>
   <div class="steps"><h2>Inside the NAAT module</h2>
     <div class="st"><b>The stack</b><p>A control board, a sensing board, the microfluidic chip and a heating plate. NAAT amplifies genetic material at a constant 65°C, so it needs no PCR hardware.</p></div>
@@ -17,12 +26,14 @@ const e = entry('projects', 'mediscan');
     <div class="st"><b>Heater drive</b><p>A boost converter lifts the 3.3V rail to 5V for the heater, switched low-side by a MOSFET under PWM. A soldered thermal fuse cuts power on runaway.</p></div>
     <div class="st"><b>Four optical channels</b><p>Underneath, each channel pairs a blue LED with a Vishay TEMD6200 photodiode, both facing the chip. Detection works in reflection.</p></div>
     <div class="st"><b>Microfluidic chip</b><p>The sample sits in a clear PMMA chip, backed by a black PMMA layer, directly under the optical channels.</p></div>
-    <div class="st"><b>Heating plate</b><p>In direct contact with the chip through thermal grease. A thermistor at the heater feeds a PI loop on the ESP32, with D added only if needed.</p></div>
+    <div class="st"><b>Heating plate</b><p>In direct contact with the chip through thermal grease. A thermistor at the heater feeds a PID loop on the ESP32 that holds 65°C within ±0.5°C.</p></div>
   </div><div class="prog" id="prog"></div><p class="loading note" aria-live="polite">Loading CAD model</p></div></section>
 <div class="wrap"><p class="note ms-cap">Board models from the team's Altium CAD. Chip, heating plate and the stacked layout are simplified.</p></div>
+  </Fragment>
+</ShowcaseProject>
 
-<div class="wrap"><section class="vol" id="msSense">
-  <div class="head"><h2>The sensing stack</h2><p>Blue light excites the amplified sample in each well; it fluoresces green, and the photodiode beside the LED reads it. A channel is positive when its signal crosses the threshold. The RNase P control must amplify too, or the run is invalid.</p></div>
+<ShowcaseProject c={core(e, 'optics')}>
+  <div slot="demo" class="wrap demo"><section id="msSense">
   <div class="viewer ms-viewer">
     <div class="ms-plots">
       <div class="ms-x"><canvas id="msX" role="img" aria-label="Cross-section of one channel: blue LED and photodiode above a well in the chip, heating plate below"></canvas></div>
@@ -40,14 +51,27 @@ const e = entry('projects', 'mediscan');
       <p class="note">Illustrative model. Curve shapes, times and which channel reads which target are not measured data.</p>
     </div>
   </div>
+  </section></div>
+</ShowcaseProject>
+
+<ShowcaseProject c={core(e, 'pcbs')} />
+
+<div class="wrap">
+<section class="xtra ms-gal" id="gallery">
+  <h2>From the build</h2>
+  <div class="gal">
+    {gallery.map(g => (
+      <figure><a href={g.src} target="_blank" rel="noopener"><img src={g.src} alt={g.alt} width={g.w} height={g.h} loading="lazy" /></a><figcaption>{g.cap}</figcaption></figure>
+    ))}
+  </div>
 </section>
 
-<section class="beats">
-  <div><h3>Power for the field</h3><p>Worst-case draw is 4.45 W with the heater running. A 20-minute reading uses 1.69 Wh, 9.1% of the 5000 mAh battery, so about ten readings per charge. The solar cell refills it in roughly 37 hours.</p></div>
-  <div><h3>Built to be cheap</h3><p>$57.22 per NAAT device and $3.08 per test, prototyped with free campus fabrication and free or discounted reagent samples.</p></div>
-  <div><h3>Three modules, one platform</h3><p>NAAT for Zika, dengue and malaria. A fluorescence module with two AS7341 spectral sensors for HE4, LYVE-1, PSA, KIM-1 and NGAL. A separate power board shared by both.</p></div>
+<section class="beats ms-beats">
+  <div><h3>One platform, two assays</h3><p>NAAT for Zika, dengue and malaria. A fluorescence module for HE4, LYVE-1, PSA, KIM-1 and NGAL. Both share the power board and one printed housing.</p></div>
   <div><h3>Toward the clinic</h3><p>Mapped the regulatory path: a Class II in vitro diagnostic on the 510(k) pathway, under 21 CFR 820 design controls, ISO 13485 and ISO 14971.</p></div>
-</section></div>
+</section>
+</div>
+
 </Base>
 <script>
   import '../../scripts/mediscan-explode.js';
