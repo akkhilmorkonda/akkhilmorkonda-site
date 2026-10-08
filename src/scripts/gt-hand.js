@@ -1,7 +1,7 @@
 // GT Medical Robotics: the team's hand CAD (wrist and palm by Akkhil) as an exploded view.
 // public/models/hand.glb comes from tools/hand-to-glb.py: one node per part, millimetres, fingers along +y.
-// Drag to rotate; the Explode slider pulls parts out from the palm; "My parts" ghosts everything but
-// the wrist and palm. Loaded lazily when the section nears the viewport.
+// Drag to rotate; the Explode slider pulls parts out from the palm. Red palm and back plate, white digits,
+// as printed. Loaded lazily when the section nears the viewport.
 import { THREE } from './three-lib.js';
 import { RM, AC, mkStudio, PBR } from './whoop-common.js';
 const cv = document.getElementById('handCv');
@@ -13,28 +13,22 @@ if (cv) {
   Object.assign(dl.shadow.camera, { left: -220, right: 220, top: 220, bottom: -220, near: 10, far: 1200 }); dl.shadow.bias = -.0006; dl.shadow.radius = 4; S.add(dl);
   const rl = new THREE.DirectionalLight(0x9fe8c8, .3); rl.position.set(-260, 160, -220); S.add(rl);
 
-  const MINE = /^(palm|palm_hw|backplate)$/;                         // Akkhil's parts: wrist and palm
-  const pla = () => new THREE.MeshStandardMaterial({ color: new THREE.Color().setScalar(.42), metalness: 0, roughness: .62, roughnessMap: PBR.plastic().roughnessMap });
-  const plaMine = () => new THREE.MeshStandardMaterial({ color: new THREE.Color(.02, .62, .32), metalness: 0, roughness: .55, roughnessMap: PBR.plastic().roughnessMap });
+  const RED = /^(palm|backplate)$/;
+  const pla = c => new THREE.MeshStandardMaterial({ color: c, metalness: 0, roughness: .58, roughnessMap: PBR.plastic().roughnessMap });
+  const white = () => pla(new THREE.Color().setScalar(.5)), red = () => pla(new THREE.Color(.42, .022, .028));
   const hw = () => PBR.satin();
   const root = new THREE.Group(); S.add(root);
-  const parts = [];                                                    // { m, mine, home, dir }
-  let ex = .35, exT = .35, mode = 'all', yaw = .7, pitch = .18, drag = null, spin = !RM, ready = false, vis = false, dirty = true;
+  const parts = [];                                                    // { m, home, dir }
+  let ex = .35, exT = .35, yaw = .7, pitch = .18, drag = null, spin = !RM, ready = false, vis = false, dirty = true;
 
-  const slider = box.querySelector('#hEx'), btns = [...box.querySelectorAll('#hMode button')], note = box.querySelector('.loading');
+  const slider = box.querySelector('#hEx'), note = box.querySelector('.loading');
   slider.addEventListener('input', () => { exT = slider.value / 100; spin = false; dirty = true; });
-  btns.forEach(b => b.addEventListener('click', () => { mode = b.dataset.m; btns.forEach(o => o.classList.toggle('on', o === b)); applyMode(); dirty = true; }));
 
   // drag to rotate (horizontal drags rotate; vertical page scroll still works on touch)
   cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, yaw, pitch }; spin = false; cv.setPointerCapture(e.pointerId); });
   cv.addEventListener('pointermove', e => { if (!drag) return; yaw = drag.yaw + (e.clientX - drag.x) * .008; pitch = Math.max(-.2, Math.min(.9, drag.pitch + (e.clientY - drag.y) * .005)); dirty = true; });
   const up = () => drag = null; cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
   cv.addEventListener('keydown', e => { const k = { ArrowLeft: -.12, ArrowRight: .12 }[e.key]; if (k) { yaw += k; spin = false; dirty = true; e.preventDefault(); } });
-
-  function applyMode() {
-    parts.forEach(p => { const ghost = mode === 'mine' && !p.mine; p.m.material.transparent = ghost; p.m.material.opacity = ghost ? .14 : 1; p.m.material.depthWrite = !ghost; p.m.castShadow = !ghost; });
-    P.shadow();
-  }
 
   function load() {
     new THREE.GLTFLoader().load('/models/hand.glb', g => {
@@ -44,15 +38,15 @@ if (cv) {
       g.scene.position.set(-c.x, -bb.min.y + 6, -c.z); root.add(g.scene); g.scene.updateMatrixWorld(true);
       const palmC = new THREE.Box3().setFromObject(meshes.find(m => m.name === 'palm') || g.scene).getCenter(new THREE.Vector3());
       meshes.forEach(m => {
-        const name = m.name || m.parent?.name || '', mine = MINE.test(name);
-        m.material = name === 'palm_hw' ? hw() : mine ? plaMine() : pla();
+        const name = m.name || m.parent?.name || '';
+        m.material = name === 'palm_hw' ? hw() : RED.test(name) ? red() : white();
         m.castShadow = m.receiveShadow = true; if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
         const pc = new THREE.Box3().setFromObject(m).getCenter(new THREE.Vector3());
         // explode along the line from the palm centre; the back plate lifts off its face, hardware drops out the front
         const dir = pc.clone().sub(palmC); if (name === 'backplate') dir.set(0, 0, 70); if (name === 'palm_hw') dir.set(0, -10, -60); if (name === 'palm') dir.set(0, 0, 0);
-        parts.push({ m, mine, home: m.position.clone(), dir: dir.multiplyScalar(name.startsWith('f') || name.startsWith('thumb') ? .9 : 1) });
+        parts.push({ m, home: m.position.clone(), dir: dir.multiplyScalar(name.startsWith('f') || name.startsWith('thumb') ? .9 : 1) });
       });
-      ready = true; if (note) note.remove(); applyMode(); dirty = true;
+      ready = true; if (note) note.remove(); P.shadow(); dirty = true;
     }, undefined, () => { if (note) note.textContent = 'Model failed to load.'; });
   }
   new IntersectionObserver((e, o) => { if (e[0].isIntersecting) { o.disconnect(); load(); } }, { rootMargin: '600px' }).observe(cv);

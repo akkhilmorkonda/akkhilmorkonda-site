@@ -167,8 +167,6 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .hand-v .loading{position:absolute;left:16px;top:14px;margin:0}
 .hand-v canvas{touch-action:pan-y}
 .hand-v canvas:focus-visible{outline:2px solid var(--ac);outline-offset:-2px}
-.hand-key{display:flex;align-items:center;gap:10px;font:12px var(--fm);color:var(--mu);margin:0}
-.hand-key span{width:12px;height:12px;background:#16a05a;flex:none}
 .ms-cap{margin-top:12px}
 .ms-plots{display:grid;grid-template-rows:1fr 1fr;height:min(76vh,680px)}
 .ms-x{position:relative;border-bottom:1px solid var(--ln);background:radial-gradient(ellipse at 50% 70%,#101a15,var(--bg) 70%)}

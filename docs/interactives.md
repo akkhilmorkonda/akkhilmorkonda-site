@@ -36,7 +36,7 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
   - **Model:** the team's `PhantomLimb.stl` (Akkhil, Oct 8, 2026; OK to publish), converted by `tools/hand-to-glb.py` into `public/models/hand.glb`. 290k to 97k triangles, 1.75 MB, 22 nodes: palm, palm_hw, backplate, thumb base, proximal and distal, and f1 to f4 base, proximal, middle and distal.
   - **Rendering:** the `mkStudio` pipeline with a floor and contact shadow.
   - **Controls:** drag or arrow keys rotate. The Explode slider sends parts out along the line from the palm centre; the back plate lifts off and the hardware drops out the front.
-  - **"My parts":** ghosts everything but Akkhil's wrist and palm, which are always green. Other parts are grey PLA, hardware satin metal.
+  - **Colours:** red palm and back plate, white digits, satin metal hardware. Shows the whole STL with no "my parts" split (Akkhil's call, Oct 8, 2026).
   - **Behaviour:** loads lazily, auto-spins until touched, and skips frames when idle.
   - **Dev hooks:** `__gt.shot(explode, yaw)` and `__gt.hero()`, which returns a transparent square PNG used for the hero image `public/images/gt-hand.webp`.
 - The old placeholder `prosthesis.js` arm was removed.
