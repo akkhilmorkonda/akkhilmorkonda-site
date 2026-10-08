@@ -22,7 +22,42 @@ const e = entry('experience', 'avanos');
   </div>
 </ShowcaseProject>
 
-<ShowcaseProject c={core(e, 'analytics')} />
+<ShowcaseProject c={core(e, 'analytics')}>
+  <div slot="demo" class="wrap demo">
+    <figure class="sys" aria-label="System diagram: complaints land in Salesforce and repair records in SAP; the analytics platform pulls both through REST APIs, analyzes them in Python and serves a Streamlit app to R&D and Quality engineers">
+      <div class="sys-lane">
+        <h4 class="sys-l">Where the data comes from</h4>
+        <div class="sys-life">
+          <div class="sn">Customer</div><div class="sa"><span>complaint</span></div><div class="sn src">Salesforce<small>complaint record</small></div>
+          <div class="sa sv"><span>device shipped</span></div><div></div><div></div>
+          <div class="sn">Service center</div><div class="sa"><span>root cause</span></div><div class="sn src">SAP<small>repair record</small></div>
+        </div>
+      </div>
+      <div class="sys-lane mine">
+        <h4 class="sys-l">What I built</h4>
+        <div class="sys-pipe">
+          <div class="sn src2">Salesforce<br />SAP</div>
+          <div class="sa"><span>REST APIs</span></div>
+          <div class="sn">Python analysis<small>pandas, SciPy, Matplotlib</small></div>
+          <div class="sa"><span></span></div>
+          <div class="sn">Streamlit app<small>deployed through CI/CD</small></div>
+          <div class="sa"><span></span></div>
+          <div class="sn">R&amp;D and Quality engineers<small>no SAP training needed</small></div>
+        </div>
+      </div>
+      <div class="sys-rec">
+        <h4 class="sys-l">Example record the analysis flags</h4>
+        <dl>
+          <div><dt>Salesforce complaint</dt><dd>Pump leaking</dd></div>
+          <div><dt>SAP root cause</dt><dd>Non-pump fault</dd></div>
+          <div><dt>SAP action</dt><dd>Pump replaced, looked old or rusted</dd></div>
+          <div class="flag"><dt>Flag</dt><dd>Mislogged pump failure</dd></div>
+        </dl>
+      </div>
+    </figure>
+    <p class="note">Simplified system diagram. Example record is illustrative.</p>
+  </div>
+</ShowcaseProject>
 
 <ShowcaseProject c={core(e, 'robot')}>
   <div slot="demo" class="wrap demo">

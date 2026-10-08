@@ -25,7 +25,11 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
   - The threshold is drawn without a number because Akkhil does not remember the real value.
   - Dev hook: `__pump.shot(hours)`. Illustrative.
 - **Robot project:** no interactive (Akkhil's call, Oct 8, 2026). It shows two product photos on white tiles: the DOBOT CR5A (`dobot-robot.webp`, Akkhil's transparent PNG composited onto white; model and CORTRAK naming confirmed Oct 8, 2026) and the CORTRAK 2 it validated (`cortrak-2.webp`, near-white background lifted to pure white). The old `robot.js` viewer was removed.
-- The analytics project has no interactive yet.
+- **Analytics system diagram** (static HTML and CSS in `avanos.astro`, `.sys` styles in `case.css`; Akkhil chose static, Oct 8, 2026):
+  - Data-source lane: customer to Salesforce, device shipped to service center, then to SAP.
+  - Example record card: Salesforce "Pump leaking", SAP "Non-pump fault", "Pump replaced, looked old or rusted", flagged "Mislogged pump failure".
+  - "What I built" lane in accent: Salesforce and SAP, REST APIs, Python analysis, Streamlit app (CI/CD), R&D and Quality engineers.
+  - The pipeline stacks vertically under 900px. Caption says the example record is illustrative.
 
 ## GT Medical Robotics (`/experience/gt-medical-robotics`)
 - **Explodable arm** (`prosthesis.js`): explode slider, Original / Redesign wrist toggle, relative peak stress and factor of safety readouts.
