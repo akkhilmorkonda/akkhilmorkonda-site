@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ShowcaseHero from '../../components/ShowcaseHero.astro';
 import ShowcaseProject from '../../components/ShowcaseProject.astro';
 import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
@@ -27,9 +26,7 @@ const cad = [
 <Base title={e.page.title} crumb={e.page.crumb} section="Projects" description={e.page.description}>
 <div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
 
-<div class="wrap"><ShowcaseHero e={e} /></div>
-
-<ShowcaseProject c={core(e, 'insole')}>
+<ShowcaseProject c={core(e, 'insole')} role={e.page.roleLine}>
   <div slot="demo" class="wrap demo">
     <div class="gal gal4">
       {build.map(g => (

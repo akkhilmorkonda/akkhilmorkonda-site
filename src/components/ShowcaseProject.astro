@@ -1,12 +1,13 @@
 ---
 // One core project on a showcase page: What, Why, How (bullets, stack, then the
 // interactive passed in the "demo" slot), Results. Text sits in .wrap; the demo slot
-// may be full-bleed (e.g. the sticky testbed explode).
-const { c } = Astro.props;
+// may be full-bleed (e.g. the sticky testbed explode). On a single-project page with no ShowcaseHero,
+// pass `role` (the page's role line): the title becomes the page's h1 with the role line under it.
+const { c, role } = Astro.props;
 ---
-<section class="sp" id={c.key}>
+<section class={`sp${role ? ' sp-top' : ''}`} id={c.key}>
   <div class="wrap">
-    <header class="sp-head"><h2>{c.title}</h2></header>
+    <header class="sp-head">{role ? <><h1>{c.title}</h1><div class="role">{role}</div></> : <h2>{c.title}</h2>}</header>
     <div class="sp-qs">
       <div class="sp-q"><h3>What</h3><p>{c.what}</p></div>
       <div class="sp-q"><h3>Why</h3><p>{c.why}</p></div>

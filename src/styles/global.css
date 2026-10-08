@@ -54,8 +54,8 @@ button{touch-action:manipulation}
 /* page-load intro for the first screen: pure CSS so it runs even before scripts */
 @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 @keyframes wipe{from{clip-path:inset(0 0 100% 0);transform:translateY(.35em)}to{clip-path:inset(0 0 -10% 0);transform:none}}
-.fx .h-hero h1,.fx .hero h1{animation:wipe 1.1s var(--ease) both}
-.fx .h-sub,.fx .hero .role{animation:rise .9s var(--ease) .25s both}
+.fx .h-hero h1,.fx .hero h1,.fx .sp-top h1{animation:wipe 1.1s var(--ease) both}
+.fx .h-sub,.fx .hero .role,.fx .sp-top .sp-head .role{animation:rise .9s var(--ease) .25s both}
 .fx .h-hero .h-ctas,.fx .hero .lead{animation:rise .9s var(--ease) .4s both}
 .fx .h-logos,.fx .hero .stats,.fx .hero .chain{animation:rise 1.1s var(--ease) .55s both}
 /* experience rows: an accent line sweeps across the top edge as each row arrives */
