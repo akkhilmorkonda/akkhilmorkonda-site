@@ -1,31 +1,66 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CaseHero from '../../components/CaseHero.astro';
-import { entry } from '../../data/site.js';
+import ShowcaseHero from '../../components/ShowcaseHero.astro';
+import ShowcaseProject from '../../components/ShowcaseProject.astro';
+import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('projects', 'pwb-insole');
+const build = [
+  { src: '/images/pwb-unit.webp', w: 593, h: 696, alt: 'Red 3D-printed PLA housing open, showing the ESP32 processing unit, wiring and battery', cap: 'Processing unit: ESP32, LiPo and charging in a PLA housing' },
+  { src: '/images/pwb-calibration.webp', w: 372, h: 476, alt: 'Foot on a bathroom scale with the phone app reading load during calibration', cap: 'Calibrating against a bathroom scale' },
+  { src: '/images/pwb-app.webp', w: 371, h: 815, alt: 'Phone app showing a live load gauge and a load-over-time chart', cap: 'Live gauge in the Arduino Cloud app' },
+  { src: '/images/pwb-accuracy.webp', w: 1100, h: 680, alt: 'Scatter plot of sensor reading against scale reading at 50% partial weight bearing, with a linear trend line', cap: 'Sensor vs scale at 50% body weight' },
+];
+const gens = [
+  { t: 'Rapid prototypes', d: 'Cardboard and foam models of an insole with an anklet, a shoe-clip processing unit, a one-size-fits-many foam insert and a feedback watch.', l: 'Wiring has to run inside the device, and the processing unit has to shrink.', img: [['/images/pwb-gen1-anklet.webp', 540, 720, 'Foam insole with tacks for sensors wired to a felt anklet'], ['/images/pwb-gen1-widths.webp', 720, 540, 'Foam insole inserts fitted to narrow, regular and wide cardboard shoes'], ['/images/pwb-gen1-watch.webp', 611, 720, 'Cardboard feedback watch on a wrist']] },
+  { t: 'Wired insole, then a sensor sock', d: 'A foam insole with three force-sensitive resistors wired to an Arduino, then a double-layer sock that hides the sensors and wiring.', l: 'The sock is easier to wear, but the processing unit is still too bulky.', img: [['/images/pwb-gen2-insole.webp', 540, 720, 'Foam insole with sensors wired to an Arduino on an ankle strap'], ['/images/pwb-gen2-sock.webp', 540, 720, 'Sock with sensor markers and an embedded processing unit']] },
+  { t: 'Homemade Velostat sensors', d: 'Force sensors made from Velostat and copper tape, sewn into the sock to cover more of the foot with fewer parts.', l: 'Readings varied for the same force, so the final design uses premade sensors.', img: [['/images/pwb-gen3-velostat.webp', 540, 720, 'Sock with homemade Velostat force sensors and copper tape leads']] },
+  { t: 'Final prototype', d: 'Three 50 kg force-sensitive resistors at the critical contact points, calibrated by linear regression, feeding the ESP32 processing unit and the phone app.', l: 'Within 3% of a reference scale. Next: a PCB to shrink the unit into the sock.', img: [] },
+];
+const cad = [
+  ['/images/pwb-cad-sock.webp', 1100, 922, 'CAD render of the double-layer sock with the processing unit at the ankle', 'Double-layer sock'],
+  ['/images/pwb-cad-wiring.webp', 1100, 873, 'CAD render of the sock with internal wiring exposed', 'Internal wiring'],
+  ['/images/pwb-cad-sensors.webp', 1100, 793, 'CAD render of the sock sole showing sensor placement', 'Sensor placement'],
+  ['/images/pwb-cad-unit.webp', 1100, 753, 'CAD renders of the miniaturized processing unit from several angles', 'Miniaturized processing unit'],
+];
 ---
 <Base title={e.page.title} crumb={e.page.crumb} section="Projects" description={e.page.description}>
 <div class="wrap"><a class="back" href="/#projects">Back to all projects</a></div>
-<div class="wrap"><CaseHero e={e} />
 
+<div class="wrap"><ShowcaseHero e={e} /></div>
 
-<section class="vol">
-  <div class="head"><h2>One step, sensor by sensor</h2><p>Force-sensitive resistors under the heel, midfoot and forefoot pick up load as it rolls from heel to toe. Their sum is compared to the prescribed limit in real time.</p></div>
-  <div class="viewer"><div class="cv" style="cursor:default"><canvas id="foot" aria-label="Plantar pressure at five sensor sites during a step"></canvas></div>
-    <div class="ctl">
-      <div><label>Prescribed limit <span class="val" id="limV">50%</span></label><input type="range" id="lim" min="20" max="90" value="50" aria-label="Prescribed load limit, percent body weight"></div>
-      <div><label>How hard the patient steps <span class="val" id="wtV">45%</span></label><input type="range" id="wt" min="20" max="100" value="45" aria-label="Patient step load, percent body weight"></div>
-      <div class="jt"><div><span>Load now, % body weight</span><b id="loadV">0%</b></div></div>
-      <div class="lbar"><i id="loadBar"></i><em id="limMark"></em></div>
-      <div id="pwbState" class="pwb ok" role="status" aria-live="polite">Within limit</div>
-      <p class="note">Illustrative sensor layout and gait. Real sensor count and placement to come.</p>
-    </div></div>
+<ShowcaseProject c={core(e, 'insole')}>
+  <div slot="demo" class="wrap demo">
+    <div class="gal gal4">
+      {build.map(g => (
+        <figure><a href={g.src} target="_blank" rel="noopener"><img src={g.src} alt={g.alt} width={g.w} height={g.h} loading="lazy" /></a><figcaption>{g.cap}</figcaption></figure>
+      ))}
+    </div>
+  </div>
+</ShowcaseProject>
+
+<div class="wrap">
+<section class="xtra" id="process">
+  <h2>How the design got there</h2>
+  <ol class="gens">
+    {gens.map(g => (
+      <li class="gen">
+        <div class="gen-t"><h3>{g.t}</h3><p>{g.d}</p><p class="gen-l"><b>Learned</b> {g.l}</p></div>
+        {g.img.length > 0 && <div class="gen-i">{g.img.map(([src, w, h, alt]) => <a href={src} target="_blank" rel="noopener"><img src={src} alt={alt} width={w} height={h} loading="lazy" /></a>)}</div>}
+      </li>
+    ))}
+  </ol>
 </section>
 
-<section class="beats">
-  <div><h3>Calibration</h3><p>Each force sensor was calibrated against known loads and fit with a regression model, bringing total load error to ±3%.</p></div>
-  <div><h3>Validation</h3><p>Paired t-tests and a power analysis compared insole readings to reference measurements, with data streamed to a cloud-connected mobile app.</p></div>
-</section></div>
+<section class="xtra" id="cad">
+  <h2>Looks-like model</h2>
+  <p class="xtra-lead">The CAD for the next version: wiring sealed inside a double-layer sock and a processing unit small enough to sit at the ankle.</p>
+  <div class="gal">
+    {cad.map(([src, w, h, alt, cap]) => (
+      <figure><a href={src} target="_blank" rel="noopener"><img src={src} alt={alt} width={w} height={h} loading="lazy" /></a><figcaption>{cap}</figcaption></figure>
+    ))}
+  </div>
+</section>
+</div>
+
 </Base>
-<script>import '../../scripts/insole.js';</script>

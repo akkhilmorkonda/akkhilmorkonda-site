@@ -352,31 +352,33 @@ projects:
     page:
       title: Partial Weight Bearing Insole
       crumb: Partial Weight Bearing Insole
-      description: A smart insole that measures plantar load in real time for partial-weight-bearing rehabilitation, calibrated to ±3% accuracy.
-      headline: Weight-bearing, measured in real time.
-      roleLine: Project, Jan to Jul 2025
-      lead: Patients told to put only part of their weight on an injured leg have no way to know how much they actually are. This insole measures it on every step.
-      stats:
-        - { value: ±3%, label: load accuracy after calibration }
-        - { value: ESP32, label: wireless telemetry }
-        - { value: C++, label: embedded firmware }
-        - { value: t-tests, label: paired validation with power analysis }
-      brief:
-        what: A smart insole that measures plantar load in real time for partial-weight-bearing rehab.
-        why: Patients told to put only part of their weight on an injured leg have no way to know how much they actually are.
-        how:
-          - Force-sensitive resistors under the foot
-          - Embedded C++ firmware with ESP32 wireless telemetry
-          - Calibration and regression against known loads
-        results:
-          - ±3% load accuracy
-          - Validated with paired t-tests and power analysis
+      description: "Partial Weight Bearing Insole, BMED 2310 at Georgia Tech: three calibrated force sensors under the foot, an ESP32 processing unit and a live phone gauge, accurate to within 3% of a reference scale."
+      showcase: true
+      headline: Project showcase
+      roleLine: BMED 2310 design project, Georgia Tech, team of 5, Jan to Jul 2025
+      lead: A wearable that shows patients, live on their phone, how much weight they put on an injured leg. I built its electronics, firmware, calibration and app, and helped with the CAD.
+      core:
+        - key: insole
+          title: Partial Weight Bearing Insole
+          summary: Three calibrated force sensors under the foot, an ESP32 processing unit and a live phone gauge.
+          what: A wearable that measures how much weight a patient puts on an injured leg and shows it live on their phone, so they stay inside the partial weight bearing limit their physical therapist sets.
+          why: After a lower-limb fracture, patients are told to bear only a percentage of their body weight, but even trained physical therapists misjudge it by up to 30%, and training on a bathroom scale does not carry over to walking. The few biofeedback devices cost about $700 to $7,000 or are not sold in the US.
+          how:
+            - Placed three 50 kg force-sensitive resistors at the foot's three critical contact points, sewn into a sock liner worn in the patient's own shoe
+            - Built the processing unit around an ESP32, with the sensor circuit and a rechargeable 3.7V LiPo with a charging booster, in a 3D-printed PLA housing
+            - Wrote the Arduino C++ firmware and calibrated the three sensors with a linear regression against a bathroom scale, across users of different weights
+            - Streamed calibrated load over WiFi to Arduino Cloud for a mobile app with a live gauge and progress over time
+            - Helped model the looks-like CAD for the next version, a double-layer sock with a miniaturized processing unit
+          stack: [ESP32, Arduino C++, Force-sensitive resistors, Calibration, Linear regression, Arduino Cloud, LiPo charging, 3D printing, CAD]
+          results:
+            - Within 3% of a reference scale at 25, 50 and 75% body weight (n = 20, paired t-tests)
+            - Working prototype from foot sensors to a live phone gauge
     facts:
-      - Sensor sites in the interactive are placeholders (heel, lateral midfoot, 5th met head, 1st met head, hallux).
-    sources: [Resume (Sept 2026)]
-    open:
-      - Team or solo? Class project or independent?
-      - Number and placement of FSRs, target load limit, photos of the insole or app.
+      - "Team Gait Keepers (5), BMED 2310 Section A03, Georgia Tech. Akkhil owned the processing unit electronics, firmware and calibration, and the app (Arduino Cloud); helped with the CAD (Oct 9, 2026)."
+      - "Final prototype: three 50 kg FSRs sewn into a sock at three critical contact points; ESP32, 3.7V LiPo, charging booster, PLA housing; linear-regression calibration against a bathroom scale; Arduino Cloud mobile dashboard with a gauge widget."
+      - "Accuracy verification: n = 20, paired t-tests at 25/50/75% PWB, p = 0.241, 0.490, 0.545 (no significant difference vs scale, within the 3% margin). Other report results (donning time under 3 min, failed IPX4 water test, $106 build / $172 price) are not shown on the site, per Akkhil."
+      - Name stays "Insole" (Akkhil's call) though the final form is a sensor sock. Prototype nicknames from the report are not used on the site.
+    sources: [Resume (Sept 2026), "DHF Final Design Report (Gait Keepers), from Akkhil (Oct 9, 2026)"]
 
   - name: Smart Respirator
     status: live

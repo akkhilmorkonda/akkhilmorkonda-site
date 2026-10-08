@@ -49,8 +49,13 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
   - The drawing's title block was corrected from "Angela Tan" to "Akkhil Morkonda" at his request.
   - The drawing, schematic and layout are lossless WebP so thin lines stay crisp.
 
-## Partial Weight Bearing Insole (`/projects/pwb-insole`)
-- **Insole** (`insole.js`): foot with five placeholder sensor sites, gait cycle, limit slider, WITHIN/OVER LIMIT state.
+## Partial Weight Bearing Insole (`/projects/pwb-insole`, showcase with one project since Oct 9, 2026)
+- **No interactive** (Akkhil chose photos; the placeholder `insole.js` foot was removed).
+- **Images:** from the team's DHF Final Design Report, as `public/images/pwb-*.webp`:
+  - The project demo is a four-photo grid: processing unit, calibration on a scale, app gauge and accuracy plot.
+  - "How the design got there" shows four stages with photos: rapid prototypes, wired insole then sensor sock, Velostat sensors, and the final prototype with an accent marker.
+  - "Looks-like model" shows the four CAD renders.
+  - Competitor product photos in the report (SmartStep, STAPPONE) are not used.
 
 ## Guitar amp head (`/projects/amp-head`)
 - **Tone stack** (`amp.js`): three draggable, keyboard-operable knobs driving the real '59 Bassman tone stack response (Yeh and Smith closed form), presets.
