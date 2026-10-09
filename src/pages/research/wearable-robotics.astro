@@ -1,27 +1,55 @@
 ---
 import Base from '../../layouts/Base.astro';
-import CaseHero from '../../components/CaseHero.astro';
-import { entry } from '../../data/site.js';
+import ShowcaseProject from '../../components/ShowcaseProject.astro';
+import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
 const e = entry('research', 'wearable-robotics');
 ---
 <Base title={e.page.title} crumb={e.page.crumb} section="Research" description={e.page.description}>
 <div class="wrap"><a class="back" href="/#research">Back to all research</a></div>
-<div class="wrap"><CaseHero e={e} />
 
+<ShowcaseProject c={core(e, 'balance')} role={e.page.roleLine}>
+  <div slot="demo" class="wrap demo" id="emgPipe">
+    <div class="ep-box">
+      <div class="ep-bar">
+        <div class="seg ep-stages" id="epStage"><button class="on">Raw</button><button>Bandpass</button><button>Rectify</button><button>RMS envelope</button><button>Normalize</button><button>Onset</button></div>
+        <button class="btn2" id="epNext" type="button">Next step</button>
+      </div>
+      <div class="ep-c"><canvas role="img" aria-label="One muscle's EMG around a platform perturbation at time zero, shown at the selected processing step; the onset step marks the threshold, onset, peak and recovery"></canvas></div>
+      <div class="ep-foot">
+        <p id="epDesc" class="ep-desc" aria-live="polite"></p>
+        <div class="ep-side">
+          <div><label>Perturbation</label><div class="seg3 ep-size" id="epSize"><button data-s="5">5 cm</button><button class="on" data-s="10">10 cm</button><button data-s="15">15 cm</button></div></div>
+          <dl class="ep-out"><div><dt>Latency</dt><dd id="epLat">-</dd></div><div><dt>Peak</dt><dd id="epPk">-</dd></div><div><dt>Recovery</dt><dd id="epRec">-</dd></div></dl>
+        </div>
+      </div>
+    </div>
+    <p class="note">The processing is real; the signal is illustrative, not study data.</p>
+  </div>
+</ShowcaseProject>
 
-<section class="vol">
-  <div class="head"><h2>From muscle to control signal</h2><p>Raw EMG is noisy and signed. Rectify it, low-pass it into an envelope, then threshold the envelope with hysteresis to get a clean on/off command a device can act on.</p></div>
-  <figure class="emg" id="emg">
-    <div class="emg-h"><span>Raw EMG, envelope, control signal</span><button class="emg-b" id="emgFlex" aria-pressed="false">Hold to flex</button></div>
-    <canvas id="emgC" role="img" aria-label="Scrolling EMG trace: raw signal, rectified envelope, and thresholded control output"></canvas>
-    <figcaption>Rectify, low-pass, threshold. Illustrative signal, not study data.</figcaption>
-  </figure>
+<div class="wrap">
+<section class="xtra" id="results">
+  <h2>What the muscles did</h2>
+  <p class="xtra-lead">Mean max EMG rose with perturbation size. Hip muscles in swing jumped at 15 cm, pointing to their role in stepping; ankle muscles in stance rose more steadily, holding support during ground contact.</p>
+  <div class="res2">
+    <figure class="res-a"><canvas id="emgRes" role="img" aria-label="Increase in mean max EMG relative to 5 cm perturbations. Rectus femoris in swing: plus 13.7% at 10 cm, plus 119.17% at 15 cm. Biceps femoris in swing: plus 10.92% and 48.65%. Tibialis anterior in stance: plus 17.64% and 42.35%. Medial gastrocnemius in stance: plus 4.95% and 11.88%."></canvas><figcaption>Increase in mean max EMG vs 5 cm perturbations</figcaption></figure>
+    <figure class="res-b"><a href="/images/power-emg-results.webp" target="_blank" rel="noopener"><img src="/images/power-emg-results.webp" alt="MATLAB plot of mean max EMG against perturbation magnitude, 5 to 15 cm, for four muscles in stance and swing" width="788" height="628" loading="lazy" /></a><figcaption>Mean max EMG vs perturbation magnitude, stance and swing (MATLAB)</figcaption></figure>
+  </div>
 </section>
 
-<section class="beats">
-  <div><h3>Acquisition protocols</h3><p>Designed the EMG acquisition protocols used across 50+ human-subject studies.</p></div>
-  <div><h3>Analysis pipelines</h3><p>MATLAB pipelines for time-series analysis and real-time control, from raw recordings to a usable control signal.</p></div>
-</section></div>
+<section class="xtra" id="lab">
+  <h2>The CAREN</h2>
+  <p class="xtra-lead">A treadmill on a 6-DOF motion platform inside a VR dome, with motion capture and wireless EMG. It shifts and tilts mid-stride to perturb balance.</p>
+  <div class="gal">
+    <figure><a href="/images/power-caren-setup.webp" target="_blank" rel="noopener"><img src="/images/power-caren-setup.webp" alt="The CAREN system with labels: Vicon motion capture, projection screen, 6-DOF platform, Delsys EMG system and instrumented treadmill" width="623" height="418" loading="lazy" /></a><figcaption>CAREN setup. Photo: EPIC Lab, Georgia Tech</figcaption></figure>
+    <figure><a href="/images/power-caren-harness.webp" target="_blank" rel="noopener"><img src="/images/power-caren-harness.webp" alt="A participant in a safety harness walking on the CAREN treadmill inside the projection dome" width="1024" height="683" loading="lazy" /></a><figcaption>Walking on the CAREN. Photo: EPIC Lab, Georgia Tech</figcaption></figure>
+  </div>
+</section>
+</div>
+
 </Base>
-<script>import '../../scripts/emg.js';</script>
+<script>
+  import '../../scripts/emg-pipeline.js';
+  import '../../scripts/emg-results.js';
+</script>

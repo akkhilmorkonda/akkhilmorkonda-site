@@ -463,31 +463,38 @@ research:
     lab: Physiology of Wearable Robotics Lab
     role: Undergraduate Research Assistant
     dates: May 2025 to present
-    text: Designed EMG acquisition protocols for 50+ human-subject studies and built MATLAB pipelines for time-series analysis and real-time control.
+    text: Process EMG from CAREN perturbation trials in MATLAB to time a balance-assisting hip exoskeleton. EMG acquisition protocols behind 50+ human-subject studies.
     page:
-      title: Physiology of Wearable Robotics Lab
-      crumb: Wearable Robotics Lab
-      description: "Undergraduate research at Georgia Tech's Physiology of Wearable Robotics Lab: EMG acquisition protocols for 50+ human-subject studies and MATLAB pipelines for real-time control."
-      headline: Reading muscle signals for real-time control.
-      roleLine: Undergraduate Research Assistant, Physiology of Wearable Robotics Lab, May 2025 to present
-      lead: Designed the EMG acquisition protocols behind 50+ human-subject studies and built the MATLAB pipelines that turn raw muscle signals into analysis and control.
-      stats:
-        - { value: 50+, label: human-subject studies }
-        - { value: EMG, label: acquisition protocols }
-        - { value: MATLAB, label: time-series and control pipelines }
-        - { value: Real-time, label: control output }
-      brief:
-        what: EMG acquisition protocols and MATLAB analysis and control pipelines for the Physiology of Wearable Robotics Lab.
-        why: Human-subject studies need consistent EMG recordings and a reliable path from raw signal to control.
-        how:
-          - Designed the acquisition protocols used across studies
-          - MATLAB pipelines for time-series analysis and real-time control
-        results:
-          - Protocols behind 50+ human-subject studies
-    sources: [Resume (Sept 2026)]
-    open:
-      - The brief's "why" is general; replace with the real study goal.
-      - PI name to credit? Which device or study (exoskeleton, prosthesis control)? Any publication, poster or abstract?
+      title: PoWeR Lab
+      crumb: PoWeR Lab
+      description: "Physiology of Wearable Robotics (PoWeR) Lab, Georgia Tech: a MATLAB EMG pipeline for CAREN perturbation trials that sets the timing of a balance-assisting hip exoskeleton."
+      showcase: true
+      headline: Project showcase
+      roleLine: Undergraduate Research Assistant, Physiology of Wearable Robotics (PoWeR) Lab, Georgia Tech, May 2025 to present
+      lead: EMG analysis for a hip exoskeleton that helps users keep their balance.
+      core:
+        - key: balance
+          title: Balance Augmentation Project
+          summary: EMG from CAREN perturbation trials, processed in MATLAB to time a balance-assisting hip exoskeleton.
+          what: A hip exoskeleton that helps users keep their balance during dynamic walking and perturbations. I process the EMG from perturbation trials on the CAREN platform and turn it into timing for the exoskeleton's assist.
+          why: To help at the right moment, the exoskeleton has to know when, and how hard, the leg muscles respond after a perturbation.
+          how:
+            - Recorded lower-limb EMG while subjects walked on the CAREN, a VR rehabilitation system whose 6-DOF treadmill rotates and translates to simulate perturbations and terrain
+            - Built a MATLAB pipeline with a 20 to 450 Hz 4th-order Butterworth bandpass, full-wave rectification and a 50 to 100 ms moving RMS envelope
+            - Normalized amplitude to each participant's maximum voluntary contraction or trial maximum, and detected reflex onsets with a threshold
+            - Extracted latency, peak activation and recovery duration for rectus femoris, biceps femoris, tibialis anterior and medial gastrocnemius, and worked with the controls team to turn them into timing for the exoskeleton's assistive torque
+          stack: [MATLAB, EMG, Signal processing, Butterworth filtering, CAREN, Biomechanics, Exoskeleton control]
+          results:
+            - "Hip muscles in swing scaled sharply with perturbation size: rectus femoris +119% and biceps femoris +49% at 15 cm vs 5 cm"
+            - "Ankle muscles in stance rose more steadily: tibialis anterior +42% and medial gastrocnemius +12% at 15 cm"
+            - Findings enable real-time control algorithms for the exoskeleton
+            - EMG acquisition protocols behind 50+ human-subject studies
+    facts:
+      - "Balance Augmentation Project, PoWeR Lab (Akkhil, Oct 9, 2026). CAREN trials; MATLAB pipeline: 20 to 450 Hz 4th-order Butterworth bandpass, full-wave rectification, 50 to 100 ms moving RMS, normalization to MVC or trial max, threshold onset detection. Results (increase vs 5 cm, 10 cm / 15 cm): rectus femoris swing +13.7% / +119.17%; biceps femoris swing +10.92% / +48.65%; tibialis anterior stance +17.64% / +42.35%; medial gastrocnemius stance +4.95% / +11.88%."
+      - Subjects and count are not stated on the site (Akkhil's call). Muscles named are the four in the results.
+      - "Lab photos are from the EPIC Lab facilities page (https://www.epic.gatech.edu/facilities/), where the CAREN lives; the lab is still named PoWeR Lab on the site (Akkhil's call). Photos credited to the EPIC Lab."
+      - The results appear twice for now, the rebuilt chart and Akkhil's MATLAB figure; he will pick one.
+    sources: [Resume (Sept 2026), "Akkhil's PoWeR Lab write-up and results slide (Oct 9, 2026)"]
 
   - lab: Structured Information for Precision Neuroengineering Lab
     role: Undergraduate Research Assistant

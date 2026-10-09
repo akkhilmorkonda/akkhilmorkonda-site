@@ -60,8 +60,15 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 ## Guitar amp head (`/projects/amp-head`)
 - **Tone stack** (`amp.js`): three draggable, keyboard-operable knobs driving the real '59 Bassman tone stack response (Yeh and Smith closed form), presets.
 
-## Wearable Robotics Lab (`/research/wearable-robotics`)
-- **EMG strip** (`emg.js`): raw, envelope, thresholded control with hysteresis; "Hold to flex".
+## PoWeR Lab (`/research/wearable-robotics`, single-project page since Oct 9, 2026: Balance Augmentation Project)
+- **EMG pipeline** (`emg-pipeline.js`): a real processing chain run in the browser on an illustrative signal (2 kHz, perturbation at 0 ms).
+  - **Filtering:** 20 to 450 Hz 4th-order Butterworth bandpass as two high-pass and two low-pass RBJ biquads (Q 0.5412 and 1.3066), then rectification, a centred 75 ms RMS envelope, and normalization to the trial max.
+  - **Onset:** baseline mean + 3 SD, held 25 ms.
+  - **Controls:** six stage buttons plus Next step, a 5, 10 or 15 cm perturbation size that scales the illustrative burst, and readouts for latency, peak and recovery.
+  - Dev hook: `__ep.set(stage, size)`.
+- **Results chart** (`emg-results.js`): grouped bars of Akkhil's real % increases vs 5 cm (10 and 15 cm) for rectus femoris and biceps femoris (swing) and tibialis anterior and medial gastrocnemius (stance). The bars grow in on view.
+- **Original figure:** Akkhil's MATLAB figure (`power-emg-results.webp`) sits beside the chart for now. He will pick one; delete the other.
+- **Lab photos:** two images from the EPIC Lab facilities page (CAREN setup, harness), credited "Photo: EPIC Lab, Georgia Tech". The old `emg.js` strip was removed.
 
 ## Homepage
 - **Hero callouts** (`hero-callouts.js`): drawing marks measured from live word boxes after the intro wipe lands.

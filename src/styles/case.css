@@ -122,6 +122,28 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .gen-i a{flex:1;max-width:220px;background:var(--sf)}
 .gen-i img{display:block;width:100%;height:200px;object-fit:cover}
 @media (max-width:900px){.gal.gal4{grid-template-columns:1fr 1fr}.gen{grid-template-columns:1fr;gap:14px}.gen-i img{height:150px}}
+.ep-box{border:1px solid var(--ln)}
+.ep-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--ln)}
+.seg.ep-stages{grid-template-columns:repeat(6,auto)}
+.seg.ep-stages button{padding:0 14px}
+.ep-c{height:340px}
+.ep-c canvas{width:100%;height:100%;display:block}
+.ep-foot{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;padding:16px;border-top:1px solid var(--ln)}
+.ep-desc{margin:0;font-size:15px;line-height:1.55;color:var(--fg2);max-width:56ch}
+.ep-side{display:flex;flex-direction:column;gap:14px;min-width:260px}
+.ep-side label{display:block;font:12px var(--fm);color:var(--mu);margin-bottom:6px}
+.seg3.ep-size{grid-template-columns:repeat(3,1fr);width:100%}
+.ep-out{margin:0;display:grid;gap:6px}
+.ep-out div{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.ep-out dt{color:var(--mu)}
+.ep-out dd{margin:0;font:600 14px var(--fm);font-variant-numeric:tabular-nums;color:var(--fg)}
+.res2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln);margin-top:28px}
+.res2 figure{margin:0;background:var(--bg);display:flex;flex-direction:column}
+.res-a canvas{width:100%;height:360px;display:block}
+.res-b a{display:flex;align-items:center;justify-content:center;height:360px;padding:12px;background:#f2f2f2}
+.res-b img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+.res2 figcaption{padding:12px 16px;font:12px var(--fm);color:var(--mu);border-top:1px solid var(--ln)}
+@media (max-width:900px){.seg.ep-stages{grid-template-columns:repeat(3,1fr)}.ep-foot{grid-template-columns:1fr}.ep-side{min-width:0}.ep-c{height:280px}.res2{grid-template-columns:1fr}.res-a canvas,.res-b a{height:300px}}
 .gal{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ln);border:1px solid var(--ln);margin-top:28px}
 .gal figure{margin:0;background:var(--bg);display:flex;flex-direction:column}
 .gal a{display:flex;align-items:center;justify-content:center;height:clamp(240px,30vw,400px);padding:18px;background:var(--sf)}
@@ -178,13 +200,8 @@ input[type=range]{width:100%;accent-color:var(--ac);cursor:pointer}
 .kl{margin-top:8px;font:12px var(--fm);color:var(--mu)}.kl b{color:var(--fg);font-weight:500;font-variant-numeric:tabular-nums}
 @media (max-width:900px){.chain{grid-template-columns:1fr 1fr}.chain div::after{display:none}}
 /* EMG strip (research: wearable robotics) */
-.emg{margin-top:36px;border:1px solid var(--ln)}
-.emg-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--ln);font:500 12px var(--fm);color:var(--mu)}
-.emg-b{background:none;border:1px solid var(--ac);color:var(--ac);font:600 13px var(--fb);min-height:44px;padding:0 16px;cursor:pointer;user-select:none;touch-action:none;white-space:nowrap}
-.emg-b[aria-pressed=true]{background:var(--ac);color:var(--on)}
 #emgC{display:block;width:100%;height:280px}
 @media (max-width:560px){#emgC{height:300px}}
-.emg figcaption{padding:10px 16px;border-top:1px solid var(--ln);font:12px var(--fm);color:var(--mu)}
 /* MediScan sensing stack */
 .explode .loading{position:absolute;left:16px;top:14px;margin:0}
 .hand-v .loading{position:absolute;left:16px;top:14px;margin:0}
