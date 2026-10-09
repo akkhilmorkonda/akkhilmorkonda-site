@@ -497,6 +497,7 @@ research:
     sources: [Resume (Sept 2026), "Akkhil's PoWeR Lab write-up and results slide (Oct 9, 2026)"]
 
   - lab: Structured Information for Precision Neuroengineering Lab
+    link: https://github.com/siplab-gt/cleo   # Cleo repo, Akkhil asked for this link (Oct 9, 2026)
     role: Undergraduate Research Assistant
     dates: Dec 2024 to May 2025
     text: Built 40+ test cases and Brian2 simulation environments for closed-loop electrophysiology, modeling neural dynamics under raster-scanned calcium imaging.

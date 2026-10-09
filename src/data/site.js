@@ -34,7 +34,7 @@ const schema = z.object({
   experience: z.array(z.object({ slug: str, company: str, role: str, dates: str, summary: str, stat: z.union([str, z.number()]).transform(String), statLabel: str, page, ...notes })),
   projects: z.array(z.object({ name: str, slug: str.optional(), status: z.enum(['live', 'in-progress', 'hidden']), feature: z.boolean().optional(), tag: z.string(), text: str, link: z.string().url().optional(), page: page.optional(), ...notes })
     .refine(p => !p.slug || p.page, p => ({ message: `project "${p.name}" has a slug but no page:` }))),
-  research: z.array(z.object({ slug: str.optional(), lab: str, role: str, dates: str, text: str, page: page.optional(), ...notes })
+  research: z.array(z.object({ slug: str.optional(), lab: str, role: str, dates: str, text: str, link: z.string().url().optional(), page: page.optional(), ...notes })
     .refine(r => !r.slug || r.page, r => ({ message: `research "${r.lab}" has a slug but no page:` }))),
   open: z.array(str).optional(),
 });

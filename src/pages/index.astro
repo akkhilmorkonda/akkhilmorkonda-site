@@ -74,7 +74,7 @@ import { site, hero, logos, about, education, experience, projects, inProgress, 
     <h2>Research</h2>
     <div class="labs">
       {research.map(r => (
-        <div class="lab"><h3>{r.slug ? <a href={`/research/${r.slug}`}>{r.lab}</a> : r.lab}</h3><span>{r.role}, {r.dates}</span><p>{r.text}</p>{r.slug && <span class="more-l" aria-hidden="true">See the research</span>}</div>
+        <div class="lab"><h3>{r.slug ? <a href={`/research/${r.slug}`}>{r.lab}</a> : r.link ? <a href={r.link} target="_blank" rel="noopener">{r.lab}</a> : r.lab}</h3><span>{r.role}, {r.dates}</span><p>{r.text}</p>{r.slug && <span class="more-l" aria-hidden="true">See the research</span>}{!r.slug && r.link && <span class="more-l" aria-hidden="true">{r.link.replace(/^https?:\/\//, '')}</span>}</div>
       ))}
     </div>
   </section>
