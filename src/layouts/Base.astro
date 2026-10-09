@@ -42,12 +42,24 @@ const path = Astro.url.pathname;
     <i class="nv-prog" aria-hidden="true"></i>
   </header>
   <main id="main"><slot /></main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <footer class="foot">
     <span>Akkhil Morkonda, {new Date().getFullYear()}</span>
     <span><a href={site.linkedin}>LinkedIn</a></span>
   </footer>
   <script>
     import '../scripts/scroll-fx.js';
+    // email buttons: mailto does nothing on machines with no mail app set up, so every click also copies
+    // the address and says so (the mailto still opens a mail app where there is one)
+    const toast = document.getElementById('toast');
+    let toastT = 0;
+    const say = (msg: string) => { if (!toast) return; toast.textContent = msg; toast.classList.add('on'); clearTimeout(toastT); toastT = window.setTimeout(() => toast.classList.remove('on'), 2600); };
+    document.addEventListener('click', e => {
+      const a = (e.target as Element).closest?.('a[href^="mailto:"]') as HTMLAnchorElement | null;
+      if (!a) return;
+      const addr = decodeURIComponent(a.getAttribute('href')!.slice(7).split('?')[0]);
+      if (navigator.clipboard) navigator.clipboard.writeText(addr).then(() => say(`${addr} copied`), () => say(addr)); else say(addr);
+    });
     const nv = document.querySelector('.nv'), btn = nv?.querySelector('.menu');
     if (btn) {
       const set = (open: boolean) => { nv!.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); };

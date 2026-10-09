@@ -63,3 +63,9 @@ button{touch-action:manipulation}
 .fx .row.rv::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--ac);transform:scaleX(0);transform-origin:0 50%}
 .fx .row.rv.in::before{animation:scan 1.6s var(--ease) calc(var(--i,0) * 80ms + .1s) both}
 @media (min-width:600px){.nw{white-space:nowrap}}
+/* copy-confirmation toast for email buttons */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,12px);z-index:50;padding:12px 18px;background:var(--sf);border:1px solid var(--ln);color:var(--fg);font:13px var(--fm);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100vw - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.mail-t{margin-top:18px;font:14px var(--fm);color:var(--mu)}
+.mail-t a{color:var(--fg2);text-decoration:underline;text-underline-offset:3px;user-select:all}
+.mail-t a:hover{color:var(--ac)}
