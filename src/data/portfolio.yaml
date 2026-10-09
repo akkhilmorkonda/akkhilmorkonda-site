@@ -381,7 +381,7 @@ projects:
     sources: [Resume (Sept 2026), "DHF Final Design Report (Gait Keepers), from Akkhil (Oct 9, 2026)"]
 
   - name: Smart Respirator
-    status: live
+    status: hidden   # off the homepage for now (Akkhil, Oct 9, 2026); page and data kept
     tag: Aug 2024 to Jan 2025
     text: Prototyped a filtering facepiece respirator that monitors pressure and dust concentration inside the mask to confirm a proper face seal and that the respirator is working. Root cause analysis and ISO regulations.
     sources: ["Resume: Smart Filtering Facepiece Respirator | Root Cause Analysis, ISO Regulations | Aug 2024 to Jan 2025"]
@@ -390,7 +390,7 @@ projects:
 
   - name: Guitar amp head
     slug: amp-head
-    status: live
+    status: hidden   # off the homepage for now (Akkhil, Oct 9, 2026); page and data kept
     tag: Personal build
     text: TDA2040 power stage, TL072 preamp and a Fender-style tone stack, designed in KiCad and checked in SPICE, housed in a custom clear enclosure.
     page:
@@ -424,7 +424,7 @@ projects:
       - Is the enclosure finished? Photos? Describe the pivot to modules or only the design work?
 
   - name: Betcha
-    status: live
+    status: hidden   # off the homepage for now (Akkhil, Oct 9, 2026); page and data kept
     tag: HackMIT 2026
     text: A prediction market for friend groups, with per-category Elo ratings setting the odds.
     facts:
