@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ShowcaseHero from '../../components/ShowcaseHero.astro';
 import ShowcaseProject from '../../components/ShowcaseProject.astro';
 import { entry, core } from '../../data/site.js';
 import '../../styles/case.css';
@@ -9,9 +8,7 @@ const e = entry('experience', 'gt-medical-robotics');
 <Base title={e.page.title} crumb={e.page.crumb} description={e.page.description}>
 <div class="wrap"><a class="back" href="/#experience">Back to all experience</a></div>
 
-<div class="wrap"><ShowcaseHero e={e} /></div>
-
-<ShowcaseProject c={core(e, 'hand')}>
+<ShowcaseProject c={core(e, 'hand')} role={e.page.roleLine}>
   <div slot="demo" class="wrap demo">
     <div class="viewer hand-v"><div class="cv"><canvas id="handCv" tabindex="0" role="img" aria-label="Exploded 3D view of the team's prosthetic hand CAD: palm and wrist mount, back plate, thumb and four fingers. Drag or use the arrow keys to rotate."></canvas><p class="loading note">Loading the CAD model</p></div>
       <div class="ctl">
