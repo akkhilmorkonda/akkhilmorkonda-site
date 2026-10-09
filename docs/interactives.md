@@ -54,7 +54,7 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **Images:** from the team's DHF Final Design Report, as `public/images/pwb-*.webp`:
   - The project demo is a four-photo grid: processing unit, calibration on a scale, app gauge and accuracy plot.
   - "How the design got there" shows four stages with photos: rapid prototypes, wired insole then sensor sock, Velostat sensors, and the final prototype with an accent marker.
-  - "Looks-like model" shows the four CAD renders.
+  - "Modeling" (renamed from "Looks-like model" by Akkhil, Oct 9, 2026) shows the four CAD renders.
   - Competitor product photos in the report (SmartStep, STAPPONE) are not used.
 
 ## Guitar amp head (`/projects/amp-head`)
