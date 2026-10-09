@@ -493,7 +493,7 @@ research:
       - "Balance Augmentation Project, PoWeR Lab (Akkhil, Oct 9, 2026). CAREN trials; MATLAB pipeline: 20 to 450 Hz 4th-order Butterworth bandpass, full-wave rectification, 50 to 100 ms moving RMS, normalization to MVC or trial max, threshold onset detection. Results (increase vs 5 cm, 10 cm / 15 cm): rectus femoris swing +13.7% / +119.17%; biceps femoris swing +10.92% / +48.65%; tibialis anterior stance +17.64% / +42.35%; medial gastrocnemius stance +4.95% / +11.88%."
       - Subjects and count are not stated on the site (Akkhil's call). Muscles named are the four in the results.
       - "Lab photos are from the EPIC Lab facilities page (https://www.epic.gatech.edu/facilities/), where the CAREN lives; the lab is still named PoWeR Lab on the site (Akkhil's call). Photos credited to the EPIC Lab."
-      - The results appear twice for now, the rebuilt chart and Akkhil's MATLAB figure; he will pick one.
+      - The results appear twice by design, the rebuilt chart and Akkhil's MATLAB figure (Akkhil chose to keep both, Oct 9, 2026).
     sources: [Resume (Sept 2026), "Akkhil's PoWeR Lab write-up and results slide (Oct 9, 2026)"]
 
   - lab: Structured Information for Precision Neuroengineering Lab

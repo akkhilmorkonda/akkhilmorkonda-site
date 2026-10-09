@@ -67,7 +67,7 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
   - **Controls:** six stage buttons plus Next step, a 5, 10 or 15 cm perturbation size that scales the illustrative burst, and readouts for latency, peak and recovery.
   - Dev hook: `__ep.set(stage, size)`.
 - **Results chart** (`emg-results.js`): grouped bars of Akkhil's real % increases vs 5 cm (10 and 15 cm) for rectus femoris and biceps femoris (swing) and tibialis anterior and medial gastrocnemius (stance). The bars grow in on view.
-- **Original figure:** Akkhil's MATLAB figure (`power-emg-results.webp`) sits beside the chart for now. He will pick one; delete the other.
+- **Original figure:** Akkhil's MATLAB figure (`power-emg-results.webp`) sits beside the chart. Both are kept (Akkhil's call, Oct 9, 2026).
 - **Lab photos:** two images from the EPIC Lab facilities page (CAREN setup, harness), credited "Photo: EPIC Lab, Georgia Tech". The old `emg.js` strip was removed.
 
 ## Homepage
