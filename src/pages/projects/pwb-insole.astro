@@ -10,12 +10,6 @@ const build = [
   { src: '/images/pwb-app.webp', w: 371, h: 815, alt: 'Phone app showing a live load gauge and a load-over-time chart', cap: 'Live gauge in the Arduino Cloud app' },
   { src: '/images/pwb-accuracy.webp', w: 1100, h: 680, alt: 'Scatter plot of sensor reading against scale reading at 50% partial weight bearing, with a linear trend line', cap: 'Sensor vs scale at 50% body weight' },
 ];
-const gens = [
-  { t: 'Rapid prototypes', d: 'Cardboard and foam models of an insole with an anklet, a shoe-clip processing unit, a one-size-fits-many foam insert and a feedback watch.', l: 'Wiring has to run inside the device, and the processing unit has to shrink.', img: [['/images/pwb-gen1-anklet.webp', 540, 720, 'Foam insole with tacks for sensors wired to a felt anklet'], ['/images/pwb-gen1-widths.webp', 720, 540, 'Foam insole inserts fitted to narrow, regular and wide cardboard shoes'], ['/images/pwb-gen1-watch.webp', 611, 720, 'Cardboard feedback watch on a wrist']] },
-  { t: 'Wired insole, then a sensor sock', d: 'A foam insole with three force-sensitive resistors wired to an Arduino, then a double-layer sock that hides the sensors and wiring.', l: 'The sock is easier to wear, but the processing unit is still too bulky.', img: [['/images/pwb-gen2-insole.webp', 540, 720, 'Foam insole with sensors wired to an Arduino on an ankle strap'], ['/images/pwb-gen2-sock.webp', 540, 720, 'Sock with sensor markers and an embedded processing unit']] },
-  { t: 'Homemade Velostat sensors', d: 'Force sensors made from Velostat and copper tape, sewn into the sock to cover more of the foot with fewer parts.', l: 'Readings varied for the same force, so the final design uses premade sensors.', img: [['/images/pwb-gen3-velostat.webp', 540, 720, 'Sock with homemade Velostat force sensors and copper tape leads']] },
-  { t: 'Final prototype', d: 'Three 50 kg force-sensitive resistors at the critical contact points, calibrated by linear regression, feeding the ESP32 processing unit and the phone app.', l: 'Within 3% of a reference scale. Next: a PCB to shrink the unit into the sock.', img: [] },
-];
 const cad = [
   ['/images/pwb-cad-sock.webp', 1100, 922, 'CAD render of the double-layer sock with the processing unit at the ankle', 'Double-layer sock'],
   ['/images/pwb-cad-wiring.webp', 1100, 873, 'CAD render of the sock with internal wiring exposed', 'Internal wiring'],
@@ -37,18 +31,6 @@ const cad = [
 </ShowcaseProject>
 
 <div class="wrap">
-<section class="xtra" id="process">
-  <h2>How the design got there</h2>
-  <ol class="gens">
-    {gens.map(g => (
-      <li class="gen">
-        <div class="gen-t"><h3>{g.t}</h3><p>{g.d}</p><p class="gen-l"><b>Learned</b> {g.l}</p></div>
-        {g.img.length > 0 && <div class="gen-i">{g.img.map(([src, w, h, alt]) => <a href={src} target="_blank" rel="noopener"><img src={src} alt={alt} width={w} height={h} loading="lazy" /></a>)}</div>}
-      </li>
-    ))}
-  </ol>
-</section>
-
 <section class="xtra" id="cad">
   <h2>Modeling</h2>
   <p class="xtra-lead">The CAD for the next version: wiring sealed inside a double-layer sock and a processing unit small enough to sit at the ankle.</p>

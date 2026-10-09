@@ -53,7 +53,7 @@ Entry facts, copy, sources and open questions live in `src/data/portfolio.yaml`.
 - **No interactive** (Akkhil chose photos; the placeholder `insole.js` foot was removed).
 - **Images:** from the team's DHF Final Design Report, as `public/images/pwb-*.webp`:
   - The project demo is a four-photo grid: processing unit, calibration on a scale, app gauge and accuracy plot.
-  - "How the design got there" shows four stages with photos: rapid prototypes, wired insole then sensor sock, Velostat sensors, and the final prototype with an accent marker.
+  - The "How the design got there" section was removed (Akkhil, Oct 9, 2026). The design history stays in the YAML facts and his resume.
   - "Modeling" (renamed from "Looks-like model" by Akkhil, Oct 9, 2026) shows the four CAD renders.
   - Competitor product photos in the report (SmartStep, STAPPONE) are not used.
 
